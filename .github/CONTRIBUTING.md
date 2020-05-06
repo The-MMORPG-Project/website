@@ -1,13 +1,4 @@
-# Getting Started
-Please talk to **valk#3277** over Discord if you're interested in contributing.
-
-## Setup
-### Server
-1. Navigate to the server directory and execute `dotnet run`
-
-### Client
-1. Use [Unity Hub](https://unity3d.com/get-unity/download) to launch the project
-2. Make sure you're using `Unity 2019.3.12f1` *(please notify the team if a newer version is available)*
+# Contributing Guide
 
 ## Setting up Visual Studio Code
 Visual Studio Code is by far one of the best text editors I've ever used, you will have no regrets when using it.
