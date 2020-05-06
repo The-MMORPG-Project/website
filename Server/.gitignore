@@ -1,0 +1,4 @@
+# IDE
+.vscode/
+bin/
+obj/
