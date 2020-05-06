@@ -1,4 +1,4 @@
-# ENet-Model
+# Unity ENet Model
 [![GitHub license](https://img.shields.io/github/license/valkyrienyanko/ENet-Model?color=brightgreen)](https://github.com/valkyrienyanko/ENet-Model/blob/master/LICENSE)
 [![Issues](https://img.shields.io/github/issues/valkyrienyanko/ENet-Model)](https://github.com/valkyrienyanko/ENet-Model/issues)
 [![Discord](https://img.shields.io/discord/453710350454620160.svg)](https://discordapp.com/invite/N9QVxbM)
