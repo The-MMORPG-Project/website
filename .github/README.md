@@ -1,9 +1,9 @@
 # Unity ENet Model
-[![GitHub license](https://img.shields.io/github/license/valkyrienyanko/ENet-Model?color=brightgreen)](https://github.com/valkyrienyanko/ENet-Model/blob/master/LICENSE)
-[![Issues](https://img.shields.io/github/issues/valkyrienyanko/ENet-Model)](https://github.com/valkyrienyanko/ENet-Model/issues)
+[![GitHub license](https://img.shields.io/github/license/valkyrienyanko/Unity-ENet-Model?color=brightgreen)](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/LICENSE)
+[![Issues](https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model)](https://github.com/valkyrienyanko/Unity-ENet-Model/issues)
 [![Discord](https://img.shields.io/discord/453710350454620160.svg)](https://discordapp.com/invite/N9QVxbM)
-[![GitHub stars](https://img.shields.io/github/stars/valkyrienyanko/ENet-Model?color=brightgreen)](https://github.com/valkyrienyanko/ENet-Model/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/valkyrienyanko/ENet-Model?color=brightgreen)](https://github.com/valkyrienyanko/ENet-Model/network)
+[![GitHub stars](https://img.shields.io/github/stars/valkyrienyanko/Unity-ENet-Model?color=brightgreen)](https://github.com/valkyrienyanko/Unity-ENet-Model/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/valkyrienyanko/Unity-ENet-Model?color=brightgreen)](https://github.com/valkyrienyanko/Unity-ENet-Model/network)
 
 Unity Client-Server model for reliable UDP networking.
 
