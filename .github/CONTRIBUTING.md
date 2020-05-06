@@ -1,4 +1,6 @@
 # Getting Started
+Please talk to **valk#3277** over Discord if you're interested in contributing.
+
 ## Setup
 ### Server
 1. Navigate to the server directory and execute `dotnet run`
