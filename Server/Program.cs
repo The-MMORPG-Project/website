@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using ENet;
+using EFGetStarted;
 
 namespace Server
 {
@@ -12,12 +14,13 @@ namespace Server
         static void Main(string[] args)
         {
             Console.Clear();
-            Library.Initialize();
             StartServer();
         }
 
         static void StartServer()
         {
+            Library.Initialize();
+
             using (Host server = new Host())
             {
                 var address = new Address();
@@ -100,6 +103,18 @@ namespace Server
                     var name = reader.ReadString();
 
                     Console.WriteLine(name);
+                    using (var db = new UserContext())
+                    {
+                        User user = db.Users.ToList().Find(b => b.Name.Contains(name));
+                        if (user != null) {
+                            Console.WriteLine($"User '{name}' already exists.");
+                            return;
+                        }
+
+                        Console.WriteLine($"Registering '{name}' to database");
+                        db.Add(new User { Name = name });
+                        db.SaveChanges();
+                    }
                 }
             }
 
