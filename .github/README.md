@@ -39,11 +39,9 @@ dotnet ef database update
 
 <h2 align="center">Contributors</h2>
 
-<div align="center">
-  <a href="https://github.com/valkyrienyanko/Unity-ENet-Model/graphs/contributors">
-    <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/Unity-ENet-Model" />
-  </a>
-</div>
+<a href="https://github.com/valkyrienyanko/Unity-ENet-Model/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/Unity-ENet-Model" />
+</a>
 
 [license]: https://img.shields.io/github/license/valkyrienyanko/Unity-ENet-Model?color=brightgreen
 [license-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/LICENSE
