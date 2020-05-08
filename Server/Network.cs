@@ -1,9 +1,17 @@
 using ENet;
 
-class Network
+namespace Valk.Networking
 {
-    public static void Send(ref Event netEvent, ENet.Packet packet)
+    class Network
     {
-        netEvent.Peer.Send(Program.CHANNEL_ID, ref packet);
+        public static void Send(ref Event netEvent, ENet.Packet packet)
+        {
+            netEvent.Peer.Send(Program.CHANNEL_ID, ref packet);
+        }
+
+        public static void Broadcast(ref Event netEvent, ENet.Packet packet, params Peer[] excludedPeers)
+        {
+
+        }
     }
 }

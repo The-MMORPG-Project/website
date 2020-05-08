@@ -1,21 +1,24 @@
 using ENet;
 
-class Client 
+namespace Valk.Networking
 {
-    public uint ID { get; }
-    public string IP { get; }
-
-    private Peer peer;
-
-    public Client(Peer peer) 
+    class Client
     {
-        this.peer = peer;
-        this.ID = peer.ID;
-        this.IP = peer.IP;
-    }
+        public uint ID { get; }
+        public string IP { get; }
 
-    public void Kick() 
-    {
-        peer.DisconnectNow(ID);
+        private Peer peer;
+
+        public Client(Peer peer)
+        {
+            this.peer = peer;
+            this.ID = peer.ID;
+            this.IP = peer.IP;
+        }
+
+        public void Kick()
+        {
+            peer.DisconnectNow(ID);
+        }
     }
 }

@@ -1,11 +1,14 @@
 using ENet;
 
-class Player : Client 
+namespace Valk.Networking
 {
-    public float x, y;
-
-    public Player(Peer peer) : base(peer) 
+    class Player : Client
     {
-        
+        public float x, y;
+
+        public Player(Peer peer) : base(peer)
+        {
+
+        }
     }
 }
