@@ -2,44 +2,53 @@
 using System;
 using System.IO;
 
-namespace Server
+public class Protocol
 {
-    public class Protocol
+    private BinaryWriter writer;
+    private BinaryReader reader;
+    private MemoryStream stream;
+    private byte[] buffer;
+
+    private void InitWriter(int size)
     {
-        private BinaryWriter writer;
-        private BinaryReader reader;
-        private MemoryStream stream;
-        private byte[] buffer;
+        buffer = new byte[size];
+        stream = new MemoryStream(buffer);
+        writer = new BinaryWriter(stream);
+    }
 
-        private void InitWriter(int size) 
+    private void InitReader(byte[] buffer)
+    {
+        stream = new MemoryStream(buffer);
+        reader = new BinaryReader(stream);
+    }
+
+    public byte[] Serialize(byte code, params object[] values) 
+    {
+        int bufferSize = 0;
+        bufferSize += sizeof(byte);
+        foreach (object value in values) 
         {
-            buffer = new byte[size];
-            stream = new MemoryStream(buffer);
-            writer = new BinaryWriter(stream);
+            Type type = value.GetType();
+
+            if (type == typeof(int))
+                bufferSize += sizeof(int);
+            
+            if (type == typeof(string))
+                bufferSize += (sizeof(char) * ((string)value).Length);
         }
 
-        private void InitReader(byte[] buffer) 
-        {
-            stream = new MemoryStream(buffer);
-            reader = new BinaryReader(stream);
-        }
+        InitWriter(bufferSize);
+        writer.Write(code);
 
-        public byte[] Serialize(byte code, string value) 
+        foreach (object value in values) 
         {
-            int bufferSize = sizeof(byte) + (sizeof(Char) * value.Length);
-            InitWriter(bufferSize);
-            writer.Write(code);
-            writer.Write(value);
-            return buffer;
-        }
+            Type type = value.GetType();
+            if (type == typeof(int))
+                writer.Write((int) value);
 
-        public void Deserialize(byte[] buffer, out byte code, out string value) 
-        {
-            InitReader(buffer);
-            stream.Write(buffer, 0, buffer.Length);
-            stream.Position = 0;
-            code = reader.ReadByte();
-            value = reader.ReadString();
+            if (type == typeof(string)) 
+                writer.Write((string) value);
         }
+        return buffer;
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFGetStarted
+namespace EF
 {
     public class UserContext : DbContext
     {
@@ -15,5 +15,6 @@ namespace EFGetStarted
     {
         public int UserID { get; set; }
         public string Name { get; set; }
+        public string Pass { get; set; }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 using TMPro;
-
-using Unity.Networking.Transport;
 
 public class UIConnecting : MonoBehaviour
 {
@@ -21,20 +17,25 @@ public class UIConnecting : MonoBehaviour
         Client.Connect();
 
         Text = GoText.GetComponent<TextMeshProUGUI>();
-        StartCoroutine(CheckConnection());
+        StartCoroutine(AnimateDots());
     }
 
-    IEnumerator CheckConnection()
+    void FixedUpdate() 
+    {
+        if (!Client.IsConnected())
+            return;
+
+        SceneManager.LoadScene("Account Management");
+    }
+
+    IEnumerator AnimateDots()
     {
         int i = 0;
         while (!Client.IsConnected())
         {
             // Animate connecting text
-            Text.text = message + dots[i % dots.Length];
-            i++;
+            Text.text = message + dots[i++ % dots.Length];
             yield return new WaitForSeconds(0.5f);
         }
-
-        SceneManager.LoadScene("Create Account");
     }
 }
