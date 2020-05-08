@@ -4,7 +4,6 @@ using System.IO;
 public class Protocol : IDisposable
 {
     private BinaryWriter writer;
-    private BinaryReader reader;
     private MemoryStream stream;
     private byte[] buffer;
 
@@ -13,12 +12,6 @@ public class Protocol : IDisposable
         buffer = new byte[size];
         stream = new MemoryStream(buffer);
         writer = new BinaryWriter(stream);
-    }
-
-    private void InitReader(byte[] buffer)
-    {
-        stream = new MemoryStream(buffer);
-        reader = new BinaryReader(stream);
     }
 
     public byte[] Serialize(byte code, params object[] values)
@@ -69,7 +62,6 @@ public class Protocol : IDisposable
         if (disposing)
         {
             writer.Dispose();
-            reader.Dispose();
             stream.Dispose();
         }
 
