@@ -62,4 +62,5 @@ Solution: Downgrade to `C# 1.21.16`
 ## Documentation
 - [Unity Scripting Reference](https://docs.unity3d.com/ScriptReference/)
 - [ENet-CSharp](https://github.com/nxrighthere/ENet-CSharp)
+- [Entity Framework](https://docs.microsoft.com/en-us/ef/)
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
