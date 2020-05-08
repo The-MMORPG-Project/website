@@ -32,7 +32,7 @@ class Client : MonoBehaviour
 
     public static void Connect()
     {
-        const string ip = "142.160.69.144";
+        const string ip = "127.0.0.1";
         const ushort port = 7777;
 
         ENet.Library.Initialize();
