@@ -32,7 +32,7 @@ dotnet ef database update
 <h2 align="center">Contributing</h2>
 
 1. Please talk to **valk#3277** over Discord if you're interested in contributing.
-2. Read the [Contributing Guide](https://github.com/valkyrienyanko/ENet-Model/edit/master/.github/CONTRIBUTING.md)
+2. Read the [Contributing Guide](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
 
 [license]: https://img.shields.io/github/license/valkyrienyanko/Unity-ENet-Model?color=brightgreen
 [license-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/LICENSE
