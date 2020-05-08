@@ -48,7 +48,7 @@ dotnet ef database update
 [issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model
 [issues-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/issues
 [discord]: https://img.shields.io/discord/453710350454620160.svg
-[discord-url]: https://discordapp.com/invite/N9QVxbM
+[discord-url]: https://discord.gg/thMupbv
 [stars]: https://img.shields.io/github/stars/valkyrienyanko/Unity-ENet-Model?color=brightgreen
 [stars-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/stargazers
 [forks]: https://img.shields.io/github/forks/valkyrienyanko/Unity-ENet-Model?color=brightgreen
