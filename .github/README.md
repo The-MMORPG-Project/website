@@ -1,10 +1,10 @@
 ![Preview](https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png)
 
-[![GitHub license][license]](license-url)
-[![Issues][issues]](issues-url)
-[![Discord][discord]](discord-url)
-[![GitHub stars][stars]](stars-url)
-[![GitHub forks][forks]](forks-url)
+[![GitHub license][license]][license-url]
+[![Issues][issues]][issues-url]
+[![Discord][discord]][discord-url]
+[![GitHub stars][stars]][stars-url]
+[![GitHub forks][forks]][forks-url]
 
 <h1>Unity ENet Model</h1>
 Unity Client-Server model for reliable UDP networking.
