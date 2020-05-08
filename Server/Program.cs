@@ -195,6 +195,9 @@ class Program
                 float y = reader.ReadSingle();
                 Console.WriteLine($"Recieved x {x}, y {y}");
             }
+
+            readStream.Dispose();
+            reader.Dispose();
         }
 
         catch (ArgumentOutOfRangeException)

@@ -15,7 +15,7 @@ class Packet
 
     public static ENet.Packet Create(Packet.Type type, params object[] values)
     {
-        var protocol = new Protocol();
+        using var protocol = new Protocol();
         var buffer = protocol.Serialize((byte) type, values);
         var packet = default(ENet.Packet);
         packet.Create(buffer);
