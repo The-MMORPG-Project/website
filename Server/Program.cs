@@ -141,7 +141,7 @@ class Program
                     {
                         Console.WriteLine($"User account '{name}' already exists.");
 
-                        Network.Send(ref netEvent, Packet.Type.ServerCreateAccountDenied, "Account name already registered");
+                        Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountDenied, "Account name already registered"));
 
                         return;
                     }
@@ -151,7 +151,7 @@ class Program
                     db.Add(new User { Name = name, Pass = pass });
                     db.SaveChanges();
 
-                    Network.Send(ref netEvent, Packet.Type.ServerCreateAccountAccepted);
+                    Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountAccepted));
                 }
             }
 
@@ -168,7 +168,7 @@ class Program
                     {
                         Console.WriteLine($"User login for '{user}' does not exist.");
 
-                        Network.Send(ref netEvent, Packet.Type.ServerLoginDenied, "User login does not exist");
+                        Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "User login does not exist"));
 
                         return;
                     }
@@ -177,7 +177,7 @@ class Program
                     if (!user.Pass.Equals(pass))
                     {
                         // Logged in with wrong password
-                        Network.Send(ref netEvent, Packet.Type.ServerLoginDenied, "Wrong password");
+                        Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "Wrong password"));
                         Console.WriteLine($"User '{user}' failed to login");
                         return;
                     }
@@ -185,7 +185,7 @@ class Program
                     // Logged in with correct password
                     Console.WriteLine($"User '{user}' successfully logged in");
                     players.Add(new Player(netEvent.Peer));
-                    Network.Send(ref netEvent, Packet.Type.ServerLoginAccepted);
+                    Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginAccepted));
                 }
             }
 
