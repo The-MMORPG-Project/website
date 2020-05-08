@@ -1,3 +1,5 @@
+![Preview](https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png)
+
 [![GitHub license][license]](license-url)
 [![Issues][issues]](issues-url)
 [![Discord][discord]](discord-url)
