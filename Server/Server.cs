@@ -132,7 +132,7 @@ namespace Valk.Networking
                         User user = db.Users.ToList().Find(x => x.Name.Equals(name));
                         if (user != null) // Account already exists in database
                         {
-                            Logger.Log($"User account '{name}' already exists.");
+                            Logger.Log($"Client '{netEvent.Peer.ID}' tried to make an account '{name}' but its already registered");
 
                             Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountDenied, "Account name already registered"));
 
@@ -140,7 +140,8 @@ namespace Valk.Networking
                         }
 
                         // Account is unique, creating...
-                        Logger.Log($"Registering '{name}' to database");
+                        Logger.Log($"Client '{netEvent.Peer.ID}' successfully created a new account '{name}'");
+                        Logger.Log($"Registering account '{name}' to database");
                         db.Add(new User { Name = name, Pass = pass });
                         db.SaveChanges();
 
@@ -159,10 +160,8 @@ namespace Valk.Networking
 
                         if (user == null) // User login does not exist
                         {
-                            Logger.Log($"User login for name '{name}' does not exist.");
-
                             Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "User login does not exist"));
-
+                            Logger.Log($"Client '{netEvent.Peer.ID}' tried to login to a non-existant account called '{name}'");
                             return;
                         }
 
@@ -171,14 +170,14 @@ namespace Valk.Networking
                         {
                             // Logged in with wrong password
                             Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "Wrong password"));
-                            Logger.Log($"User '{user}' failed to login");
+                            Logger.Log($"Client '{netEvent.Peer.ID}' tried to log into account '{name}' but typed in the wrong password");
                             return;
                         }
 
                         // Logged in with correct password
-                        Logger.Log($"User '{user}' successfully logged in");
-                        players.Add(new Player(netEvent.Peer));
                         Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginAccepted));
+                        Logger.Log($"Client '{netEvent.Peer.ID}' successfully logged into account '{name}'");
+                        players.Add(new Player(netEvent.Peer));
                     }
                 }
 
@@ -201,7 +200,7 @@ namespace Valk.Networking
 
             catch (ArgumentOutOfRangeException)
             {
-                Logger.Log($"Received packet but buffer was too long. {netEvent.Packet.Length}");
+                Logger.Log($"Received packet from client '{netEvent.Peer.ID}' but buffer was too long. {netEvent.Packet.Length}");
             }
         }
 
