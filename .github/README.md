@@ -15,7 +15,7 @@ Unity Client-Server model for reliable UDP networking.
 3. [Contributing](#contributing)
 4. [Contributors](#contributors)
 
-<h2 align="center">Setup</h2>
+<h2 align="center">Setup a</h2>
 <h3 align="center">Server</h3>
 
 Setup the database
