@@ -7,7 +7,7 @@
 [![GitHub forks][forks]][forks-url]
 
 <h1>Unity ENet Model</h1>
-Unity Client-Server model for reliable UDP networking.
+A server-client prototype with reliable UDP networking using ENet-CSharp. The server is a dotnet console application using the Entity Framework for the user database. The client uses Unity for a graphical visualization of the UX and all the clients. ENet-CSharp provides support for sending both unreliable and reliable packets over the network, this means we can handle things such as user authentication and player position updates with no problems.
 
 ## Table of Contents
 1. [Setup Client](#setup-client)
@@ -39,6 +39,7 @@ dotnet run
 - Reliable UDP Networking with ENet
 - Server Database for Users
 - Client-Server Account Management
+- Headless Server
 - Wrapper Classes to Simplify Networking Send / Receive
 - Straight Forward Friendly Client UX
 - Server Console Command Input Functionality
@@ -46,8 +47,9 @@ dotnet run
 
 <h2 align="center">Contributing</h2>
 
-1. Please talk to **valk#3277** over Discord if you're interested in contributing.
-2. Read the [Contributing Guide](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
+Please talk to **valk#3277** over Discord to learn more on how you can contribute to the project.
+
+You can also read the [Contributing Guide](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
 
 <h2 align="center">Contributors</h2>
 
