@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System;
 using System.IO;
 using System.Linq;
@@ -108,6 +109,18 @@ namespace Valk.Networking
         {
             if (players.Count <= 0)
                 return;
+
+            int playerPropCount = 3;
+
+            object[] values = new object[players.Count * playerPropCount];
+            for (int i = 0; i < players.Count; i++)
+            {
+                values[0 + (i * playerPropCount)] = players[i].ID;
+                values[1 + (i * playerPropCount)] = players[i].x;
+                values[2 + (i * playerPropCount)] = players[i].y;
+            }
+
+            Network.Broadcast(server, Packet.Create(Packet.Type.ServerPositionUpdate, values));
         }
 
         private void HandlePacket(ref Event netEvent)

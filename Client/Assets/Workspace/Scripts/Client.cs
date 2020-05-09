@@ -100,7 +100,7 @@ class Client : MonoBehaviour
                 break;
 
             case ENet.EventType.Receive:
-                //Debug.Log("Packet received from server - Channel ID: " + netEvent.ChannelID + ", Data length: " + netEvent.Packet.Length);
+                Debug.Log("Packet received from server - Channel ID: " + netEvent.ChannelID + ", Data length: " + netEvent.Packet.Length);
                 HandlePacket(ref netEvent);
                 netEvent.Packet.Dispose();
                 break;
@@ -146,6 +146,15 @@ class Client : MonoBehaviour
                 var reason = reader.ReadString();
                 Debug.Log("Reason: " + reason);
                 UIAccountManagement.UpdateText($"Login Denied: {reason}");
+            }
+
+            if (packetID == Packet.Type.ServerPositionUpdate) 
+            {
+                Debug.Log("Received Server Position Update");
+                var id = reader.ReadUInt32();
+                var x = reader.ReadSingle();
+                var y = reader.ReadSingle();
+                Debug.Log($"ID: {id}, X: {x}, Y: {y}");
             }
         }
 

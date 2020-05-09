@@ -9,9 +9,14 @@ namespace Valk.Networking
             netEvent.Peer.Send(Server.channelID, ref packet);
         }
 
-        public static void Broadcast(ref Event netEvent, ENet.Packet packet, params Peer[] excludedPeers)
+        public static void Broadcast(Host server, ENet.Packet packet)
         {
+            server.Broadcast(Server.channelID, ref packet);
+        }
 
+        public static void Broadcast(Host server, ENet.Packet packet, params Peer[] peers)
+        {
+            server.Broadcast(Server.channelID, ref packet, peers);
         }
     }
 }

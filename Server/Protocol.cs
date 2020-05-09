@@ -22,8 +22,11 @@ public class Protocol : IDisposable
         {
             Type type = value.GetType();
 
-            if (type == typeof(int))
+            if (type == typeof(int) || type == typeof(uint))
                 bufferSize += sizeof(int);
+
+            if (type == typeof(float))
+                bufferSize += sizeof(float);
 
             if (type == typeof(string))
                 bufferSize += (sizeof(char) * ((string)value).Length);
@@ -35,6 +38,12 @@ public class Protocol : IDisposable
         foreach (object value in values)
         {
             Type type = value.GetType();
+            if (type == typeof(uint))
+                writer.Write((uint)value);
+
+            if (type == typeof(float))
+                writer.Write((float) value);
+
             if (type == typeof(int))
                 writer.Write((int)value);
 
