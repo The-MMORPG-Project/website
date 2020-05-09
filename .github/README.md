@@ -11,8 +11,9 @@ A server-client prototype with reliable UDP networking using ENet-CSharp. The se
 1. [Setup Client](#setup-client)
 2. [Setup Server](#setup-server)
 3. [Features](#features)
-4. [Contributing](#contributing)
-5. [Contributors](#contributors)
+4. [Releases](#releases)
+5. [Contributing](#contributing)
+6. [Contributors](#contributors)
 
 <h2 align="center">Setup Client</h2>
 
@@ -42,6 +43,10 @@ dotnet run
 - Straight Forward Friendly Client UX
 - Server Console Command Input Functionality
 - Custom Server Input / Output Console Buffers / Controls
+
+<h2 align="center">Releases</h2>
+
+[Releases](https://github.com/valkyrienyanko/Unity-ENet-Model/releases)
 
 <h2 align="center">Contributing</h2>
 
