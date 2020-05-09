@@ -47,6 +47,8 @@ dotnet run
 
 <h2 align="center">Releases</h2>
 
+The project is still in its alpha stages, not everything may work as you expect. 
+
 [Releases](https://github.com/valkyrienyanko/Unity-ENet-Model/releases)
 
 <h2 align="center">Issues</h2>
