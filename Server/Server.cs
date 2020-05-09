@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Timers;
 using System.Collections.Generic;
 
 using EF;
@@ -10,6 +11,9 @@ namespace Valk.Networking
 {
     class Server
     {
+        public Host server;
+        public Timer positionUpdatePump;
+
         public static byte channelID = 0;
 
         private List<Client> clients;
@@ -18,77 +22,92 @@ namespace Valk.Networking
         private ushort port;
         private int maxClients;
 
-        public Server(ushort port, int maxClients) 
+        private bool serverRunning;
+
+        public Server(ushort port, int maxClients)
         {
             this.port = port;
             this.maxClients = maxClients;
 
             clients = new List<Client>();
             players = new List<Player>();
+
+            positionUpdatePump = new Timer(1000, PositionUpdates);
+            positionUpdatePump.Start();
         }
 
-        public void Run()
+        public void Start()
         {
             Library.Initialize();
 
-            using (Host server = new Host())
+            server = new Host();
+
+            var address = new Address();
+            address.Port = port;
+            server.Create(address, maxClients);
+            serverRunning = true;
+
+            Logger.Log($"Server listening on {port}");
+
+            int packetCounter = 0;
+
+            Event netEvent;
+
+            while (serverRunning)
             {
-                var address = new Address();
-                address.Port = port;
-                server.Create(address, maxClients);
+                bool polled = false;
 
-                Console.WriteLine($"Server listening on {port}");
-
-                int packetCounter = 0;
-                Event netEvent;
-
-                while (!Console.KeyAvailable)
+                while (!polled)
                 {
-                    bool polled = false;
+                    if (!server.IsSet)
+                        return;
 
-                    while (!polled)
+                    if (server.CheckEvents(out netEvent) <= 0)
                     {
-                        if (server.CheckEvents(out netEvent) <= 0)
-                        {
-                            if (server.Service(15, out netEvent) <= 0)
-                                break;
+                        if (server.Service(15, out netEvent) <= 0)
+                            break;
 
-                            polled = true;
-                        }
-
-                        switch (netEvent.Type)
-                        {
-                            case EventType.None:
-                                break;
-
-                            case EventType.Connect:
-                                Console.WriteLine("Client connected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                                clients.Add(new Client(netEvent.Peer));
-                                break;
-
-                            case EventType.Disconnect:
-                                Console.WriteLine("Client disconnected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                                break;
-
-                            case EventType.Timeout:
-                                Console.WriteLine("Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                                clients.Remove(clients.Find(x => x.ID.Equals(netEvent.Peer.ID)));
-                                players.Remove(players.Find(x => x.ID.Equals(netEvent.Peer.ID)));
-                                break;
-
-                            case EventType.Receive:
-                                Console.WriteLine($"{packetCounter++} Packet received from - ID: {netEvent.Peer.ID}, IP: {netEvent.Peer.IP}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
-                                HandlePacket(ref netEvent);
-                                netEvent.Packet.Dispose();
-                                break;
-                        }
+                        polled = true;
                     }
 
-                    server.Flush();
+                    switch (netEvent.Type)
+                    {
+                        case EventType.None:
+                            break;
+
+                        case EventType.Connect:
+                            Logger.Log("Client connected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            clients.Add(new Client(netEvent.Peer));
+                            break;
+
+                        case EventType.Disconnect:
+                            Logger.Log("Client disconnected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            break;
+
+                        case EventType.Timeout:
+                            Logger.Log("Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            clients.Remove(clients.Find(x => x.ID.Equals(netEvent.Peer.ID)));
+                            players.Remove(players.Find(x => x.ID.Equals(netEvent.Peer.ID)));
+                            break;
+
+                        case EventType.Receive:
+                            Logger.Log($"{packetCounter++} Packet received from - ID: {netEvent.Peer.ID}, IP: {netEvent.Peer.IP}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
+                            HandlePacket(ref netEvent);
+                            netEvent.Packet.Dispose();
+                            break;
+                    }
                 }
 
-                Library.Deinitialize();
+                server.Flush();
             }
+
+            CleanUp();
+        }
+
+        private void PositionUpdates(Object source, ElapsedEventArgs e)
+        {
+            if (players.Count <= 0)
+                return;
         }
 
         private void HandlePacket(ref Event netEvent)
@@ -113,7 +132,7 @@ namespace Valk.Networking
                         User user = db.Users.ToList().Find(x => x.Name.Equals(name));
                         if (user != null) // Account already exists in database
                         {
-                            Console.WriteLine($"User account '{name}' already exists.");
+                            Logger.Log($"User account '{name}' already exists.");
 
                             Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountDenied, "Account name already registered"));
 
@@ -121,7 +140,7 @@ namespace Valk.Networking
                         }
 
                         // Account is unique, creating...
-                        Console.WriteLine($"Registering '{name}' to database");
+                        Logger.Log($"Registering '{name}' to database");
                         db.Add(new User { Name = name, Pass = pass });
                         db.SaveChanges();
 
@@ -140,7 +159,7 @@ namespace Valk.Networking
 
                         if (user == null) // User login does not exist
                         {
-                            Console.WriteLine($"User login for '{user}' does not exist.");
+                            Logger.Log($"User login for name '{name}' does not exist.");
 
                             Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "User login does not exist"));
 
@@ -152,12 +171,12 @@ namespace Valk.Networking
                         {
                             // Logged in with wrong password
                             Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "Wrong password"));
-                            Console.WriteLine($"User '{user}' failed to login");
+                            Logger.Log($"User '{user}' failed to login");
                             return;
                         }
 
                         // Logged in with correct password
-                        Console.WriteLine($"User '{user}' successfully logged in");
+                        Logger.Log($"User '{user}' successfully logged in");
                         players.Add(new Player(netEvent.Peer));
                         Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginAccepted));
                     }
@@ -167,7 +186,7 @@ namespace Valk.Networking
                 {
                     float x = reader.ReadSingle();
                     float y = reader.ReadSingle();
-                    Console.WriteLine($"Recieved x {x}, y {y}");
+                    Logger.Log($"Recieved x {x}, y {y}");
                 }
 
                 readStream.Dispose();
@@ -176,8 +195,20 @@ namespace Valk.Networking
 
             catch (ArgumentOutOfRangeException)
             {
-                Console.WriteLine($"Received packet but buffer was too long. {netEvent.Packet.Length}");
+                Logger.Log($"Received packet but buffer was too long. {netEvent.Packet.Length}");
             }
+        }
+
+        public void Stop()
+        {
+            serverRunning = false;
+        }
+
+        private void CleanUp() 
+        {
+            positionUpdatePump.Dispose();
+            server.Dispose();
+            Library.Deinitialize();
         }
     }
 }
