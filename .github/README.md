@@ -1,10 +1,8 @@
 ![Preview](https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png)
 
-[![GitHub license][license]][license-url]
-[![Issues][issues]][issues-url]
 [![Discord][discord]][discord-url]
-[![GitHub stars][stars]][stars-url]
-[![GitHub forks][forks]][forks-url]
+[![Ask Me Anything!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)][discord-url]
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)][discord-url]
 
 <h1>Unity ENet Model</h1>
 A server-client prototype with reliable UDP networking using ENet-CSharp. The server is a dotnet console application using the Entity Framework for the user database. The client uses Unity for a graphical visualization of the UX and all the clients. ENet-CSharp provides support for sending both unreliable and reliable packets over the network, this means we can handle things such as user authentication and player position updates with no problems.
@@ -57,13 +55,5 @@ You can also read the [Contributing Guide](https://github.com/valkyrienyanko/Uni
   <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/Unity-ENet-Model" />
 </a>
 
-[license]: https://img.shields.io/github/license/valkyrienyanko/Unity-ENet-Model?color=brightgreen
-[license-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/LICENSE
-[issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model
-[issues-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/issues
 [discord]: https://img.shields.io/discord/453710350454620160.svg
 [discord-url]: https://discord.gg/thMupbv
-[stars]: https://img.shields.io/github/stars/valkyrienyanko/Unity-ENet-Model?color=brightgreen
-[stars-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/stargazers
-[forks]: https://img.shields.io/github/forks/valkyrienyanko/Unity-ENet-Model?color=brightgreen
-[forks-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/network
