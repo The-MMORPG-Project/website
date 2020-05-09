@@ -18,15 +18,17 @@ Unity Client-Server model for reliable UDP networking.
 <h2 align="center">Setup</h2>
 <h3 align="center">Server</h3>
 
-1. Navigate to the server directory
-2. Run the following commands to setup the database
+Setup the database
 ```
 dotnet tool install --global dotnet-ef
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
-3. Run the server with `dotnet run`
+Run the server
+```
+dotnet run
+```
 
 <h3 align="center">Client</h3>
 
