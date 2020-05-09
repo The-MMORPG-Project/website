@@ -12,8 +12,9 @@ A server-client prototype with reliable UDP networking using ENet-CSharp. The se
 2. [Setup Server](#setup-server)
 3. [Features](#features)
 4. [Releases](#releases)
-5. [Contributing](#contributing)
-6. [Contributors](#contributors)
+5. [Issues](#issues)
+6. [Contributing](#contributing)
+7. [Contributors](#contributors)
 
 <h2 align="center">Setup Client</h2>
 
@@ -47,6 +48,12 @@ dotnet run
 <h2 align="center">Releases</h2>
 
 [Releases](https://github.com/valkyrienyanko/Unity-ENet-Model/releases)
+
+<h2 align="center">Issues</h2>
+
+Have a look at the projects current [issues](https://github.com/valkyrienyanko/Unity-ENet-Model/issues)
+
+Please make time to read and follow the [Issue Guidelines](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/1)
 
 <h2 align="center">Contributing</h2>
 
