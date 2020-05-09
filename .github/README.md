@@ -11,8 +11,9 @@ Unity Client-Server model for reliable UDP networking.
 
 ## Table of Contents
 1. [Setup](#setup)
-2. [Contributing](#contributing)
-3. [Contributors](#contributors)
+2. [Features](#features)
+3. [Contributing](#contributing)
+4. [Contributors](#contributors)
 
 <h2 align="center">Setup</h2>
 <h3 align="center">Server</h3>
@@ -31,6 +32,16 @@ dotnet ef database update
 
 1. Use [Unity Hub](https://unity3d.com/get-unity/download) to launch the project
 2. Make sure you're using `Unity 2019.3.12f1` or later
+
+<h2 align="center">Features</h2>
+
+- Reliable UDP Networking with ENet
+- Server Database for Users
+- Client-Server Account Management
+- Wrapper Classes to Simplify Networking Send / Receive
+- Straight Forward Friendly Client UX
+- Server Console Command Input Functionality
+- Custom Server Input / Output Console Buffers / Controls
 
 <h2 align="center">Contributing</h2>
 
