@@ -16,7 +16,7 @@ class Client : MonoBehaviour
     private static Peer peer;
     private static Host client;
 
-    public float speed = 25;
+    public float speed = 25; //moveSpeed
     private GameObject clientGo;
     private Rigidbody2D clientGoRb;
     private List<GameObject> clients;

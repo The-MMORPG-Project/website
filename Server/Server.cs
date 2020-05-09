@@ -49,7 +49,7 @@ namespace Valk.Networking
 
             Logger.Log($"Server listening on {port}");
 
-            int packetCounter = 0;
+            //int packetCounter = 0;
 
             Event netEvent;
 
@@ -91,7 +91,7 @@ namespace Valk.Networking
                             break;
 
                         case EventType.Receive:
-                            Logger.Log($"{packetCounter++} Packet received from - ID: {netEvent.Peer.ID}, IP: {netEvent.Peer.IP}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
+                            //Logger.Log($"{packetCounter++} Packet received from - ID: {netEvent.Peer.ID}, IP: {netEvent.Peer.IP}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
                             HandlePacket(ref netEvent);
                             netEvent.Packet.Dispose();
                             break;
@@ -186,7 +186,13 @@ namespace Valk.Networking
                 {
                     float x = reader.ReadSingle();
                     float y = reader.ReadSingle();
-                    Logger.Log($"Recieved x {x}, y {y}");
+                    //Logger.Log($"Recieved x {x}, y {y}");
+
+                    uint id = netEvent.Peer.ID;
+                    Player player = players.Find(x => x.ID.Equals(id));
+                    player.x = x;
+                    player.y = y;
+                    Logger.Log(player);
                 }
 
                 readStream.Dispose();

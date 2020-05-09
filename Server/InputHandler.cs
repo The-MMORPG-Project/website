@@ -85,13 +85,13 @@ namespace Valk.Networking
             if (cmd.Equals("help"))
             {
                 Logger.Log($"Commands:\n - {String.Join("\n - ", commands)}");
-            }
-
-            if (cmd.Equals("exit"))
+            } else if (cmd.Equals("exit"))
             {
                 Logger.Log("Exiting..");
                 server.Stop();
                 Environment.Exit(0);
+            } else {
+                Logger.Log($"Unknown Command: '{cmd}'");
             }
         }
     }

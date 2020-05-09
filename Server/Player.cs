@@ -11,5 +11,10 @@ namespace Valk.Networking
         {
 
         }
+
+        public override string ToString() 
+        {
+            return $"Player X:{x}, Y:{y}";
+        }
     }
 }

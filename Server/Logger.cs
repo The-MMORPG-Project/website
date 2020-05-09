@@ -9,7 +9,10 @@ namespace Valk.Networking
 
         public static void Log(object value)
         {
-            int lines = ((string)value).Split('\n').Length;
+            int lines = value.ToString().Split('\n').Length;
+
+            if (Console.CursorTop >= Console.BufferHeight - 1)
+                Console.BufferHeight += lines;
 
             // Write to output buffer
             Console.SetCursorPosition(0, Console.CursorTop - 1);
@@ -21,8 +24,6 @@ namespace Valk.Networking
             // Rewrite input buffer
             Console.SetCursorPosition(0, Console.CursorTop + 1);
             Console.Write(inputBuffer);
-
-            Console.BufferHeight += lines;
         }
 
         public static void ClearChar()
