@@ -1,8 +1,8 @@
 ![Preview](https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png)
 
 [![Discord][discord]][discord-url]
-[![Ask Me Anything!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)][discord-url]
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)][discord-url]
+[![Ask Me Anything!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)][discord-url]
 
 <h1>Unity ENet Model</h1>
 A server-client prototype with reliable UDP networking using ENet-CSharp. The server is a dotnet console application using the Entity Framework for the user database. The client uses Unity for a graphical visualization of the UX and all the clients. ENet-CSharp provides support for sending both unreliable and reliable packets over the network, this means we can handle things such as user authentication and player position updates with no problems.
