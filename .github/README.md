@@ -1,41 +1,67 @@
 ![Preview](https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png)
 
-[![GitHub license][license]][license-url]
-[![Issues][issues]][issues-url]
 [![Discord][discord]][discord-url]
-[![GitHub stars][stars]][stars-url]
-[![GitHub forks][forks]][forks-url]
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)][discord-url]
+[![Ask Me Anything!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)][discord-url]
 
 <h1>Unity ENet Model</h1>
-Unity Client-Server model for reliable UDP networking.
+A server-client prototype with reliable UDP networking using ENet-CSharp. The server is a dotnet console application using the Entity Framework for the user database. The client uses Unity for a graphical visualization of the UX and all the clients. ENet-CSharp provides support for sending both unreliable and reliable packets over the network, this means we can handle things such as user authentication and player position updates at the same time with no problems. This project was designed with the intent for one dedicated server to provide connections to many clients.
 
 ## Table of Contents
-1. [Setup](#setup)
-2. [Contributing](#contributing)
-3. [Contributors](#contributors)
+1. [Setup Client](#setup-client)
+2. [Setup Server](#setup-server)
+3. [Features](#features)
+4. [Releases](#releases)
+5. [Issues](#issues)
+6. [Contributing](#contributing)
+7. [Contributors](#contributors)
 
-<h2 align="center">Setup</h2>
-<h3 align="center">Server</h3>
+<h2 align="center">Setup Client</h2>
 
-1. Navigate to the server directory
-2. Run the following commands to setup the database
+Use [Unity Hub](https://unity3d.com/get-unity/download) on version `2019.3.12f1` or later to launch the project
+
+<h2 align="center">Setup Server</h2>
+
+Setup the database
 ```
 dotnet tool install --global dotnet-ef
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
-3. Run the server with `dotnet run`
+Run the server
+```
+dotnet run
+```
 
-<h3 align="center">Client</h3>
+<h2 align="center">Features</h2>
 
-1. Use [Unity Hub](https://unity3d.com/get-unity/download) to launch the project
-2. Make sure you're using `Unity 2019.3.12f1` or later
+- Reliable UDP Networking with ENet
+- Server Database for Users
+- Client-Server Account Management
+- Headless Server
+- Wrapper Classes to Simplify Networking Send / Receive
+- Straight Forward Friendly Client UX
+- Server Console Command Input Functionality
+- Custom Server Input / Output Console Buffers / Controls
+
+<h2 align="center">Releases</h2>
+
+The project is still in its alpha stages, not everything may work as you expect. 
+
+[Releases](https://github.com/valkyrienyanko/Unity-ENet-Model/releases)
+
+<h2 align="center">Issues</h2>
+
+Have a look at the projects current [issues](https://github.com/valkyrienyanko/Unity-ENet-Model/issues)
+
+Please make time to read and follow the [Issue Guidelines](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/1)
 
 <h2 align="center">Contributing</h2>
 
-1. Please talk to **valk#3277** over Discord if you're interested in contributing.
-2. Read the [Contributing Guide](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
+Please talk to **valk#3277** over Discord to learn more on how you can contribute to the project.
+
+You can also read the [Contributing Guide](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
 
 <h2 align="center">Contributors</h2>
 
@@ -43,13 +69,5 @@ dotnet ef database update
   <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/Unity-ENet-Model" />
 </a>
 
-[license]: https://img.shields.io/github/license/valkyrienyanko/Unity-ENet-Model?color=brightgreen
-[license-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/LICENSE
-[issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model
-[issues-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/issues
 [discord]: https://img.shields.io/discord/453710350454620160.svg
 [discord-url]: https://discord.gg/thMupbv
-[stars]: https://img.shields.io/github/stars/valkyrienyanko/Unity-ENet-Model?color=brightgreen
-[stars-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/stargazers
-[forks]: https://img.shields.io/github/forks/valkyrienyanko/Unity-ENet-Model?color=brightgreen
-[forks-url]: https://github.com/valkyrienyanko/Unity-ENet-Model/network
