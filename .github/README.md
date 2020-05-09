@@ -10,13 +10,17 @@
 Unity Client-Server model for reliable UDP networking.
 
 ## Table of Contents
-1. [Setup](#setup)
-2. [Features](#features)
-3. [Contributing](#contributing)
-4. [Contributors](#contributors)
+1. [Setup Client](#setup-client)
+2. [Setup Server](#setup-server)
+3. [Features](#features)
+4. [Contributing](#contributing)
+5. [Contributors](#contributors)
 
-<h2 align="center">Setup a</h2>
-<h3 align="center">Server</h3>
+<h2 align="center">Setup Client</h2>
+
+Use [Unity Hub](https://unity3d.com/get-unity/download) on version `2019.3.12f1` or later to launch the project
+
+<h2 align="center">Setup Server</h2>
 
 Setup the database
 ```
@@ -29,11 +33,6 @@ Run the server
 ```
 dotnet run
 ```
-
-<h3 align="center">Client</h3>
-
-1. Use [Unity Hub](https://unity3d.com/get-unity/download) to launch the project
-2. Make sure you're using `Unity 2019.3.12f1` or later
 
 <h2 align="center">Features</h2>
 
