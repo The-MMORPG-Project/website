@@ -20,7 +20,7 @@ namespace Valk.Networking
         private ushort port;
         private int maxClients;
 
-        private Clients clients;
+        private List<Client> clients;
 
         private bool serverRunning;
 
@@ -29,7 +29,7 @@ namespace Valk.Networking
             this.port = port;
             this.maxClients = maxClients;
 
-            clients = new Clients();
+            clients = new List<Client>();
 
             positionUpdatePump = new Timer(1000, PositionUpdates);
             positionUpdatePump.Start();
@@ -76,8 +76,7 @@ namespace Valk.Networking
 
                         case EventType.Connect:
                             Logger.Log("Client connected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                            clients.Add += ClientAdd;
-                            //clients.Add(netEvent);
+                            clients.Add(new Client(netEvent.Peer));
                             break;
 
                         case EventType.Disconnect:
@@ -86,7 +85,7 @@ namespace Valk.Networking
 
                         case EventType.Timeout:
                             Logger.Log("Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                            clients.Remove(netEvent);
+                            clients.Remove(clients.Find(x => x.ID.Equals(netEvent.Peer.ID)));
                             break;
 
                         case EventType.Receive:
@@ -101,11 +100,6 @@ namespace Valk.Networking
             }
 
             CleanUp();
-        }
-
-        static void ClientAdd(object sender, ClientAddEventArgs e) 
-        {
-            e.Clients.Add(new Client(e.netEvent.Peer));
         }
 
         private void PositionUpdates(Object source, ElapsedEventArgs e)
