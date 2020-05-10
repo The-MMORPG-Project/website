@@ -1,79 +1,82 @@
 ﻿using System;
 using System.IO;
 
-public class Protocol : IDisposable
+namespace Valk.Networking
 {
-    private BinaryWriter writer;
-    private MemoryStream stream;
-    private byte[] buffer;
-
-    private void InitWriter(int size)
+    public class Protocol : IDisposable
     {
-        buffer = new byte[size];
-        stream = new MemoryStream(buffer);
-        writer = new BinaryWriter(stream);
-    }
+        private BinaryWriter writer;
+        private MemoryStream stream;
+        private byte[] buffer;
 
-    public byte[] Serialize(byte code, params object[] values)
-    {
-        int bufferSize = 0;
-        bufferSize += sizeof(byte);
-        foreach (object value in values)
+        private void InitWriter(int size)
         {
-            Type type = value.GetType();
-
-            if (type == typeof(int) || type == typeof(uint))
-                bufferSize += sizeof(int);
-
-            if (type == typeof(float))
-                bufferSize += sizeof(float);
-
-            if (type == typeof(string))
-                bufferSize += (sizeof(char) * ((string)value).Length);
+            buffer = new byte[size];
+            stream = new MemoryStream(buffer);
+            writer = new BinaryWriter(stream);
         }
 
-        InitWriter(bufferSize);
-        writer.Write(code);
-
-        foreach (object value in values)
+        public byte[] Serialize(byte code, params object[] values)
         {
-            Type type = value.GetType();
-            if (type == typeof(uint))
-                writer.Write((uint)value);
+            int bufferSize = 0;
+            bufferSize += sizeof(byte);
+            foreach (object value in values)
+            {
+                Type type = value.GetType();
 
-            if (type == typeof(float))
-                writer.Write((float) value);
+                if (type == typeof(int) || type == typeof(uint))
+                    bufferSize += sizeof(int);
 
-            if (type == typeof(int))
-                writer.Write((int)value);
+                if (type == typeof(float))
+                    bufferSize += sizeof(float);
 
-            if (type == typeof(string))
-                writer.Write((string)value);
-        }
-        return buffer;
-    }
+                if (type == typeof(string))
+                    bufferSize += (sizeof(char) * ((string)value).Length);
+            }
 
-    // Flag: Has Dispose already been called?
-    bool disposed = false;
+            InitWriter(bufferSize);
+            writer.Write(code);
 
-    // Public implementation of Dispose pattern callable by consumers.
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+            foreach (object value in values)
+            {
+                Type type = value.GetType();
+                if (type == typeof(uint))
+                    writer.Write((uint)value);
 
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposed)
-            return;
+                if (type == typeof(float))
+                    writer.Write((float)value);
 
-        if (disposing)
-        {
-            writer.Dispose();
-            stream.Dispose();
+                if (type == typeof(int))
+                    writer.Write((int)value);
+
+                if (type == typeof(string))
+                    writer.Write((string)value);
+            }
+            return buffer;
         }
 
-        disposed = true;
+        // Flag: Has Dispose already been called?
+        bool disposed = false;
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                writer.Dispose();
+                stream.Dispose();
+            }
+
+            disposed = true;
+        }
     }
 }

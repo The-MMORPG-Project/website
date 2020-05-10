@@ -4,38 +4,42 @@ using UnityEngine.SceneManagement;
 
 using TMPro;
 
-public class UIConnecting : MonoBehaviour
+namespace Valk.Networking
 {
-    public GameObject GoText;
-    private TextMeshProUGUI Text;
-
-    string message = "Attempting to Connect to Servers";
-    string[] dots = new string[] { "", ".", "..", "..." };
-
-    void Start()
+    public class UIConnecting : MonoBehaviour
     {
-        Client.Connect();
+        public GameObject GoText;
+        private TextMeshProUGUI Text;
 
-        Text = GoText.GetComponent<TextMeshProUGUI>();
-        StartCoroutine(AnimateDots());
-    }
+        string message = "Attempting to Connect to Servers";
+        string[] dots = new string[] { "", ".", "..", "..." };
 
-    void FixedUpdate() 
-    {
-        if (!Client.IsConnected())
-            return;
-
-        SceneManager.LoadScene("Account Management");
-    }
-
-    IEnumerator AnimateDots()
-    {
-        int i = 0;
-        while (!Client.IsConnected())
+        void Start()
         {
-            // Animate connecting text
-            Text.text = message + dots[i++ % dots.Length];
-            yield return new WaitForSeconds(0.5f);
+            Client.Connect();
+
+            Text = GoText.GetComponent<TextMeshProUGUI>();
+            StartCoroutine(AnimateDots());
+        }
+
+        void FixedUpdate()
+        {
+            if (!Client.IsConnected())
+                return;
+
+            SceneManager.LoadScene("Account Management");
+        }
+
+        IEnumerator AnimateDots()
+        {
+            int i = 0;
+            while (!Client.IsConnected())
+            {
+                // Animate connecting text
+                Text.text = message + dots[i++ % dots.Length];
+                yield return new WaitForSeconds(0.5f);
+            }
         }
     }
 }
+

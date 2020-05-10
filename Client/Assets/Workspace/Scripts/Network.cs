@@ -1,22 +1,38 @@
 using ENet;
 
-class Network
+namespace Valk.Networking
 {
-    private byte channelID;
-    private Peer peer;
-
-    public Network(byte channelID, Peer peer) 
+    enum PacketType
     {
-        this.channelID = channelID;
-        this.peer = peer;
+        HeartBeat,
+        ClientCreateAccount,
+        ServerCreateAccountDenied,
+        ServerCreateAccountAccepted,
+        ClientLoginAccount,
+        ServerLoginDenied,
+        ServerLoginAccepted,
+        ClientPositionUpdate,
+        ServerPositionUpdate
     }
 
-    public void Send(Packet.Type type, PacketFlags packetFlagType, params object[] values)
+    class Network
     {
-        var protocol = new Protocol();
-        var buffer = protocol.Serialize((byte) type, values);
-        var packet = default(ENet.Packet);
-        packet.Create(buffer, packetFlagType);
-        peer.Send(channelID, ref packet);
+        private byte channelID;
+        private Peer peer;
+
+        public Network(byte channelID, Peer peer)
+        {
+            this.channelID = channelID;
+            this.peer = peer;
+        }
+
+        public void Send(PacketType type, PacketFlags packetFlagType, params object[] values)
+        {
+            var protocol = new Protocol();
+            var buffer = protocol.Serialize((byte)type, values);
+            var packet = default(ENet.Packet);
+            packet.Create(buffer, packetFlagType);
+            peer.Send(channelID, ref packet);
+        }
     }
 }

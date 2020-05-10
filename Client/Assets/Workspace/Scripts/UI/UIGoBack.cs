@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIGoBack : MonoBehaviour
+namespace Valk.Networking
 {
-    void Update()
+    public class UIGoBack : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        void Update()
         {
-            SceneManager.LoadScene("Main Menu");
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
         }
     }
 }
+

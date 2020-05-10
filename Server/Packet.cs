@@ -1,21 +1,21 @@
 namespace Valk.Networking
 {
+    enum PacketType
+    {
+        HeartBeat,
+        ClientCreateAccount,
+        ServerCreateAccountDenied,
+        ServerCreateAccountAccepted,
+        ClientLoginAccount,
+        ServerLoginDenied,
+        ServerLoginAccepted,
+        ClientPositionUpdate,
+        ServerPositionUpdate
+    }
+
     class Packet
     {
-        public enum Type
-        {
-            HeartBeat = 0,
-            ClientCreateAccount = 1,
-            ServerCreateAccountDenied = 2,
-            ServerCreateAccountAccepted = 3,
-            ClientLoginAccount = 4,
-            ServerLoginDenied = 5,
-            ServerLoginAccepted = 6,
-            ClientPositionUpdate = 7,
-            ServerPositionUpdate = 8
-        }
-
-        public static ENet.Packet Create(Packet.Type type, ENet.PacketFlags packetFlagType, params object[] values)
+        public static ENet.Packet Create(PacketType type, ENet.PacketFlags packetFlagType, params object[] values)
         {
             using var protocol = new Protocol();
             var buffer = protocol.Serialize((byte)type, values);

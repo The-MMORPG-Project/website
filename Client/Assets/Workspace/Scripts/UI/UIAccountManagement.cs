@@ -7,59 +7,62 @@ using TMPro;
 
 using ENet;
 
-public class UIAccountManagement : MonoBehaviour
+namespace Valk.Networking
 {
-    // Create Account
-    public GameObject goInputFieldCreateName;
-    public GameObject goInputFieldCreatePass;
-    private TMP_InputField inputFieldCreateName;
-    private TMP_InputField inputFieldCreatePass;
-
-    // Login Account
-    public GameObject goInputFieldLoginName;
-    public GameObject goInputFieldLoginPass;
-    private TMP_InputField inputFieldLoginName;
-    private TMP_InputField inputFieldLoginPass;
-
-    // Text
-    public GameObject goTextMessage;
-    private static TMP_Text textMessage;
-
-    void Start() 
+    public class UIAccountManagement : MonoBehaviour
     {
-        inputFieldCreateName = goInputFieldCreateName.GetComponent<TMP_InputField>();
-        inputFieldCreatePass = goInputFieldCreatePass.GetComponent<TMP_InputField>();
+        // Create Account
+        public GameObject goInputFieldCreateName;
+        public GameObject goInputFieldCreatePass;
+        private TMP_InputField inputFieldCreateName;
+        private TMP_InputField inputFieldCreatePass;
 
-        inputFieldLoginName = goInputFieldLoginName.GetComponent<TMP_InputField>();
-        inputFieldLoginPass = goInputFieldLoginPass.GetComponent<TMP_InputField>();
+        // Login Account
+        public GameObject goInputFieldLoginName;
+        public GameObject goInputFieldLoginPass;
+        private TMP_InputField inputFieldLoginName;
+        private TMP_InputField inputFieldLoginPass;
 
-        textMessage = goTextMessage.GetComponent<TMP_Text>();
-    }
+        // Text
+        public GameObject goTextMessage;
+        private static TMP_Text textMessage;
 
-    public static void UpdateText(string text) 
-    {
-        textMessage.text = text;
-    }
+        void Start()
+        {
+            inputFieldCreateName = goInputFieldCreateName.GetComponent<TMP_InputField>();
+            inputFieldCreatePass = goInputFieldCreatePass.GetComponent<TMP_InputField>();
 
-    public void CreateAccount() 
-    {
-        if (inputFieldCreateName.text.Equals(""))
-            return;
-        
-        if (inputFieldCreatePass.text.Equals(""))
-            return;
+            inputFieldLoginName = goInputFieldLoginName.GetComponent<TMP_InputField>();
+            inputFieldLoginPass = goInputFieldLoginPass.GetComponent<TMP_InputField>();
 
-        Client.Network.Send(Packet.Type.ClientCreateAccount, PacketFlags.Reliable, inputFieldCreateName.text, inputFieldCreatePass.text);
-    }
+            textMessage = goTextMessage.GetComponent<TMP_Text>();
+        }
 
-    public void Login() 
-    {
-        if (inputFieldLoginName.text.Equals(""))
-            return;
-        
-        if (inputFieldLoginPass.text.Equals(""))
-            return;
+        public static void UpdateText(string text)
+        {
+            textMessage.text = text;
+        }
 
-        Client.Network.Send(Packet.Type.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
+        public void CreateAccount()
+        {
+            if (inputFieldCreateName.text.Equals(""))
+                return;
+
+            if (inputFieldCreatePass.text.Equals(""))
+                return;
+
+            Client.Network.Send(PacketType.ClientCreateAccount, PacketFlags.Reliable, inputFieldCreateName.text, inputFieldCreatePass.text);
+        }
+
+        public void Login()
+        {
+            if (inputFieldLoginName.text.Equals(""))
+                return;
+
+            if (inputFieldLoginPass.text.Equals(""))
+                return;
+
+            Client.Network.Send(PacketType.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
+        }
     }
 }

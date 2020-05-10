@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIMainMenu : MonoBehaviour
+namespace Valk.Networking
 {
-    public void Multiplayer() 
+    public class UIMainMenu : MonoBehaviour
     {
-        SceneManager.LoadScene("Connecting");
-    }
+        public void Multiplayer()
+        {
+            SceneManager.LoadScene("Connecting");
+        }
 
-    public void Options() 
-    {
-        SceneManager.LoadScene("Options");
-    }
+        public void Options()
+        {
+            SceneManager.LoadScene("Options");
+        }
 
-    public void Exit() 
-    {
-        Application.Quit();
+        public void Exit()
+        {
+            Application.Quit();
+        }
     }
 }
+
