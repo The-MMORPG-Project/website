@@ -120,7 +120,7 @@ namespace Valk.Networking
                 values[2 + (i * playerPropCount)] = players[i].y;
             }
 
-            Network.Broadcast(server, Packet.Create(Packet.Type.ServerPositionUpdate, values));
+            Network.Broadcast(server, Packet.Create(Packet.Type.ServerPositionUpdate, PacketFlags.None, values));
         }
 
         private void HandlePacket(ref Event netEvent)
@@ -147,7 +147,7 @@ namespace Valk.Networking
                         {
                             Logger.Log($"Client '{netEvent.Peer.ID}' tried to make an account '{name}' but its already registered");
 
-                            Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountDenied, "Account name already registered"));
+                            Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountDenied, PacketFlags.Reliable, "Account name already registered"));
 
                             return;
                         }
@@ -158,7 +158,7 @@ namespace Valk.Networking
                         db.Add(new User { Name = name, Pass = pass });
                         db.SaveChanges();
 
-                        Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountAccepted));
+                        Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerCreateAccountAccepted, PacketFlags.Reliable));
                     }
                 }
 
@@ -173,7 +173,7 @@ namespace Valk.Networking
 
                         if (user == null) // User login does not exist
                         {
-                            Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "User login does not exist"));
+                            Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, PacketFlags.Reliable, "User login does not exist"));
                             Logger.Log($"Client '{netEvent.Peer.ID}' tried to login to a non-existant account called '{name}'");
                             return;
                         }
@@ -182,13 +182,13 @@ namespace Valk.Networking
                         if (!user.Pass.Equals(pass))
                         {
                             // Logged in with wrong password
-                            Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, "Wrong password"));
+                            Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginDenied, PacketFlags.Reliable, "Wrong password"));
                             Logger.Log($"Client '{netEvent.Peer.ID}' tried to log into account '{name}' but typed in the wrong password");
                             return;
                         }
 
                         // Logged in with correct password
-                        Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginAccepted));
+                        Network.Send(ref netEvent, Packet.Create(Packet.Type.ServerLoginAccepted, PacketFlags.Reliable));
                         Logger.Log($"Client '{netEvent.Peer.ID}' successfully logged into account '{name}'");
                         players.Add(new Player(netEvent.Peer));
                     }
