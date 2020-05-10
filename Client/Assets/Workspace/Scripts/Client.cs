@@ -13,6 +13,9 @@ class Client : MonoBehaviour
     private const int TIMEOUT_RECEIVE = 1000 * 30;
     private const byte CHANNEL_ID = 0;
 
+    private const string IP = "127.0.0.1";
+    private const ushort PORT = 7777;
+
     public static Network Network;
     private static Peer peer;
     private static Host client;
@@ -37,16 +40,13 @@ class Client : MonoBehaviour
 
     public static void Connect()
     {
-        const string ip = "127.0.0.1";
-        const ushort port = 7777;
-
         ENet.Library.Initialize();
 
         client = new Host();
 
         var address = new Address();
-        address.SetHost(ip);
-        address.Port = port;
+        address.SetHost(IP);
+        address.Port = PORT;
 
         client.Create();
 
