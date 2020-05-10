@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 class Client : MonoBehaviour
 {
+    private const int MAX_FRAMES = 30;
     private const int TIMEOUT_SEND = 1000 * 5;
     private const int TIMEOUT_RECEIVE = 1000 * 30;
     private const byte CHANNEL_ID = 0;
@@ -25,7 +26,11 @@ class Client : MonoBehaviour
     private void Start()
     {
         clients = new List<GameObject>();
-        Application.targetFrameRate = 30;
+
+#if !UNITY_WEBGL
+        Application.targetFrameRate = MAX_FRAMES;
+#endif
+
         Application.runInBackground = true;
         DontDestroyOnLoad(gameObject);
     }
@@ -51,14 +56,14 @@ class Client : MonoBehaviour
         Network = new Network(CHANNEL_ID, peer);
     }
 
-    private void Update() 
+    private void Update()
     {
         if (!inGame)
             return;
 
         if (clientGoRb == null)
             return;
-        
+
         clientGoRb.AddForce(new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed));
     }
 
@@ -119,7 +124,7 @@ class Client : MonoBehaviour
             netEvent.Packet.CopyTo(readBuffer);
             var packetID = (Packet.Type)reader.ReadByte();
 
-            if (packetID == Packet.Type.ServerCreateAccountDenied) 
+            if (packetID == Packet.Type.ServerCreateAccountDenied)
             {
                 Debug.Log("Account denied");
                 var reason = reader.ReadString();
@@ -127,20 +132,20 @@ class Client : MonoBehaviour
                 UIAccountManagement.UpdateText($"Account Denied: {reason}");
             }
 
-            if (packetID == Packet.Type.ServerCreateAccountAccepted) 
+            if (packetID == Packet.Type.ServerCreateAccountAccepted)
             {
                 Debug.Log("Account created");
                 UIAccountManagement.UpdateText($"Account Created");
             }
 
-            if (packetID == Packet.Type.ServerLoginAccepted) 
+            if (packetID == Packet.Type.ServerLoginAccepted)
             {
                 Debug.Log("Login accepted");
                 UIAccountManagement.UpdateText($"Logging in...");
                 StartCoroutine(ASyncLoadGame());
             }
 
-            if (packetID == Packet.Type.ServerLoginDenied) 
+            if (packetID == Packet.Type.ServerLoginDenied)
             {
                 Debug.Log("Login denied");
                 var reason = reader.ReadString();
@@ -148,7 +153,7 @@ class Client : MonoBehaviour
                 UIAccountManagement.UpdateText($"Login Denied: {reason}");
             }
 
-            if (packetID == Packet.Type.ServerPositionUpdate) 
+            if (packetID == Packet.Type.ServerPositionUpdate)
             {
                 Debug.Log("Received Server Position Update");
                 var id = reader.ReadUInt32();
@@ -164,10 +169,10 @@ class Client : MonoBehaviour
         }
     }
 
-    private IEnumerator ASyncLoadGame() 
+    private IEnumerator ASyncLoadGame()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main");
-        while (!asyncLoad.isDone) 
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
@@ -175,7 +180,7 @@ class Client : MonoBehaviour
         Spawn();
     }
 
-    private void Spawn() 
+    private void Spawn()
     {
         GameObject clientPrefab = Resources.Load("Client") as GameObject;
         clientGo = Instantiate(clientPrefab, Vector3.zero, Quaternion.identity);
@@ -186,9 +191,9 @@ class Client : MonoBehaviour
         StartCoroutine(SendPositionUpdates());
     }
 
-    private IEnumerator SendPositionUpdates() 
+    private IEnumerator SendPositionUpdates()
     {
-        while(inGame) 
+        while (inGame)
         {
             Vector3 pos = clientGo.transform.position;
             Network.Send(Packet.Type.ClientPositionUpdate, PacketFlags.None, pos.x, pos.y);
