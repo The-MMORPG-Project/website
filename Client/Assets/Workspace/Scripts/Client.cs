@@ -156,10 +156,14 @@ class Client : MonoBehaviour
             if (packetID == Packet.Type.ServerPositionUpdate)
             {
                 Debug.Log("Received Server Position Update");
-                var id = reader.ReadUInt32();
-                var x = reader.ReadSingle();
-                var y = reader.ReadSingle();
-                Debug.Log($"ID: {id}, X: {x}, Y: {y}");
+                var players = reader.ReadInt32();
+                for (int i = 0; i < players; i++)
+                {
+                    var id = reader.ReadUInt32();
+                    var x = reader.ReadSingle();
+                    var y = reader.ReadSingle();
+                    Debug.Log($"ID: {id}, X: {x}, Y: {y}");
+                }
             }
         }
 

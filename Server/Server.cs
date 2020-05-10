@@ -112,12 +112,14 @@ namespace Valk.Networking
 
             int playerPropCount = 3;
 
-            object[] values = new object[players.Count * playerPropCount];
+            object[] values = new object[players.Count * playerPropCount + 1];
+            values[0] = players.Count;
+
             for (int i = 0; i < players.Count; i++)
             {
-                values[0 + (i * playerPropCount)] = players[i].ID;
-                values[1 + (i * playerPropCount)] = players[i].x;
-                values[2 + (i * playerPropCount)] = players[i].y;
+                values[1 + (i * playerPropCount)] = players[i].ID;
+                values[2 + (i * playerPropCount)] = players[i].x;
+                values[3 + (i * playerPropCount)] = players[i].y;
             }
 
             Network.Broadcast(server, Packet.Create(Packet.Type.ServerPositionUpdate, PacketFlags.None, values));
