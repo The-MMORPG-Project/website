@@ -14,6 +14,7 @@ namespace Valk.Networking
         private const int TIMEOUT_SEND = 1000 * 5;
         private const int TIMEOUT_RECEIVE = 1000 * 30;
         private const byte CHANNEL_ID = 0;
+        private const int POSITION_UPDATE_DELAY = 100;
 
         private const string IP = "127.0.0.1";
         private const ushort PORT = 7777;
@@ -23,14 +24,18 @@ namespace Valk.Networking
         private static Host client;
 
         public float speed = 25; //moveSpeed
+
+        private static GameObject oClientPrefab;
+        private Dictionary<uint, GameObject> clients;
+
         private GameObject clientGo;
         private Rigidbody2D clientGoRb;
-        private List<GameObject> clients;
         private bool inGame = false;
 
         private void Start()
         {
-            clients = new List<GameObject>();
+            oClientPrefab = Resources.Load("Prefabs/Client") as GameObject;
+            clients = new Dictionary<uint, GameObject>();
 
 #if !UNITY_WEBGL
             Application.targetFrameRate = MAX_FRAMES;
@@ -157,14 +162,29 @@ namespace Valk.Networking
 
                 if (packetID == PacketType.ServerPositionUpdate)
                 {
-                    Debug.Log("Received Server Position Update");
+                    //Debug.Log("Received Server Position Update");
                     var players = reader.ReadInt32();
                     for (int i = 0; i < players; i++)
                     {
                         var id = reader.ReadUInt32();
                         var x = reader.ReadSingle();
                         var y = reader.ReadSingle();
-                        Debug.Log($"ID: {id}, X: {x}, Y: {y}");
+                        //Debug.Log($"ID: {id}, X: {x}, Y: {y}");
+                        if (clients.ContainsKey(id)) 
+                        {
+                            Debug.Log("Updated position of oClient");
+
+                            if (clients[id] == null) 
+                            {
+                                clients.Remove(id);
+                            } else {
+                                clients[id].transform.position = new Vector2(x, y);
+                            }
+                        } else {
+                            Debug.Log("Added new oClient");
+                            GameObject oClient = Instantiate(oClientPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                            clients.Add(id, oClient);
+                        }
                     }
                 }
             }
@@ -204,7 +224,7 @@ namespace Valk.Networking
                 Vector3 pos = clientGo.transform.position;
                 Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, pos.x, pos.y);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(POSITION_UPDATE_DELAY / 1000);
             }
         }
 

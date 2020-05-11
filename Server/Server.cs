@@ -15,6 +15,8 @@ namespace Valk.Networking
         public Host server;
         public Timer positionUpdatePump;
 
+        private const int POSITION_UPDATE_DELAY = 100;
+
         public static byte channelID = 0;
 
         private ushort port;
@@ -31,7 +33,7 @@ namespace Valk.Networking
 
             clients = new List<Client>();
 
-            positionUpdatePump = new Timer(1000, PositionUpdates);
+            positionUpdatePump = new Timer(POSITION_UPDATE_DELAY, PositionUpdates);
             positionUpdatePump.Start();
         }
 
@@ -104,22 +106,45 @@ namespace Valk.Networking
 
         private void PositionUpdates(Object source, ElapsedEventArgs e)
         {
-            if (clients.Count <= 0)
+            int clientsInGame = 0;
+            List<Peer> peersInGame = new List<Peer>();
+            foreach (Client client in clients) 
+            {
+                if (client.ClientStatus == ClientStatus.InGame) 
+                {
+                    peersInGame.Add(client.Peer);
+                    clientsInGame++;
+                }
+            }
+
+            if (clientsInGame <= 0)
                 return;
 
             int playerPropCount = 3;
 
-            object[] values = new object[clients.Count * playerPropCount + 1];
-            values[0] = clients.Count;
+            object[] values = new object[clientsInGame * playerPropCount + 1];
+            values[0] = clientsInGame;
 
             for (int i = 0; i < clients.Count; i++)
             {
-                values[1 + (i * playerPropCount)] = clients[i].ID;
-                values[2 + (i * playerPropCount)] = clients[i].x;
-                values[3 + (i * playerPropCount)] = clients[i].y;
+                if (clients[i].ClientStatus == ClientStatus.InGame) 
+                {
+                    values[1 + (i * playerPropCount)] = clients[i].ID;
+                    values[2 + (i * playerPropCount)] = clients[i].x;
+                    values[3 + (i * playerPropCount)] = clients[i].y;
+                }
             }
 
-            Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, values));
+            /*List<Peer> peersInLobby = new List<Peer>();
+            foreach (Client client in clients) 
+            {
+                if (client.ClientStatus == ClientStatus.InLobby) 
+                {
+                    peersInLobby.Add(client.Peer);
+                }
+            }*/
+
+            Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, values), peersInGame.ToArray());
         }
 
         private void HandlePacket(Event netEvent)
@@ -203,7 +228,7 @@ namespace Valk.Networking
                     Client client = clients.Find(x => x.ID.Equals(id));
                     client.x = x;
                     client.y = y;
-                    Logger.Log(client);
+                    //Logger.Log(client);
                 }
 
                 readStream.Dispose();

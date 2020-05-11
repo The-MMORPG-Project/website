@@ -10,7 +10,7 @@ namespace Valk.Networking
 
     class Client
     {
-        private Peer peer;
+        public Peer Peer;
 
         public uint ID { get; }
         public string IP { get; }
@@ -22,14 +22,14 @@ namespace Valk.Networking
 
         public Client(Peer peer)
         {
-            this.peer = peer;
+            this.Peer = peer;
             this.ID = peer.ID;
             this.IP = peer.IP;
         }
 
         public void Kick()
         {
-            peer.DisconnectNow(ID);
+            Peer.DisconnectNow(ID);
         }
 
         public override string ToString()
