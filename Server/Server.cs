@@ -118,7 +118,7 @@ namespace Valk.Networking
             {
                 if (client.Status == ClientStatus.InGame)
                 {
-                    if (client.x == client.px || client.y == client.py)
+                    if (client.x == client.px && client.y == client.py)
                         continue;
 
                     data.Add(client.ID);
