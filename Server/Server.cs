@@ -135,15 +135,6 @@ namespace Valk.Networking
                 }
             }
 
-            /*List<Peer> peersInLobby = new List<Peer>();
-            foreach (Client client in clients) 
-            {
-                if (client.ClientStatus == ClientStatus.InLobby) 
-                {
-                    peersInLobby.Add(client.Peer);
-                }
-            }*/
-
             Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, values), peersInGame.ToArray());
         }
 
