@@ -1,3 +1,4 @@
+using System;
 using ENet;
 
 namespace Valk.Networking
@@ -8,6 +9,7 @@ namespace Valk.Networking
         InGame
     }
 
+    [SerializableAttribute]
     class Client
     {
         public Peer Peer;
@@ -18,7 +20,7 @@ namespace Valk.Networking
         public float x { get; set; }
         public float y { get; set; }
 
-        public ClientStatus ClientStatus { get; set; }
+        public ClientStatus Status { get; set; }
 
         public Client(Peer peer)
         {

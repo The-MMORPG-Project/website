@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System;
 using System.IO;
 using System.Linq;
@@ -106,36 +105,24 @@ namespace Valk.Networking
 
         private void PositionUpdates(Object source, ElapsedEventArgs e)
         {
-            int clientsInGame = 0;
-            List<Peer> peersInGame = new List<Peer>();
-            foreach (Client client in clients) 
-            {
-                if (client.ClientStatus == ClientStatus.InGame) 
-                {
-                    peersInGame.Add(client.Peer);
-                    clientsInGame++;
-                }
-            }
+            var peersInGame = clients.FindAll(x => x.Status == ClientStatus.InGame).Select(x => x.Peer).ToArray();
 
-            if (clientsInGame <= 0)
+            if (peersInGame.Length <= 0)
                 return;
 
-            int playerPropCount = 3;
+            var data = new List<object>();
 
-            object[] values = new object[clientsInGame * playerPropCount + 1];
-            values[0] = clientsInGame;
-
-            for (int i = 0; i < clients.Count; i++)
-            {
-                if (clients[i].ClientStatus == ClientStatus.InGame) 
+            data.Add(peersInGame.Length);
+            foreach (Client client in clients) {
+                if (client.Status == ClientStatus.InGame) 
                 {
-                    values[1 + (i * playerPropCount)] = clients[i].ID;
-                    values[2 + (i * playerPropCount)] = clients[i].x;
-                    values[3 + (i * playerPropCount)] = clients[i].y;
+                    data.Add(client.ID);
+                    data.Add(client.x);
+                    data.Add(client.y);
                 }
             }
 
-            Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, values), peersInGame.ToArray());
+            Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, data.ToArray()), peersInGame.ToArray());
         }
 
         private void HandlePacket(Event netEvent)
@@ -205,7 +192,7 @@ namespace Valk.Networking
                         // Logged in with correct password
                         Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable));
                         Logger.Log($"Client '{netEvent.Peer.ID}' successfully logged into account '{name}'");
-                        clients.Find(x => x.ID.Equals(netEvent.Peer.ID)).ClientStatus = ClientStatus.InGame;
+                        clients.Find(x => x.ID.Equals(netEvent.Peer.ID)).Status = ClientStatus.InGame;
                     }
                 }
 
