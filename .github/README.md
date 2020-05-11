@@ -6,7 +6,7 @@
 [![Issues](https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model)](https://github.com/valkyrienyanko/Unity-ENet-Model/issues)
 
 <h1>Unity ENet Model</h1>
-A server-client prototype with reliable UDP networking using ENet-CSharp. The server is a dotnet console application using the Entity Framework for the user database. The client uses Unity for a graphical visualization of the UX and all the clients. ENet-CSharp provides support for sending both unreliable and reliable packets over the network, this means we can handle things such as user authentication and player position updates at the same time with no problems. This project was designed with the intent for one dedicated server to provide connections to many clients.
+ENet-CSharp provides support for sending both unreliable and reliable packets over the network, this means we can handle things such as user authentication and player position updates at the same time with no problems. This project was designed with the intent for one headless server to provide connections to many clients. If you are creating a MMORPG in Unity then this project is most likely in your interests.
 
 ## Table of Contents
 1. [Setup Client](#setup-client)
