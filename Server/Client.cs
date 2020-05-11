@@ -16,7 +16,8 @@ namespace Valk.Networking
 
         public uint ID { get; }
         public string IP { get; }
-
+        public float px { get; set; }
+        public float py { get; set; }
         public float x { get; set; }
         public float y { get; set; }
 

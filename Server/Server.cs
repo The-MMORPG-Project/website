@@ -112,15 +112,26 @@ namespace Valk.Networking
 
             var data = new List<object>();
 
-            data.Add(peersInGame.Length);
-            foreach (Client client in clients) {
-                if (client.Status == ClientStatus.InGame) 
+            int length = 0;
+
+            foreach (Client client in clients)
+            {
+                if (client.Status == ClientStatus.InGame)
                 {
+                    if (client.x == client.px || client.y == client.py)
+                        continue;
+
                     data.Add(client.ID);
                     data.Add(client.x);
                     data.Add(client.y);
+
+                    client.px = client.x;
+                    client.py = client.y;
+
+                    length++;
                 }
             }
+            data.Insert(0, length);
 
             Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, data.ToArray()), peersInGame.ToArray());
         }
@@ -224,7 +235,7 @@ namespace Valk.Networking
             serverRunning = false;
         }
 
-        private void CleanUp() 
+        private void CleanUp()
         {
             positionUpdatePump.Dispose();
             server.Dispose();
