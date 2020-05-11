@@ -13,9 +13,10 @@ ENet-CSharp provides support for sending both unreliable and reliable packets ov
 2. [Setup Server](#setup-server)
 3. [Features](#features)
 4. [Releases](#releases)
-5. [Issues](#issues)
-6. [Contributing](#contributing)
-7. [Contributors](#contributors)
+5. [Tests](#tests)
+6. [Issues](#issues)
+7. [Contributing](#contributing)
+8. [Contributors](#contributors)
 
 <h2 align="center">Setup Client</h2>
 
@@ -51,6 +52,12 @@ dotnet run
 The project is still in its alpha stages, not everything may work as you expect. 
 
 [Releases](https://github.com/valkyrienyanko/Unity-ENet-Model/releases)
+
+<h2 align="center">Tests</h2>
+
+Works fine with 3 CCU's (Concurrently Connected Users)
+
+Would test with more but I currently only have 2 alpha testers.
 
 <h2 align="center">Issues</h2>
 
