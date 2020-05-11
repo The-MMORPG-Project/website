@@ -170,17 +170,21 @@ namespace Valk.Networking
                         var x = reader.ReadSingle();
                         var y = reader.ReadSingle();
                         //Debug.Log($"ID: {id}, X: {x}, Y: {y}");
-                        if (clients.ContainsKey(id)) 
+                        if (clients.ContainsKey(id))
                         {
                             Debug.Log("Updated position of oClient");
 
-                            if (clients[id] == null) 
+                            if (clients[id] == null)
                             {
                                 clients.Remove(id);
-                            } else {
+                            }
+                            else
+                            {
                                 clients[id].transform.position = new Vector2(x, y);
                             }
-                        } else {
+                        }
+                        else
+                        {
                             Debug.Log("Added new oClient");
                             GameObject oClient = Instantiate(oClientPrefab, new Vector3(x, 0, y), Quaternion.identity);
                             clients.Add(id, oClient);
@@ -235,6 +239,9 @@ namespace Valk.Networking
 
         private void OnApplicationQuit()
         {
+            if (client == null) // Might press player then stop in Unity editor before client is created
+                return;
+
             Debug.Log("Disposing client");
             client.Dispose();
             ENet.Library.Deinitialize();

@@ -50,7 +50,7 @@ namespace Valk.Networking
             Logger.Log($"Server listening on {port}");
 
             //int packetCounter = 0;
-
+            //int i = 0;
             Event netEvent;
 
             while (serverRunning)
