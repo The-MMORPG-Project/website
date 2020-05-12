@@ -73,6 +73,8 @@ Please talk to **valk#3277** over Discord to learn more on how you can contribut
 
 You can also read the [Contributing Guide](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
 
+And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12)
+
 <h2 align="center">Contributors</h2>
 
 <a href="https://github.com/valkyrienyanko/Unity-ENet-Model/graphs/contributors">
