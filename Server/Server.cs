@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System;
 using System.IO;
 using System.Linq;
@@ -103,11 +104,15 @@ namespace Valk.Networking
             CleanUp();
         }
 
+        // Send a position update to all peers in the game every x ms
         private void PositionUpdates(Object source, ElapsedEventArgs e)
         {
-            var peersInGame = clients.FindAll(x => x.Status == ClientStatus.InGame).Select(x => x.Peer).ToArray();
+            SendPositionUpdate(GetPeersInGame());
+        }
 
-            if (peersInGame.Length <= 0)
+        private void SendPositionUpdate(params Peer[] peers)
+        {
+            if (GetPeersInGame().Length == 0)
                 return;
 
             var data = new List<object>();
@@ -133,7 +138,15 @@ namespace Valk.Networking
             }
             data.Insert(0, length);
 
-            Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, data.ToArray()), peersInGame.ToArray());
+            if (length == 0)
+                return;
+
+            Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, data.ToArray()), peers);
+        }
+
+        private Peer[] GetPeersInGame()
+        {
+            return clients.FindAll(x => x.Status == ClientStatus.InGame).Select(x => x.Peer).ToArray();
         }
 
         private void HandlePacket(Event netEvent)
@@ -204,6 +217,8 @@ namespace Valk.Networking
                         Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable));
                         Logger.Log($"Client '{netEvent.Peer.ID}' successfully logged into account '{name}'");
                         clients.Find(x => x.ID.Equals(netEvent.Peer.ID)).Status = ClientStatus.InGame;
+                        Logger.Log($"Client '{netEvent.Peer.ID}' joined game room.");
+                        SendPositionUpdate(GetPeersInGame());
                     }
                 }
 
