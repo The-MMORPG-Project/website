@@ -217,6 +217,8 @@ namespace Valk.Networking
 
             inGame = true;
 
+            Network.Send(PacketType.ClientRequestPositions, PacketFlags.Reliable);
+
             StartCoroutine(SendPositionUpdates());
         }
 

@@ -10,7 +10,8 @@ namespace Valk.Networking
         ServerLoginDenied,
         ServerLoginAccepted,
         ClientPositionUpdate,
-        ServerPositionUpdate
+        ServerPositionUpdate,
+        ClientRequestPositions
     }
 
     class Packet

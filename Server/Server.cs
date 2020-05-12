@@ -218,8 +218,13 @@ namespace Valk.Networking
                         Logger.Log($"Client '{netEvent.Peer.ID}' successfully logged into account '{name}'");
                         clients.Find(x => x.ID.Equals(netEvent.Peer.ID)).Status = ClientStatus.InGame;
                         Logger.Log($"Client '{netEvent.Peer.ID}' joined game room.");
-                        SendPositionUpdate(GetPeersInGame());
                     }
+                }
+
+                if (packetID == PacketType.ClientRequestPositions) 
+                {
+                    Logger.Log("Sending initial position update!");
+                    SendPositionUpdate(GetPeersInGame());
                 }
 
                 if (packetID == PacketType.ClientPositionUpdate)
