@@ -60,7 +60,7 @@ Works fine with 3 CCU's (Concurrently Connected Users)
 
 Would test with more but I currently only have 2 alpha testers.
 
-Join the [Discord](https://discord.gg/thMupbv) if you want to become a Alpha Tester.
+Join the [Discord](https://discord.gg/thMupbv) and ask **valk#3277** for the Alpha Tester role if you want to become a Alpha Tester.
 
 <h2 align="center">Issues</h2>
 
