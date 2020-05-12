@@ -217,6 +217,7 @@ namespace Valk.Networking
 
             inGame = true;
 
+            // We are in the game, we are ready to receive the initial positions of all the other clients
             Network.Send(PacketType.ClientRequestPositions, PacketFlags.Reliable);
 
             StartCoroutine(SendPositionUpdates());
