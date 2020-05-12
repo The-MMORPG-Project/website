@@ -71,27 +71,30 @@ namespace Valk.Networking
                         polled = true;
                     }
 
+                    string ip = netEvent.Peer.IP;
+                    uint id = netEvent.Peer.ID;
+
                     switch (netEvent.Type)
                     {
                         case EventType.None:
                             break;
 
                         case EventType.Connect:
-                            Logger.Log("Client connected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            Logger.Log($"Client connected - ID: {id}, IP: {ip}");
                             clients.Add(new Client(netEvent.Peer));
                             break;
 
                         case EventType.Disconnect:
-                            Logger.Log("Client disconnected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            Logger.Log($"Client disconnected - ID: {id}, IP: {ip}");
                             break;
 
                         case EventType.Timeout:
-                            Logger.Log("Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            Logger.Log($"Client timeout - ID: {id}, IP: {ip}");
                             clients.Remove(clients.Find(x => x.ID.Equals(netEvent.Peer.ID)));
                             break;
 
                         case EventType.Receive:
-                            //Logger.Log($"{packetCounter++} Packet received from - ID: {netEvent.Peer.ID}, IP: {netEvent.Peer.IP}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
+                            //Logger.Log($"{packetCounter++} Packet received from - ID: {id}, IP: {ip}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
                             HandlePacket(netEvent);
                             netEvent.Packet.Dispose();
                             break;
@@ -117,7 +120,7 @@ namespace Valk.Networking
 
             var data = new List<object>();
 
-            int length = 0;
+            int playerDataLength = 0;
 
             foreach (Client client in clients)
             {
@@ -133,12 +136,12 @@ namespace Valk.Networking
                     client.px = client.x;
                     client.py = client.y;
 
-                    length++;
+                    playerDataLength++;
                 }
             }
-            data.Insert(0, length);
+            data.Insert(0, playerDataLength);
 
-            if (length == 0)
+            if (playerDataLength == 0)
                 return;
 
             Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, flags, data.ToArray()), peers);
@@ -156,6 +159,8 @@ namespace Valk.Networking
 
         private void HandlePacket(Event netEvent)
         {
+            uint id = netEvent.Peer.ID;
+
             try
             {
                 var readBuffer = new byte[1024];
@@ -176,7 +181,7 @@ namespace Valk.Networking
                         User user = db.Users.ToList().Find(x => x.Name.Equals(name));
                         if (user != null) // Account already exists in database
                         {
-                            Logger.Log($"Client '{netEvent.Peer.ID}' tried to make an account '{name}' but its already registered");
+                            Logger.Log($"Client '{id}' tried to make an account '{name}' but its already registered");
 
                             Network.Send(ref netEvent, Packet.Create(PacketType.ServerCreateAccountDenied, PacketFlags.Reliable, "Account name already registered"));
 
@@ -184,7 +189,7 @@ namespace Valk.Networking
                         }
 
                         // Account is unique, creating...
-                        Logger.Log($"Client '{netEvent.Peer.ID}' successfully created a new account '{name}'");
+                        Logger.Log($"Client '{id}' successfully created a new account '{name}'");
                         Logger.Log($"Registering account '{name}' to database");
                         db.Add(new User { Name = name, Pass = pass });
                         db.SaveChanges();
@@ -205,7 +210,7 @@ namespace Valk.Networking
                         if (user == null) // User login does not exist
                         {
                             Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, "User login does not exist"));
-                            Logger.Log($"Client '{netEvent.Peer.ID}' tried to login to a non-existant account called '{name}'");
+                            Logger.Log($"Client '{id}' tried to login to a non-existant account called '{name}'");
                             return;
                         }
 
@@ -214,21 +219,21 @@ namespace Valk.Networking
                         {
                             // Logged in with wrong password
                             Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, "Wrong password"));
-                            Logger.Log($"Client '{netEvent.Peer.ID}' tried to log into account '{name}' but typed in the wrong password");
+                            Logger.Log($"Client '{id}' tried to log into account '{name}' but typed in the wrong password");
                             return;
                         }
 
                         // Logged in with correct password
                         Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable));
-                        Logger.Log($"Client '{netEvent.Peer.ID}' successfully logged into account '{name}'");
-                        clients.Find(x => x.ID.Equals(netEvent.Peer.ID)).Status = ClientStatus.InGame;
-                        Logger.Log($"Client '{netEvent.Peer.ID}' joined game room.");
+                        Logger.Log($"Client '{id}' successfully logged into account '{name}'");
+                        clients.Find(x => x.ID.Equals(id)).Status = ClientStatus.InGame;
+                        Logger.Log($"Client '{id}' joined game room.");
                     }
                 }
 
                 if (packetID == PacketType.ClientRequestPositions)
                 {
-                    var peers = GetPeersInGame(netEvent.Peer.ID);
+                    var peers = GetPeersInGame(id);
                     if (peers.Length == 0)
                         return;
 
@@ -241,7 +246,6 @@ namespace Valk.Networking
                     float y = reader.ReadSingle();
                     //Logger.Log($"Recieved x {x}, y {y}");
 
-                    uint id = netEvent.Peer.ID;
                     Client client = clients.Find(x => x.ID.Equals(id));
                     client.x = x;
                     client.y = y;
@@ -254,7 +258,7 @@ namespace Valk.Networking
 
             catch (ArgumentOutOfRangeException)
             {
-                Logger.Log($"Received packet from client '{netEvent.Peer.ID}' but buffer was too long. {netEvent.Packet.Length}");
+                Logger.Log($"Received packet from client '{id}' but buffer was too long. {netEvent.Packet.Length}");
             }
         }
 
