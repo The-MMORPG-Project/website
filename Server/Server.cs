@@ -107,10 +107,10 @@ namespace Valk.Networking
         // Send a position update to all peers in the game every x ms
         private void PositionUpdates(Object source, ElapsedEventArgs e)
         {
-            SendPositionUpdate(PacketFlags.None, GetPeersInGame());
+            SendPositionUpdate(PacketFlags.None, false, GetPeersInGame());
         }
 
-        private void SendPositionUpdate(PacketFlags flags, params Peer[] peers)
+        private void SendPositionUpdate(PacketFlags flags, bool ignorePositionChecks, params Peer[] peers)
         {
             if (GetPeersInGame().Length == 0)
                 return;
@@ -123,7 +123,7 @@ namespace Valk.Networking
             {
                 if (client.Status == ClientStatus.InGame)
                 {
-                    if (client.x == client.px && client.y == client.py)
+                    if (!ignorePositionChecks && (client.x == client.px && client.y == client.py))
                         continue;
 
                     data.Add(client.ID);
@@ -225,7 +225,7 @@ namespace Valk.Networking
                 {
                     var peersInGame = GetPeersInGame();
                     Logger.Log($"Sending initial position update! {peersInGame.Length}");
-                    SendPositionUpdate(PacketFlags.Reliable, peersInGame);
+                    SendPositionUpdate(PacketFlags.Reliable, true, peersInGame);
                 }
 
                 if (packetID == PacketType.ClientPositionUpdate)
