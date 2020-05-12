@@ -8,9 +8,12 @@
 <h1>Unity ENet Model</h1>
 I found out the hard way that UNet and the Unity Transport Layer were really only mean't for LAN and P2P. In light of this I discovered a reliable UDP networking library called ENet which provides a middle line between sending unreliable and reliable packets. This means we can handle things such as user authentication and player position updates with the proper protocols. This project was designed with the intent for one headless dedicated server to provide connections to many clients. If you are creating a MMORPG in Unity then this project is most likely in your interests.
 
+<h2>Preview</h2>
+
 ![PreviewClients](https://i.gyazo.com/adf37d955883b5858cf2562b68b4c857.gif)
 
-## Table of Contents
+<h2>Table of Contents</h2>
+
 1. [Setup Client](#setup-client)
 2. [Setup Server](#setup-server)
 3. [Features](#features)
