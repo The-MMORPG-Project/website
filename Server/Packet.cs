@@ -16,6 +16,13 @@ namespace Valk.Networking
         ServerClientDisconnected
     }
 
+    enum ErrorType 
+    {
+        AccountCreateNameAlreadyRegistered,
+        AccountLoginDoesNotExist,
+        AccountLoginWrongPassword
+    }
+
     class Packet
     {
         public static ENet.Packet Create(PacketType type, ENet.PacketFlags packetFlagType, params object[] values)

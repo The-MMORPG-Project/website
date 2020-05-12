@@ -163,9 +163,15 @@ namespace Valk.Networking
                 if (packetID == PacketType.ServerLoginDenied)
                 {
                     Debug.Log("Login denied");
-                    var reason = reader.ReadString();
-                    Debug.Log("Reason: " + reason);
-                    UIAccountManagement.UpdateText($"Login Denied: {reason}");
+                    var reason = (ErrorType)reader.ReadByte();
+                    var message = "";
+                    if (reason == ErrorType.AccountCreateNameAlreadyRegistered) 
+                        message = "Account name already registered.";
+                    if (reason == ErrorType.AccountLoginDoesNotExist)
+                        message = "Account login does not exist.";
+                    if (reason == ErrorType.AccountLoginWrongPassword)
+                        message = "Wrong password.";
+                    UIAccountManagement.UpdateText($"Login Denied: {message}");
                 }
 
                 if (packetID == PacketType.ServerPositionUpdate)

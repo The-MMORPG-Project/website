@@ -190,7 +190,7 @@ namespace Valk.Networking
                         {
                             Logger.Log($"Client '{id}' tried to make an account '{name}' but its already registered");
 
-                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerCreateAccountDenied, PacketFlags.Reliable, "Account name already registered"));
+                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerCreateAccountDenied, PacketFlags.Reliable, ErrorType.AccountCreateNameAlreadyRegistered));
 
                             return;
                         }
@@ -216,7 +216,7 @@ namespace Valk.Networking
 
                         if (user == null) // User login does not exist
                         {
-                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, "User login does not exist"));
+                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, ErrorType.AccountLoginDoesNotExist));
                             Logger.Log($"Client '{id}' tried to login to a non-existant account called '{name}'");
                             return;
                         }
@@ -225,7 +225,7 @@ namespace Valk.Networking
                         if (!user.Pass.Equals(pass))
                         {
                             // Logged in with wrong password
-                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, "Wrong password"));
+                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, ErrorType.AccountLoginWrongPassword));
                             Logger.Log($"Client '{id}' tried to log into account '{name}' but typed in the wrong password");
                             return;
                         }
