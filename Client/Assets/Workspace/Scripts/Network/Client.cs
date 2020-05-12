@@ -13,69 +13,54 @@ namespace Valk.Networking
         private const int MAX_FRAMES = 30;
         private const int TIMEOUT_SEND = 1000 * 5;
         private const int TIMEOUT_RECEIVE = 1000 * 30;
-        private const byte CHANNEL_ID = 0;
+        public const byte CHANNEL_ID = 0;
         private const int POSITION_UPDATE_DELAY = 100;
 
         private const ushort PORT = 7777;
 
-        public static Network Network;
-        private static Peer peer;
-        private static Host client;
+        public static Peer Peer;
+        public static Host Host;
 
-        public float speed = 25; //moveSpeed
-
-        private static GameObject oClientPrefab;
         private Dictionary<uint, GameObject> clients;
 
+        private static GameObject oClientPrefab;
         private GameObject clientGo;
-        private Rigidbody2D clientGoRb;
-        private bool inGame = false;
+        private Transform clientGoT;
+        
+        public static bool InGame = false;
 
         private void Start()
         {
-            oClientPrefab = Resources.Load("Prefabs/Client") as GameObject;
-            clients = new Dictionary<uint, GameObject>();
-
 #if !UNITY_WEBGL
             Application.targetFrameRate = MAX_FRAMES;
 #endif
-
             Application.runInBackground = true;
             DontDestroyOnLoad(gameObject);
+
+            oClientPrefab = Resources.Load("Prefabs/Client") as GameObject;
+            clients = new Dictionary<uint, GameObject>();
         }
 
         public static void Connect(string ip)
         {
             ENet.Library.Initialize();
 
-            client = new Host();
+            Host = new Host();
 
             var address = new Address();
             address.SetHost(ip);
             address.Port = PORT;
 
-            client.Create();
+            Host.Create();
 
             Debug.Log("Connecting...");
-            peer = client.Connect(address);
-            peer.Timeout(0, TIMEOUT_RECEIVE, TIMEOUT_SEND);
-            Network = new Network(CHANNEL_ID, peer);
-        }
-
-        private void Update()
-        {
-            if (!inGame)
-                return;
-
-            if (clientGoRb == null)
-                return;
-
-            clientGoRb.AddForce(new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed));
+            Peer = Host.Connect(address);
+            Peer.Timeout(0, TIMEOUT_RECEIVE, TIMEOUT_SEND);
         }
 
         private void FixedUpdate()
         {
-            if (client == null)
+            if (Host == null)
                 return;
 
             UpdateENet();
@@ -85,9 +70,9 @@ namespace Valk.Networking
         {
             ENet.Event netEvent;
 
-            if (client.CheckEvents(out netEvent) <= 0)
+            if (Host.CheckEvents(out netEvent) <= 0)
             {
-                if (client.Service(15, out netEvent) <= 0)
+                if (Host.Service(15, out netEvent) <= 0)
                     return;
             }
 
@@ -207,11 +192,11 @@ namespace Valk.Networking
 
         private void Spawn()
         {
-            GameObject clientPrefab = Resources.Load("Prefabs/Client") as GameObject;
-            clientGo = Instantiate(clientPrefab, Vector3.zero, Quaternion.identity);
-            clientGoRb = clientGo.GetComponent<Rigidbody2D>();
+            clientGo = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
+            clientGo.AddComponent<ClientBehavior>();
+            clientGoT = clientGo.transform;
 
-            inGame = true;
+            InGame = true;
 
             // We are in the game, we are ready to receive the initial positions of all the other clients
             Network.Send(PacketType.ClientRequestPositions, PacketFlags.Reliable);
@@ -221,10 +206,10 @@ namespace Valk.Networking
 
         private IEnumerator SendPositionUpdates()
         {
-            while (inGame)
+            while (InGame)
             {
-                Vector3 pos = clientGo.transform.position;
-                Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, pos.x, pos.y);
+                Vector3 pos = clientGoT.position;
+                Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, (int) pos.x, (int) pos.y);
 
                 yield return new WaitForSeconds(POSITION_UPDATE_DELAY / 1000);
             }
@@ -232,16 +217,16 @@ namespace Valk.Networking
 
         public static bool IsConnected()
         {
-            return peer.State == ENet.PeerState.Connected;
+            return Peer.State == ENet.PeerState.Connected;
         }
 
         private void OnApplicationQuit()
         {
-            if (client == null) // Might press player then stop in Unity editor before client is created
+            if (Host == null) // Might press player then stop in Unity editor before client is created
                 return;
 
             Debug.Log("Disposing client");
-            client.Dispose();
+            Host.Dispose();
             ENet.Library.Deinitialize();
         }
     }

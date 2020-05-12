@@ -249,8 +249,8 @@ namespace Valk.Networking
 
                 if (packetID == PacketType.ClientPositionUpdate)
                 {
-                    float x = reader.ReadSingle();
-                    float y = reader.ReadSingle();
+                    float x = reader.ReadInt32();
+                    float y = reader.ReadInt32();
                     //Logger.Log($"Recieved x {x}, y {y}");
 
                     Client client = clients.Find(x => x.ID.Equals(id));
@@ -258,7 +258,7 @@ namespace Valk.Networking
                     client.y = y;
 
                     // Client will be added to the position update queue
-                    if (!queue.ContainsKey(client) && (client.x != client.px && client.y != client.py))
+                    if (!queue.ContainsKey(client) && (client.x != client.px || client.y != client.py))
                     {
                         queue.Add(client, PacketFlags.None);
                     }

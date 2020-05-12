@@ -51,7 +51,7 @@ namespace Valk.Networking
             if (inputFieldCreatePass.text.Equals(""))
                 return;
 
-            Client.Network.Send(PacketType.ClientCreateAccount, PacketFlags.Reliable, inputFieldCreateName.text, inputFieldCreatePass.text);
+            Network.Send(PacketType.ClientCreateAccount, PacketFlags.Reliable, inputFieldCreateName.text, inputFieldCreatePass.text);
         }
 
         public void Login()
@@ -62,7 +62,7 @@ namespace Valk.Networking
             if (inputFieldLoginPass.text.Equals(""))
                 return;
 
-            Client.Network.Send(PacketType.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
+            Network.Send(PacketType.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
         }
     }
 }
