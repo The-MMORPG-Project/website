@@ -149,6 +149,11 @@ namespace Valk.Networking
             return clients.FindAll(x => x.Status == ClientStatus.InGame).Select(x => x.Peer).ToArray();
         }
 
+        private Peer[] GetPeersInGame(uint excludedPeer)
+        {
+            return clients.FindAll(x => x.Status == ClientStatus.InGame && x.ID != excludedPeer).Select(x => x.Peer).ToArray();
+        }
+
         private void HandlePacket(Event netEvent)
         {
             try
@@ -221,11 +226,13 @@ namespace Valk.Networking
                     }
                 }
 
-                if (packetID == PacketType.ClientRequestPositions) 
+                if (packetID == PacketType.ClientRequestPositions)
                 {
-                    var peersInGame = GetPeersInGame();
-                    Logger.Log($"Sending initial position update! {peersInGame.Length}");
-                    SendPositionUpdate(PacketFlags.Reliable, true, peersInGame);
+                    var peers = GetPeersInGame(netEvent.Peer.ID);
+                    if (peers.Length == 0)
+                        return;
+
+                    SendPositionUpdate(PacketFlags.Reliable, true, peers);
                 }
 
                 if (packetID == PacketType.ClientPositionUpdate)
