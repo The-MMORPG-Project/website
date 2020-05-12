@@ -16,7 +16,6 @@ namespace Valk.Networking
         private const byte CHANNEL_ID = 0;
         private const int POSITION_UPDATE_DELAY = 100;
 
-        private const string IP = "127.0.0.1";
         private const ushort PORT = 7777;
 
         public static Network Network;
@@ -45,14 +44,14 @@ namespace Valk.Networking
             DontDestroyOnLoad(gameObject);
         }
 
-        public static void Connect()
+        public static void Connect(string ip)
         {
             ENet.Library.Initialize();
 
             client = new Host();
 
             var address = new Address();
-            address.SetHost(IP);
+            address.SetHost(ip);
             address.Port = PORT;
 
             client.Create();

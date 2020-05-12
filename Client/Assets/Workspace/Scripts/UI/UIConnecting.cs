@@ -16,8 +16,6 @@ namespace Valk.Networking
 
         void Start()
         {
-            Client.Connect();
-
             Text = GoText.GetComponent<TextMeshProUGUI>();
             StartCoroutine(AnimateDots());
         }

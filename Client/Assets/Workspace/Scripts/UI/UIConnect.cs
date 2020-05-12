@@ -1,18 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class UIConnect : MonoBehaviour
+using TMPro;
+
+namespace Valk.Networking
 {
-    // Start is called before the first frame update
-    void Start()
+    public class UIConnect : MonoBehaviour
     {
-        
-    }
+        private const string DEFAULT_IP = "127.0.0.1";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public GameObject GoInputField;
+        private TMP_InputField InputField;
+
+        private void Start()
+        {
+            InputField = GoInputField.GetComponent<TMP_InputField>();
+            InputField.text = DEFAULT_IP;
+        }
+
+        public void Connect()
+        {
+            if (InputField.text == "")
+                return;
+
+            Client.Connect(InputField.text);
+            SceneManager.LoadScene("Connecting");
+        }
     }
 }
