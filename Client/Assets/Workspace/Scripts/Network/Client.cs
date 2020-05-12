@@ -161,14 +161,14 @@ namespace Valk.Networking
 
                 if (packetID == PacketType.ServerPositionUpdate)
                 {
-                    Debug.Log("Received Server Position Update");
+                    //Debug.Log("Received Server Position Update");
                     var players = reader.ReadInt32();
                     for (int i = 0; i < players; i++)
                     {
                         var id = reader.ReadUInt32();
                         var x = reader.ReadSingle();
                         var y = reader.ReadSingle();
-                        Debug.Log($"ID: {id}, X: {x}, Y: {y}");
+                        //Debug.Log($"ID: {id}, X: {x}, Y: {y}");
                         if (clients.ContainsKey(id))
                         {
                             Debug.Log("Updated position of oClient");
@@ -184,7 +184,7 @@ namespace Valk.Networking
                         }
                         else
                         {
-                            Debug.Log("Added new oClient");
+                            Debug.Log($"Added new oClient '{id}'");
                             GameObject oClient = Instantiate(oClientPrefab, new Vector3(x, 0, y), Quaternion.identity);
                             clients.Add(id, oClient);
                         }
