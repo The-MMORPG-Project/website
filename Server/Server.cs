@@ -59,7 +59,7 @@ namespace Valk.Networking
 
             while (serverRunning)
             {
-                bool polled = false;
+                var polled = false;
 
                 while (!polled)
                 {
@@ -74,8 +74,8 @@ namespace Valk.Networking
                         polled = true;
                     }
 
-                    string ip = netEvent.Peer.IP;
-                    uint id = netEvent.Peer.ID;
+                    var ip = netEvent.Peer.IP;
+                    var id = netEvent.Peer.ID;
 
                     switch (netEvent.Type)
                     {
@@ -141,7 +141,7 @@ namespace Valk.Networking
                 data.Add(clientQueued.x);
                 data.Add(clientQueued.y);
 
-                List<Peer> sendPeers = new List<Peer>();
+                var sendPeers = new List<Peer>();
 
                 // Figure out which clients we need to send this clientQueued data to
                 foreach (Client clientInGame in clientsInGame)
@@ -212,7 +212,7 @@ namespace Valk.Networking
 
                     using (var db = new UserContext())
                     {
-                        User user = db.Users.ToList().Find(x => x.Name.Equals(name));
+                        var user = db.Users.ToList().Find(x => x.Name.Equals(name));
 
                         if (user == null) // User login does not exist
                         {
@@ -244,7 +244,7 @@ namespace Valk.Networking
                     if (peers.Length == 0)
                         return;
 
-                    Client client = clients.Find(x => x.ID.Equals(id));
+                    var client = clients.Find(x => x.ID.Equals(id));
                     if (!queue.ContainsKey(client))
                         queue.Add(client, PacketFlags.Reliable);
                 }
@@ -255,7 +255,7 @@ namespace Valk.Networking
                     float y = reader.ReadInt32();
                     //Logger.Log($"Recieved x {x}, y {y}");
 
-                    Client client = clients.Find(x => x.ID.Equals(id));
+                    var client = clients.Find(x => x.ID.Equals(id));
                     client.x = x;
                     client.y = y;
 

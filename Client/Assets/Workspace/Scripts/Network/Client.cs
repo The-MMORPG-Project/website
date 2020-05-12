@@ -15,29 +15,26 @@ namespace Valk.Networking
         private const int TIMEOUT_SEND = 1000 * 5;
         private const int TIMEOUT_RECEIVE = 1000 * 30;
         private const int POSITION_UPDATE_DELAY = 100;
-
         private const ushort PORT = 7777;
 
-        public static Peer Peer;
-        public static Host Host;
+        public static Peer Peer { get; set; }
+        public static Host Host { get; set; }
+        public static bool InGame { get; set; }
+        public static bool Running { get; set; }
+        public static bool Connected { get; set; }
+        public static bool Disconnecting { get; set; }
+        public static bool IsQuitting { get; set; }
 
         private Dictionary<uint, GameObject> clients;
-
         private static GameObject oClientPrefab;
         private GameObject clientGo;
         private ClientBehavior clientGoScript;
         private Transform clientGoT;
 
-        public static bool InGame;
-        private static bool Running;
-        private bool Connected;
-        private bool Disconnecting;
-        private bool IsQuitting;
-
         private void Start()
         {
             Running = true;
-            
+
 #if !UNITY_WEBGL
             Application.targetFrameRate = MAX_FRAMES;
 #endif
@@ -66,24 +63,16 @@ namespace Valk.Networking
             Peer.Timeout(0, TIMEOUT_RECEIVE, TIMEOUT_SEND);
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Running = false;
-            }
-        }
-
         private void FixedUpdate()
         {
-            if (Host == null)
-                return;
-
             UpdateENet();
         }
 
         private void UpdateENet()
         {
+            if (Host == null)
+                return;
+
             ENet.Event netEvent;
 
             if (!Running && !Disconnecting)
@@ -118,6 +107,7 @@ namespace Valk.Networking
                         Destroy(gameObject);
                         CleanUp();
                         SceneManager.LoadScene("Main Menu");
+                        Disconnecting = false;
                     }
 
                     break;
@@ -201,7 +191,7 @@ namespace Valk.Networking
                     else
                     {
                         Debug.Log($"Added new oClient '{id}'");
-                        GameObject oClient = Instantiate(oClientPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                        var oClient = Instantiate(oClientPrefab, new Vector3(x, y, 0), Quaternion.identity);
                         oClient.name = $"oClient {id}";
                         clients.Add(id, oClient);
                     }
@@ -253,7 +243,7 @@ namespace Valk.Networking
         {
             while (InGame)
             {
-                Vector3 pos = clientGoT.position;
+                var pos = clientGoT.position;
 
                 if (pos.x != clientGoScript.px || pos.y != clientGoScript.py)
                 {
@@ -274,9 +264,6 @@ namespace Valk.Networking
 
         private void OnApplicationQuit()
         {
-
-
-            //CleanUp();
 
         }
 
@@ -302,7 +289,7 @@ namespace Valk.Networking
         {
             while (Connected)
             {
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.05f);
             }
 
             Application.Quit();
