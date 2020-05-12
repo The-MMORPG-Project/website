@@ -26,12 +26,15 @@ namespace Valk.Networking
 
         private bool serverRunning;
 
+        private Dictionary<Client, PacketFlags> queue;
+
         public Server(ushort port, int maxClients)
         {
             this.port = port;
             this.maxClients = maxClients;
 
             clients = new List<Client>();
+            queue = new Dictionary<Client, PacketFlags>();
 
             positionUpdatePump = new Timer(POSITION_UPDATE_DELAY, PositionUpdates);
             positionUpdatePump.Start();
@@ -110,51 +113,55 @@ namespace Valk.Networking
         // Send a position update to all peers in the game every x ms
         private void PositionUpdates(Object source, ElapsedEventArgs e)
         {
-            SendPositionUpdate(PacketFlags.None, false, GetPeersInGame());
+            SendPositionUpdate();
         }
 
-        private void SendPositionUpdate(PacketFlags flags, bool ignorePositionChecks, params Peer[] peers)
+        private void SendPositionUpdate()
         {
-            if (GetPeersInGame().Length == 0)
+            // If nothing is being queued there is no reason to check if we need to send position updates
+            if (queue.Count == 0)
                 return;
 
-            var data = new List<object>();
+            var clientsInGame = clients.FindAll(x => x.Status == ClientStatus.InGame);
 
-            int playerDataLength = 0;
+            // If there's only one or no client(s) there is no reason to send position updates to no one
+            if (clientsInGame.Count <= 1)
+                return;
 
-            foreach (Client client in clients)
+            var data = new List<object>(); // Prepare the data list that will eventually be serialized and sent
+
+            // Send clientQueued data to every other client but clientQueued client
+            foreach (var item in queue)
             {
-                if (client.Status == ClientStatus.InGame)
+                var clientQueued = item.Key; // The client that was queued
+                var packetFlags = item.Value; // The type of packet flags
+
+                // Add the clientQueued data to data list
+                data.Add(clientQueued.ID);
+                data.Add(clientQueued.x);
+                data.Add(clientQueued.y);
+
+                List<Peer> sendPeers = new List<Peer>();
+
+                // Figure out which clients we need to send this clientQueued data to
+                foreach (Client clientInGame in clientsInGame)
                 {
-                    if (!ignorePositionChecks && (client.x == client.px && client.y == client.py))
+                    if (clientInGame.ID == clientQueued.ID) // We do not want to send data back to the queued client
                         continue;
 
-                    data.Add(client.ID);
-                    data.Add(client.x);
-                    data.Add(client.y);
-
-                    client.px = client.x;
-                    client.py = client.y;
-
-                    playerDataLength++;
+                    sendPeers.Add(clientInGame.Peer);
                 }
+
+                // Send the data to the clients
+                //Logger.Log($"Broadcasting to {sendPeers.Count} clients");
+                Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, packetFlags, data.ToArray()), sendPeers.ToArray());
+                queue.Remove(clientQueued);
             }
-            data.Insert(0, playerDataLength);
-
-            if (playerDataLength == 0)
-                return;
-
-            Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, flags, data.ToArray()), peers);
         }
 
         private Peer[] GetPeersInGame()
         {
             return clients.FindAll(x => x.Status == ClientStatus.InGame).Select(x => x.Peer).ToArray();
-        }
-
-        private Peer[] GetPeersInGame(uint excludedPeer)
-        {
-            return clients.FindAll(x => x.Status == ClientStatus.InGame && x.ID != excludedPeer).Select(x => x.Peer).ToArray();
         }
 
         private void HandlePacket(Event netEvent)
@@ -233,11 +240,11 @@ namespace Valk.Networking
 
                 if (packetID == PacketType.ClientRequestPositions)
                 {
-                    var peers = GetPeersInGame(id);
+                    var peers = GetPeersInGame();
                     if (peers.Length == 0)
                         return;
 
-                    SendPositionUpdate(PacketFlags.Reliable, true, peers);
+                    queue.Add(clients.Find(x => x.ID.Equals(id)), PacketFlags.Reliable);
                 }
 
                 if (packetID == PacketType.ClientPositionUpdate)
@@ -249,6 +256,17 @@ namespace Valk.Networking
                     Client client = clients.Find(x => x.ID.Equals(id));
                     client.x = x;
                     client.y = y;
+
+                    // Client will be added to the position update queue
+                    if (!queue.ContainsKey(client) && (client.x != client.px && client.y != client.py))
+                    {
+                        queue.Add(client, PacketFlags.None);
+                    }
+
+                    // Keep track of previous position
+                    client.px = client.x;
+                    client.py = client.y;
+
                     //Logger.Log(client);
                 }
 

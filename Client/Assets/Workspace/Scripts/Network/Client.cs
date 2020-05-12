@@ -162,32 +162,28 @@ namespace Valk.Networking
                 if (packetID == PacketType.ServerPositionUpdate)
                 {
                     //Debug.Log("Received Server Position Update");
-                    var players = reader.ReadInt32();
-                    for (int i = 0; i < players; i++)
+                    var id = reader.ReadUInt32();
+                    var x = reader.ReadSingle();
+                    var y = reader.ReadSingle();
+                    //Debug.Log($"ID: {id}, X: {x}, Y: {y}");
+                    if (clients.ContainsKey(id))
                     {
-                        var id = reader.ReadUInt32();
-                        var x = reader.ReadSingle();
-                        var y = reader.ReadSingle();
-                        //Debug.Log($"ID: {id}, X: {x}, Y: {y}");
-                        if (clients.ContainsKey(id))
-                        {
-                            Debug.Log("Updated position of oClient");
+                        Debug.Log("Updated position of oClient");
 
-                            if (clients[id] == null)
-                            {
-                                clients.Remove(id);
-                            }
-                            else
-                            {
-                                clients[id].transform.position = new Vector2(x, y);
-                            }
+                        if (clients[id] == null)
+                        {
+                            clients.Remove(id);
                         }
                         else
                         {
-                            Debug.Log($"Added new oClient '{id}'");
-                            GameObject oClient = Instantiate(oClientPrefab, new Vector3(x, 0, y), Quaternion.identity);
-                            clients.Add(id, oClient);
+                            clients[id].transform.position = new Vector2(x, y);
                         }
+                    }
+                    else
+                    {
+                        Debug.Log($"Added new oClient '{id}'");
+                        GameObject oClient = Instantiate(oClientPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                        clients.Add(id, oClient);
                     }
                 }
             }
