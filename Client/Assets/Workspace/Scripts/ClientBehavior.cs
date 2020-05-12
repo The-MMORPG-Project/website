@@ -8,6 +8,9 @@ namespace Valk.Networking
 
         public float MoveSpeed = 125;
 
+        public float px { get; set; }
+        public float py { get; set; }
+
         private void Start() 
         {
             clientGoRb = GetComponent<Rigidbody2D>();

@@ -10,10 +10,10 @@ namespace Valk.Networking
 {
     class Client : MonoBehaviour
     {
+        public const byte CHANNEL_ID = 0;
         private const int MAX_FRAMES = 30;
         private const int TIMEOUT_SEND = 1000 * 5;
         private const int TIMEOUT_RECEIVE = 1000 * 30;
-        public const byte CHANNEL_ID = 0;
         private const int POSITION_UPDATE_DELAY = 100;
 
         private const ushort PORT = 7777;
@@ -25,12 +25,19 @@ namespace Valk.Networking
 
         private static GameObject oClientPrefab;
         private GameObject clientGo;
+        private ClientBehavior clientGoScript;
         private Transform clientGoT;
-        
-        public static bool InGame = false;
+
+        public static bool InGame;
+        private static bool ClientRunning;
+        private bool ClientConnected;
+        private bool ClientDisconnecting;
+        private bool IsQuitting;
 
         private void Start()
         {
+            ClientRunning = true;
+            
 #if !UNITY_WEBGL
             Application.targetFrameRate = MAX_FRAMES;
 #endif
@@ -39,6 +46,7 @@ namespace Valk.Networking
 
             oClientPrefab = Resources.Load("Prefabs/Client") as GameObject;
             clients = new Dictionary<uint, GameObject>();
+            Application.wantsToQuit += WantsToQuit;
         }
 
         public static void Connect(string ip)
@@ -58,6 +66,14 @@ namespace Valk.Networking
             Peer.Timeout(0, TIMEOUT_RECEIVE, TIMEOUT_SEND);
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ClientRunning = false;
+            }
+        }
+
         private void FixedUpdate()
         {
             if (Host == null)
@@ -69,6 +85,13 @@ namespace Valk.Networking
         private void UpdateENet()
         {
             ENet.Event netEvent;
+
+            if (!ClientRunning && !ClientDisconnecting)
+            {
+                ClientDisconnecting = true;
+                Network.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
+                return;
+            }
 
             if (Host.CheckEvents(out netEvent) <= 0)
             {
@@ -83,15 +106,26 @@ namespace Valk.Networking
 
                 case ENet.EventType.Connect:
                     Debug.Log("Client connected to server");
+                    ClientConnected = true;
                     break;
 
                 case ENet.EventType.Disconnect:
                     Debug.Log("Client disconnected from server");
+                    ClientConnected = false;
+
+                    if (!IsQuitting)
+                    {
+                        Destroy(gameObject);
+                        CleanUp();
+                        SceneManager.LoadScene("Main Menu");
+                    }
+
                     break;
 
                 case ENet.EventType.Timeout:
                     Debug.Log("Client connection timeout");
                     Destroy(gameObject);
+                    CleanUp();
                     SceneManager.LoadScene("Main Menu");
                     break;
 
@@ -168,8 +202,19 @@ namespace Valk.Networking
                     {
                         Debug.Log($"Added new oClient '{id}'");
                         GameObject oClient = Instantiate(oClientPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                        oClient.name = $"oClient {id}";
                         clients.Add(id, oClient);
                     }
+                }
+
+                if (packetID == PacketType.ServerClientDisconnected)
+                {
+                    var id = reader.ReadUInt32();
+
+                    clients.Remove(id);
+                    Debug.Log($"oClient {id}");
+                    Destroy(GameObject.Find($"oClient {id}"));
+                    Debug.Log($"Client {id} disconnected");
                 }
             }
 
@@ -193,7 +238,7 @@ namespace Valk.Networking
         private void Spawn()
         {
             clientGo = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
-            clientGo.AddComponent<ClientBehavior>();
+            clientGoScript = clientGo.AddComponent<ClientBehavior>();
             clientGoT = clientGo.transform;
 
             InGame = true;
@@ -209,7 +254,14 @@ namespace Valk.Networking
             while (InGame)
             {
                 Vector3 pos = clientGoT.position;
-                Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, (int) pos.x, (int) pos.y);
+
+                if (pos.x != clientGoScript.px || pos.y != clientGoScript.py)
+                {
+                    Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, (int)pos.x, (int)pos.y);
+                }
+
+                clientGoScript.px = pos.x;
+                clientGoScript.py = pos.y;
 
                 yield return new WaitForSeconds(POSITION_UPDATE_DELAY / 1000);
             }
@@ -222,9 +274,42 @@ namespace Valk.Networking
 
         private void OnApplicationQuit()
         {
-            if (Host == null) // Might press player then stop in Unity editor before client is created
-                return;
 
+
+            //CleanUp();
+
+        }
+
+        private bool WantsToQuit()
+        {
+            IsQuitting = true;
+
+            if (Host == null) // Might press player then stop in Unity editor before client is created
+                return false;
+
+            Network.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
+
+            if (ClientConnected)
+            {
+                StartCoroutine(Quitting());
+                return false;
+            }
+
+            return true;
+        }
+
+        private IEnumerator Quitting()
+        {
+            while (ClientConnected)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            Application.Quit();
+        }
+
+        private void CleanUp()
+        {
             Debug.Log("Disposing client");
             Host.Dispose();
             ENet.Library.Deinitialize();

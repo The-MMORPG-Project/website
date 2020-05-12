@@ -13,7 +13,9 @@ namespace Valk.Networking
         ServerLoginAccepted,
         ClientPositionUpdate,
         ServerPositionUpdate,
-        ClientRequestPositions
+        ClientRequestPositions,
+        ClientDisconnect,
+        ServerClientDisconnected
     }
 
     class Network

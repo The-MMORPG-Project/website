@@ -244,7 +244,9 @@ namespace Valk.Networking
                     if (peers.Length == 0)
                         return;
 
-                    queue.Add(clients.Find(x => x.ID.Equals(id)), PacketFlags.Reliable);
+                    Client client = clients.Find(x => x.ID.Equals(id));
+                    if (!queue.ContainsKey(client))
+                        queue.Add(client, PacketFlags.Reliable);
                 }
 
                 if (packetID == PacketType.ClientPositionUpdate)
@@ -268,6 +270,14 @@ namespace Valk.Networking
                     client.py = client.y;
 
                     //Logger.Log(client);
+                }
+
+                if (packetID == PacketType.ClientDisconnect) 
+                {
+                    var peersToSend = clients.FindAll(x => x.Status == ClientStatus.InGame && x.ID != id).Select(x => x.Peer).ToArray();
+                    Network.Broadcast(server, Packet.Create(PacketType.ServerClientDisconnected, PacketFlags.Reliable, netEvent.Peer.ID), peersToSend);
+                    netEvent.Peer.Disconnect(netEvent.Peer.ID);
+                    //Logger.Log($"Client '{netEvent.Peer.ID}' disconnected");
                 }
 
                 readStream.Dispose();
