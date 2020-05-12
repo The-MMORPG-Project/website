@@ -39,6 +39,7 @@ dotnet run
 <h2 align="center">Features</h2>
 
 - Reliable UDP Networking with ENet
+- Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
 - Server Database for Users
 - Client-Server Account Management
 - Headless Server
