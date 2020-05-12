@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 297202033}
   - component: {fileID: 297202032}
   m_Layer: 5
-  m_Name: InputField (TMP) (1)
+  m_Name: Pass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -701,7 +701,7 @@ PrefabInstance:
     - target: {fileID: 5685543355577371110, guid: 2dfb3655602b1124a971214cc58a31f4,
         type: 3}
       propertyPath: m_Name
-      value: Button
+      value: Login
       objectReference: {fileID: 0}
     - target: {fileID: 5685543355577371111, guid: 2dfb3655602b1124a971214cc58a31f4,
         type: 3}
@@ -902,7 +902,7 @@ GameObject:
   - component: {fileID: 627701315}
   - component: {fileID: 627701314}
   m_Layer: 5
-  m_Name: InputField (TMP) (1)
+  m_Name: Pass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1279,7 +1279,7 @@ GameObject:
   - component: {fileID: 751024763}
   - component: {fileID: 751024762}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2498,7 +2498,7 @@ GameObject:
   - component: {fileID: 1462362348}
   - component: {fileID: 1462362347}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3084,7 +3084,7 @@ GameObject:
   - component: {fileID: 1945426558}
   - component: {fileID: 1945426557}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3291,7 +3291,7 @@ GameObject:
   - component: {fileID: 2104328199}
   - component: {fileID: 2104328198}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3470,7 +3470,7 @@ PrefabInstance:
     - target: {fileID: 5685543355577371110, guid: 2dfb3655602b1124a971214cc58a31f4,
         type: 3}
       propertyPath: m_Name
-      value: Button
+      value: Create
       objectReference: {fileID: 0}
     - target: {fileID: 5685543355577371111, guid: 2dfb3655602b1124a971214cc58a31f4,
         type: 3}
