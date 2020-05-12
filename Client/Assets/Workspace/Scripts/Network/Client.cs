@@ -6,6 +6,8 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
+using TMPro;
+
 namespace Valk.Networking
 {
     class Client : MonoBehaviour
@@ -27,6 +29,7 @@ namespace Valk.Networking
 
         private Dictionary<uint, GameObject> clients;
         private static GameObject oClientPrefab;
+        private static GameObject oClientCanvasPrefab;
         private GameObject clientGo;
         private ClientBehavior clientGoScript;
         private Transform clientGoT;
@@ -42,6 +45,7 @@ namespace Valk.Networking
             DontDestroyOnLoad(gameObject);
 
             oClientPrefab = Resources.Load("Prefabs/Client") as GameObject;
+            oClientCanvasPrefab = Resources.Load("Prefabs/Canvas") as GameObject;
             clients = new Dictionary<uint, GameObject>();
             Application.wantsToQuit += WantsToQuit;
         }
@@ -165,7 +169,7 @@ namespace Valk.Networking
                     Debug.Log("Login denied");
                     var reason = (ErrorType)reader.ReadByte();
                     var message = "";
-                    if (reason == ErrorType.AccountCreateNameAlreadyRegistered) 
+                    if (reason == ErrorType.AccountCreateNameAlreadyRegistered)
                         message = "Account name already registered.";
                     if (reason == ErrorType.AccountLoginDoesNotExist)
                         message = "Account login does not exist.";
@@ -200,6 +204,12 @@ namespace Valk.Networking
                         var oClient = Instantiate(oClientPrefab, new Vector3(x, y, 0), Quaternion.identity);
                         oClient.name = $"oClient {id}";
                         clients.Add(id, oClient);
+
+                        var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
+                        ui.GetComponent<Canvas>().worldCamera = Camera.main;
+                        ui.transform.SetParent(oClient.transform);
+                        ui.transform.position = new Vector2(0, 2.5f);
+                        ui.GetComponentInChildren<TMP_Text>().text = $"Client '{id}'";
                     }
                 }
 
@@ -234,8 +244,14 @@ namespace Valk.Networking
         private void Spawn()
         {
             clientGo = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
+            clientGo.name = "mClient (You)";
             clientGoScript = clientGo.AddComponent<ClientBehavior>();
             clientGoT = clientGo.transform;
+            var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
+            ui.GetComponent<Canvas>().worldCamera = Camera.main;
+            ui.transform.SetParent(clientGo.transform);
+            ui.transform.position = new Vector2(0, 2.5f);
+            ui.GetComponentInChildren<TMP_Text>().text = $"Client '{Peer.ID}'";
 
             InGame = true;
 
@@ -253,7 +269,7 @@ namespace Valk.Networking
 
                 if (pos.x != clientGoScript.px || pos.y != clientGoScript.py)
                 {
-                    Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, (int)pos.x, (int)pos.y);
+                    Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, pos.x, pos.y);
                 }
 
                 clientGoScript.px = pos.x;
