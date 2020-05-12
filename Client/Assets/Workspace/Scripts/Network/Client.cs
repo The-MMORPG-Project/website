@@ -29,14 +29,14 @@ namespace Valk.Networking
         private Transform clientGoT;
 
         public static bool InGame;
-        private static bool ClientRunning;
-        private bool ClientConnected;
-        private bool ClientDisconnecting;
+        private static bool Running;
+        private bool Connected;
+        private bool Disconnecting;
         private bool IsQuitting;
 
         private void Start()
         {
-            ClientRunning = true;
+            Running = true;
             
 #if !UNITY_WEBGL
             Application.targetFrameRate = MAX_FRAMES;
@@ -70,7 +70,7 @@ namespace Valk.Networking
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ClientRunning = false;
+                Running = false;
             }
         }
 
@@ -86,9 +86,9 @@ namespace Valk.Networking
         {
             ENet.Event netEvent;
 
-            if (!ClientRunning && !ClientDisconnecting)
+            if (!Running && !Disconnecting)
             {
-                ClientDisconnecting = true;
+                Disconnecting = true;
                 Network.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
                 return;
             }
@@ -106,12 +106,12 @@ namespace Valk.Networking
 
                 case ENet.EventType.Connect:
                     Debug.Log("Client connected to server");
-                    ClientConnected = true;
+                    Connected = true;
                     break;
 
                 case ENet.EventType.Disconnect:
                     Debug.Log("Client disconnected from server");
-                    ClientConnected = false;
+                    Connected = false;
 
                     if (!IsQuitting)
                     {
@@ -289,7 +289,7 @@ namespace Valk.Networking
 
             Network.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
 
-            if (ClientConnected)
+            if (Connected)
             {
                 StartCoroutine(Quitting());
                 return false;
@@ -300,7 +300,7 @@ namespace Valk.Networking
 
         private IEnumerator Quitting()
         {
-            while (ClientConnected)
+            while (Connected)
             {
                 yield return new WaitForSeconds(0.1f);
             }
