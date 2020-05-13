@@ -231,7 +231,7 @@ namespace Valk.Networking
                         }
 
                         // Logged in with correct password
-                        Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable));
+                        Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable, id));
                         Logger.Log($"Client '{id}' successfully logged into account '{name}'");
                         clients.Find(x => x.ID.Equals(id)).Status = ClientStatus.InGame;
                         Logger.Log($"Client '{id}' joined game room.");
@@ -245,14 +245,17 @@ namespace Valk.Networking
                         return;
 
                     var client = clients.Find(x => x.ID.Equals(id));
-                    if (!queue.ContainsKey(client))
+                    if (!queue.ContainsKey(client)) 
+                    {
                         queue.Add(client, PacketFlags.Reliable);
+                        Logger.Log($"Client {client.ID} requested initial positions, adding to queue..");
+                    }
                 }
 
                 if (packetID == PacketType.ClientPositionUpdate)
                 {
-                    float x = reader.ReadInt32();
-                    float y = reader.ReadInt32();
+                    float x = reader.ReadSingle();
+                    float y = reader.ReadSingle();
                     //Logger.Log($"Recieved x {x}, y {y}");
 
                     var client = clients.Find(x => x.ID.Equals(id));

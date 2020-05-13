@@ -34,6 +34,8 @@ namespace Valk.Networking
         private ClientBehavior clientGoScript;
         private Transform clientGoT;
 
+        private uint theID = 1234;
+
         private void Start()
         {
             Running = true;
@@ -62,7 +64,7 @@ namespace Valk.Networking
 
             Host.Create();
 
-            Debug.Log("Connecting...");
+            //Debug.Log("Connecting...");
             Peer = Host.Connect(address);
             Peer.Timeout(0, TIMEOUT_RECEIVE, TIMEOUT_SEND);
         }
@@ -98,7 +100,7 @@ namespace Valk.Networking
                     break;
 
                 case ENet.EventType.Connect:
-                    Debug.Log("Client connected to server");
+                    //Debug.Log("Client connected to server");
                     Connected = true;
                     break;
 
@@ -159,7 +161,9 @@ namespace Valk.Networking
 
                 if (packetID == PacketType.ServerLoginAccepted)
                 {
-                    Debug.Log("Login accepted");
+                    theID = reader.ReadUInt32();
+                    //Debug.Log(theID);
+                    //Debug.Log("Login accepted");
                     UIAccountManagement.UpdateText($"Logging in...");
                     StartCoroutine(ASyncLoadGame());
                 }
@@ -191,6 +195,7 @@ namespace Valk.Networking
 
                         if (clients[id] == null)
                         {
+                            Debug.Log("Removing client");
                             clients.Remove(id);
                         }
                         else
@@ -201,14 +206,14 @@ namespace Valk.Networking
                     else
                     {
                         Debug.Log($"Added new oClient '{id}'");
-                        var oClient = Instantiate(oClientPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                        var oClient = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
                         oClient.name = $"oClient {id}";
                         clients.Add(id, oClient);
 
                         var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
                         ui.GetComponent<Canvas>().worldCamera = Camera.main;
                         ui.transform.SetParent(oClient.transform);
-                        ui.transform.position = new Vector2(0, 2.5f);
+                        ui.transform.position = new Vector3(0, 0.35f, 0);
                         ui.GetComponentInChildren<TMP_Text>().text = $"Client '{id}'";
                     }
                 }
@@ -250,8 +255,8 @@ namespace Valk.Networking
             var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
             ui.GetComponent<Canvas>().worldCamera = Camera.main;
             ui.transform.SetParent(clientGo.transform);
-            ui.transform.position = new Vector2(0, 2.5f);
-            ui.GetComponentInChildren<TMP_Text>().text = $"Client '{Peer.ID}'";
+            ui.transform.position = new Vector3(0, 0.35f, 0);
+            ui.GetComponentInChildren<TMP_Text>().text = $"Client '{theID}'";
 
             InGame = true;
 

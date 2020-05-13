@@ -6,7 +6,7 @@ namespace Valk.Networking
     {
         private Rigidbody2D clientGoRb;
 
-        public float MoveSpeed = 125;
+        public float MoveSpeed = 25;
 
         public float px { get; set; }
         public float py { get; set; }
