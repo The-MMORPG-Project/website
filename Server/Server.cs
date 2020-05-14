@@ -22,11 +22,9 @@ namespace Valk.Networking
         private ushort port;
         private int maxClients;
 
-        private List<Client> clients;
-
         private bool serverRunning;
 
-        //private Dictionary<Client, PacketFlags> queue;
+        private List<Client> clients;
         private List<QueuedPacket> positionPacketQueue;
 
         public Server(ushort port, int maxClients)
@@ -35,7 +33,6 @@ namespace Valk.Networking
             this.maxClients = maxClients;
 
             clients = new List<Client>();
-            //queue = new Dictionary<Client, PacketFlags>();
             positionPacketQueue = new List<QueuedPacket>();
 
             positionUpdatePump = new Timer(POSITION_UPDATE_DELAY, PositionUpdates);
@@ -91,6 +88,7 @@ namespace Valk.Networking
 
                         case EventType.Disconnect:
                             Logger.Log($"Client disconnected - ID: {id}, IP: {ip}");
+                            clients.Remove(clients.Find(x => x.ID.Equals(netEvent.Peer.ID)));
                             break;
 
                         case EventType.Timeout:
@@ -156,7 +154,7 @@ namespace Valk.Networking
 
                 // Send the data to the clients
                 //Logger.Log($"Broadcasting to client {clientQueued.ID}");
-                Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.Reliable, data.ToArray()), sendPeers.ToArray());
+                Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, packetFlags, data.ToArray()), sendPeers.ToArray());
                 positionPacketQueue.Remove(item);
             }
         }
@@ -233,7 +231,7 @@ namespace Valk.Networking
                         }
 
                         // Logged in with correct password
-                        Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable, id));
+                        Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable, id, name));
                         Logger.Log($"Client '{id}' successfully logged into account '{name}'");
                         clients.Find(x => x.ID.Equals(id)).Status = ClientStatus.InGame;
                         Logger.Log($"Client '{id}' joined game room.");

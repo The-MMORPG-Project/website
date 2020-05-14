@@ -34,7 +34,8 @@ namespace Valk.Networking
         private ClientBehavior clientGoScript;
         private Transform clientGoT;
 
-        private uint theID = 1234;
+        private uint myID;
+        private string myName;
 
         private void Start()
         {
@@ -147,82 +148,78 @@ namespace Valk.Networking
 
                 if (packetID == PacketType.ServerCreateAccountDenied)
                 {
-                    Debug.Log("Account denied");
-                    var reason = reader.ReadString();
-                    Debug.Log("Reason: " + reason);
-                    UIAccountManagement.UpdateText($"Account Denied: {reason}");
+                    //Debug.Log("Account denied");
+                    var errorType = (ErrorType)reader.ReadByte();
+                    var message = Error.ReadError(errorType);
+                    UIAccountManagement.UpdateText($"Account Denied: {message}");
+                }
+
+                if (packetID == PacketType.ServerLoginDenied)
+                {
+                    //Debug.Log("Login denied");
+                    var errorType = (ErrorType)reader.ReadByte();
+                    var message = Error.ReadError(errorType);
+                    
+                    UIAccountManagement.UpdateText($"Login Denied: {message}");
                 }
 
                 if (packetID == PacketType.ServerCreateAccountAccepted)
                 {
-                    Debug.Log("Account created");
+                    //Debug.Log("Account created");
                     UIAccountManagement.UpdateText($"Account Created");
                 }
 
                 if (packetID == PacketType.ServerLoginAccepted)
                 {
-                    theID = reader.ReadUInt32();
-                    //Debug.Log(theID);
-                    //Debug.Log("Login accepted");
+                    myID = reader.ReadUInt32();
+                    myName = reader.ReadString();
+                    
                     UIAccountManagement.UpdateText($"Logging in...");
                     StartCoroutine(ASyncLoadGame());
-                }
-
-                if (packetID == PacketType.ServerLoginDenied)
-                {
-                    Debug.Log("Login denied");
-                    var reason = (ErrorType)reader.ReadByte();
-                    var message = "";
-                    if (reason == ErrorType.AccountCreateNameAlreadyRegistered)
-                        message = "Account name already registered.";
-                    if (reason == ErrorType.AccountLoginDoesNotExist)
-                        message = "Account login does not exist.";
-                    if (reason == ErrorType.AccountLoginWrongPassword)
-                        message = "Wrong password.";
-                    UIAccountManagement.UpdateText($"Login Denied: {message}");
                 }
 
                 if (packetID == PacketType.ServerPositionUpdate)
                 {
                     //Debug.Log("Received Server Position Update");
-                    var id = reader.ReadUInt32();
-                    var x = reader.ReadSingle();
-                    var y = reader.ReadSingle();
+                    var oID = reader.ReadUInt32();
+                    var oX = reader.ReadSingle();
+                    var oY = reader.ReadSingle();
                     //Debug.Log($"ID: {id}, X: {x}, Y: {y}");
-                    if (clients.ContainsKey(id))
+
+                    if (clients.ContainsKey(oID))
                     {
                         Debug.Log("Updated position of oClient");
 
-                        if (clients[id] == null)
+                        if (clients[oID] == null)
                         {
-                            Debug.Log("Removing client");
-                            clients.Remove(id);
+                            Debug.Log("Removing oClient");
+                            clients.Remove(oID);
                         }
                         else
                         {
-                            clients[id].transform.position = new Vector2(x, y);
+                            clients[oID].transform.position = new Vector2(oX, oY);
                         }
+
+                        return;
                     }
-                    else
+
+                    if (oID == myID) // myID being the ID of THIS client
                     {
-                        if (id == theID) 
-                        {
-                            // theID being the ID of THIS client
-                            Debug.Log("Received position update for THIS client. Ignoring..");
-                            return;
-                        }
-
-                        Debug.Log($"Added new oClient '{id}'");
-                        var oClient = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
-                        oClient.name = $"oClient {id}";
-                        clients.Add(id, oClient);
-
-                        var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
-                        ui.GetComponent<Canvas>().worldCamera = Camera.main;
-                        ui.transform.SetParent(oClient.transform);
-                        ui.transform.position = new Vector3(0, 0.35f, 0);
-                        ui.GetComponentInChildren<TMP_Text>().text = $"Client '{id}'";
+                        // This is just a safeguard, this was caused before because the server was using a Dict<> instead of a List<> causing the server position queue to not be in sync
+                        Debug.LogWarning("Received position update for THIS client. Ignoring..");
+                        return;
                     }
+
+                    Debug.Log($"Added new oClient '{oID}'");
+                    var oClient = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
+                    oClient.name = $"oClient {oID}";
+                    clients.Add(oID, oClient);
+
+                    var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
+                    ui.GetComponent<Canvas>().worldCamera = Camera.main;
+                    ui.transform.SetParent(oClient.transform);
+                    ui.transform.position = new Vector3(0, 0.35f, 0);
+                    ui.GetComponentInChildren<TMP_Text>().text = $"{oID}";
                 }
 
                 if (packetID == PacketType.ServerClientDisconnected)
@@ -256,14 +253,14 @@ namespace Valk.Networking
         private void Spawn()
         {
             clientGo = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
-            clientGo.name = "mClient (You)";
+            clientGo.name = $"mClient (You)";
             clientGoScript = clientGo.AddComponent<ClientBehavior>();
             clientGoT = clientGo.transform;
             var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
             ui.GetComponent<Canvas>().worldCamera = Camera.main;
             ui.transform.SetParent(clientGo.transform);
             ui.transform.position = new Vector3(0, 0.35f, 0);
-            ui.GetComponentInChildren<TMP_Text>().text = $"Client '{theID}'";
+            ui.GetComponentInChildren<TMP_Text>().text = myName;
 
             InGame = true;
 
