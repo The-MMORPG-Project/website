@@ -31,7 +31,7 @@ Solution: Downgrade to `C# 1.21.16`
 4. Provide as much context as possible in your issue!
 
 ## Creating a Pull Request
-1. Talk to a project manager to get your PR approved in advance.
+1. Talk to valk#3277 on Discord before you create a PR.
 2. Always test the PR to see if it works as intended with no additional bugs you may be adding!
 3. State all the changes you made in the PR, not everyone will understand what you've done!
 
@@ -48,16 +48,6 @@ Solution: Downgrade to `C# 1.21.16`
 - Public variables should follow the PascalFormat
 - Methods should follow PascalFormat
 - Add informative comments to clear up obscure code
-
-## Sprites
-[Gimp](https://www.gimp.org) is open-source free software great for creating Sprites. Make sure when finished creating a Sprite, export both the `.xcf` and image file into the Unity assets folder.
-
-## Animations
-### Mixamo Humanoids
-1. Keep the format .FBX for Unity at 30 Frames with no keyframe reduction and check off "In Place" if applicable. 
-2. Import the .FBX into Blender, then delete the imported armature. 
-3. Apply the new animation to the original armature. Make sure your applying the animation to the "Armature" and not the "Cube". 
-4. Export the Blender file to .FBX, import into Unity, set the scale factor to 0.1, set the animation type to Humanoid, go into configure, sample Bind-Pose, then enforce T-Pose, and finally enable Loop Time for all animations.
 
 ## Documentation
 - [Unity Scripting Reference](https://docs.unity3d.com/ScriptReference/)
