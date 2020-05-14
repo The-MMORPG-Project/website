@@ -209,15 +209,15 @@ namespace Valk.Networking
                         return;
                     }
 
-                    var oClient = Instantiate(oClientPrefab, new Vector3(oX, oY, 0), Quaternion.identity);
-                    oClient.transform.position = new Vector2(oX, oY);
+                    var oClient = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
+                    oClient.transform.position = new Vector3(oX, oY, 0);
                     oClient.name = $"oClient {oID}";
                     clients.Add(oID, oClient);
 
-                    var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
+                    var ui = Instantiate(oClientCanvasPrefab, oClient.transform);
                     ui.GetComponent<Canvas>().worldCamera = Camera.main;
                     ui.transform.SetParent(oClient.transform);
-                    ui.transform.position = new Vector3(0, 0.35f, 0);
+                    ui.transform.localPosition = new Vector3(0, 0.35f, 0);
                     ui.GetComponentInChildren<TMP_Text>().text = $"{oID}";
 
                     Debug.Log($"Added new oClient '{oID}' at x: {oX}, y: {oY}");
