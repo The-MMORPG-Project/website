@@ -184,19 +184,18 @@ namespace Valk.Networking
                     var oID = reader.ReadUInt32();
                     var oX = reader.ReadSingle();
                     var oY = reader.ReadSingle();
-                    //Debug.Log($"ID: {id}, X: {x}, Y: {y}");
+                    Debug.Log($"ID: {oID}, X: {oX}, Y: {oY}");
 
                     if (clients.ContainsKey(oID))
                     {
-                        Debug.Log("Updated position of oClient");
-
                         if (clients[oID] == null)
                         {
-                            Debug.Log("Removing oClient");
+                            Debug.LogWarning("oClient is null");
                             clients.Remove(oID);
                         }
                         else
                         {
+                            Debug.Log($"Updated position for other client ID '{oID}' x: {oX}, y: {oY}");
                             clients[oID].transform.position = new Vector2(oX, oY);
                         }
 
@@ -210,8 +209,8 @@ namespace Valk.Networking
                         return;
                     }
 
-                    Debug.Log($"Added new oClient '{oID}'");
-                    var oClient = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
+                    var oClient = Instantiate(oClientPrefab, new Vector3(oX, oY, 0), Quaternion.identity);
+                    oClient.transform.position = new Vector2(oX, oY);
                     oClient.name = $"oClient {oID}";
                     clients.Add(oID, oClient);
 
@@ -220,6 +219,8 @@ namespace Valk.Networking
                     ui.transform.SetParent(oClient.transform);
                     ui.transform.position = new Vector3(0, 0.35f, 0);
                     ui.GetComponentInChildren<TMP_Text>().text = $"{oID}";
+
+                    Debug.Log($"Added new oClient '{oID}' at x: {oX}, y: {oY}");
                 }
 
                 if (packetID == PacketType.ServerClientDisconnected)
@@ -263,6 +264,9 @@ namespace Valk.Networking
             ui.GetComponentInChildren<TMP_Text>().text = myName;
 
             InGame = true;
+
+            var pos = clientGoT.position;
+            Network.Send(PacketType.ClientPositionUpdate, PacketFlags.Reliable, pos.x, pos.y);
 
             // We are in the game, we are ready to receive the initial positions of all the other clients
             Network.Send(PacketType.ClientRequestPositions, PacketFlags.Reliable);
