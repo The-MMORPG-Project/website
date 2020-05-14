@@ -14,7 +14,12 @@ namespace Valk.Networking
             server.Broadcast(Server.channelID, ref packet);
         }
 
-        public static void Broadcast(Host server, ENet.Packet packet, params Peer[] peers)
+        public static void Broadcast(Host server, ENet.Packet packet, Peer excludedPeer)
+        {
+            server.Broadcast(Server.channelID, ref packet, excludedPeer);
+        }
+
+        public static void Broadcast(Host server, ENet.Packet packet, Peer[] peers)
         {
             server.Broadcast(Server.channelID, ref packet, peers);
         }
