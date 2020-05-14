@@ -205,6 +205,13 @@ namespace Valk.Networking
                     }
                     else
                     {
+                        if (id == theID) 
+                        {
+                            // theID being the ID of THIS client
+                            Debug.Log("Received position update for THIS client. Ignoring..");
+                            return;
+                        }
+
                         Debug.Log($"Added new oClient '{id}'");
                         var oClient = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
                         oClient.name = $"oClient {id}";
