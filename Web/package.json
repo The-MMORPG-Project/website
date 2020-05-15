@@ -23,6 +23,6 @@
   },
   "scripts": {
     "dev:server": "cd src && nodemon -q server.js",
-	"dev:lint": "cd src && eslint --fix ."
+    "dev:lint": "cd src && eslint --fix ."
   }
 }

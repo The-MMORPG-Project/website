@@ -16,5 +16,9 @@
         "ecmaVersion": 11
     },
     "rules": {
+        "no-unused-vars": "off",
+        "no-trailing-spaces": "off",
+        "handle-callback-err": "off",
+        "space-before-function-paren": "off"
     }
 }

@@ -16,7 +16,7 @@ public class Test : MonoBehaviour
 
     async void Start()
     {
-        await Fetch();
+        //await Fetch();
         await Post();
     }
 
@@ -27,19 +27,19 @@ public class Test : MonoBehaviour
             var response = await _http.GetAsync(_url);
             Debug.Log($"API responded with: {response.StatusCode}");
             string responseBody = await response.Content.ReadAsStringAsync();
-            Tester t = JsonConvert.DeserializeObject<Tester>(responseBody);
-            Debug.Log(t.data);
+            //Tester t = JsonConvert.DeserializeObject<Tester>(responseBody);
+            //Debug.Log(t.data);
         }
     }
 
     async Task Post()
     {
-        var t = new Tester();
-        t.data = "John Doe";
+        var user = new User();
+        user.Name = "Bob Marley";
 
-        var json = JsonConvert.SerializeObject(t);
+        var json = JsonConvert.SerializeObject(user);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await _http.PostAsync(_url + "/post", content);
+        var response = await _http.PostAsync(_url + "/api/login", content);
 
         string result = response.Content.ReadAsStringAsync().Result;
         Debug.Log(result);
