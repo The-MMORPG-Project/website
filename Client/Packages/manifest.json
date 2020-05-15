@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.unity.2d.animation": "3.2.1",
+    "com.unity.2d.animation": "3.2.2",
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.2d.spriteshape": "3.0.10",
+    "com.unity.2d.spriteshape": "3.0.11",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.ide.vscode": "1.2.0",
-    "com.unity.test-framework": "1.1.13",
+    "com.unity.test-framework": "1.1.14",
     "com.unity.textmeshpro": "2.0.1",
     "com.unity.timeline": "1.2.14",
     "com.unity.ugui": "1.0.0",
