@@ -109,6 +109,8 @@ namespace Valk.Networking
                     Debug.Log("Client disconnected from server");
                     Connected = false;
 
+                    clients.Remove(myID);
+
                     if (!IsQuitting)
                     {
                         Destroy(gameObject);
@@ -121,6 +123,9 @@ namespace Valk.Networking
 
                 case ENet.EventType.Timeout:
                     Debug.Log("Client connection timeout");
+
+                    clients.Remove(myID);
+
                     Destroy(gameObject);
                     CleanUp();
                     SceneManager.LoadScene("Main Menu");
@@ -197,9 +202,9 @@ namespace Valk.Networking
                         {
                             Debug.Log($"Updated position for other client ID '{oID}' x: {oX}, y: {oY}");
                             clients[oID].transform.position = new Vector2(oX, oY);
-                        }
 
-                        return;
+                            return;
+                        }
                     }
 
                     if (oID == myID) // myID being the ID of THIS client
