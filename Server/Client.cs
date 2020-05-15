@@ -20,6 +20,8 @@ namespace Valk.Networking
         public float py { get; set; }
         public float x { get; set; }
         public float y { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
 
         public ClientStatus Status { get; set; }
 

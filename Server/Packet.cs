@@ -15,7 +15,10 @@ namespace Valk.Networking
         ServerPositionUpdate,
         ClientRequestPositions,
         ClientDisconnect,
-        ServerClientDisconnected
+        ServerClientDisconnected,
+        ServerClientName,
+        ClientRequestNames,
+        ServerInitialPositionUpdate
     }
 
     enum ErrorType 
@@ -35,11 +38,5 @@ namespace Valk.Networking
             packet.Create(buffer, packetFlagType);
             return packet;
         }
-    }
-
-    struct QueuedPacket 
-    {
-        public Client Client { get; set; }
-        public PacketFlags PacketFlags { get; set; }
     }
 }

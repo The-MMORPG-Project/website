@@ -164,7 +164,7 @@ namespace Valk.Networking
                     //Debug.Log("Login denied");
                     var errorType = (ErrorType)reader.ReadByte();
                     var message = Error.ReadError(errorType);
-                    
+
                     UIAccountManagement.UpdateText($"Login Denied: {message}");
                 }
 
@@ -178,9 +178,23 @@ namespace Valk.Networking
                 {
                     myID = reader.ReadUInt32();
                     myName = reader.ReadString();
-                    
+
                     UIAccountManagement.UpdateText($"Logging in...");
                     StartCoroutine(ASyncLoadGame());
+                }
+
+                if (packetID == PacketType.ServerClientName)
+                {
+                    var oID = reader.ReadUInt32();
+                    var oName = reader.ReadString();
+
+                    Debug.Log($"Received name {oName} from {oID}");
+
+                    if (clients.ContainsKey(oID))
+                    {
+                        Debug.Log("Updating text component");
+                        clients[oID].GetComponentInChildren<TMP_Text>().text = oName;
+                    }
                 }
 
                 if (packetID == PacketType.ServerPositionUpdate)
@@ -189,7 +203,7 @@ namespace Valk.Networking
                     var oID = reader.ReadUInt32();
                     var oX = reader.ReadSingle();
                     var oY = reader.ReadSingle();
-                    Debug.Log($"ID: {oID}, X: {oX}, Y: {oY}");
+                    //Debug.Log($"ID: {oID}, X: {oX}, Y: {oY}");
 
                     if (clients.ContainsKey(oID))
                     {
@@ -200,7 +214,7 @@ namespace Valk.Networking
                         }
                         else
                         {
-                            Debug.Log($"Updated position for other client ID '{oID}' x: {oX}, y: {oY}");
+                            //Debug.Log($"Updated position for other client ID '{oID}' x: {oX}, y: {oY}");
                             clients[oID].transform.position = new Vector2(oX, oY);
 
                             return;
@@ -233,7 +247,6 @@ namespace Valk.Networking
                     var id = reader.ReadUInt32();
 
                     clients.Remove(id);
-                    Debug.Log($"oClient {id}");
                     Destroy(GameObject.Find($"oClient {id}"));
                     Debug.Log($"Client {id} disconnected");
                 }

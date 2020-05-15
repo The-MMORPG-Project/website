@@ -25,7 +25,7 @@ namespace Valk.Networking
         private bool serverRunning;
 
         private List<Client> clients;
-        private List<QueuedPacket> positionPacketQueue;
+        private List<Client> positionPacketQueue;
 
         public Server(ushort port, int maxClients)
         {
@@ -33,7 +33,7 @@ namespace Valk.Networking
             this.maxClients = maxClients;
 
             clients = new List<Client>();
-            positionPacketQueue = new List<QueuedPacket>();
+            positionPacketQueue = new List<Client>();
 
             positionUpdatePump = new Timer(POSITION_UPDATE_DELAY, PositionUpdates);
             positionUpdatePump.Start();
@@ -131,11 +131,8 @@ namespace Valk.Networking
             var data = new List<object>(); // Prepare the data list that will eventually be serialized and sent
 
             // Send clientQueued data to every other client but clientQueued client
-            foreach (var item in positionPacketQueue)
+            foreach (var clientQueued in positionPacketQueue)
             {
-                var clientQueued = item.Client; // The client that was queued
-                var packetFlags = item.PacketFlags; // The type of packet flags
-
                 // Add the clientQueued data to data list
                 data.Add(clientQueued.ID);
                 data.Add(clientQueued.x);
@@ -154,8 +151,26 @@ namespace Valk.Networking
 
                 // Send the data to the clients
                 //Logger.Log($"Broadcasting to client {clientQueued.ID}");
-                Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, packetFlags, data.ToArray()), sendPeers.ToArray());
-                positionPacketQueue.Remove(item);
+                Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.None, data.ToArray()), sendPeers.ToArray());
+                positionPacketQueue.Remove(clientQueued);
+            }
+        }
+
+        private void SendName(Client sender) 
+        {
+            var clientsInGame = clients.FindAll(x => x.Status == ClientStatus.InGame && x.ID != sender.ID);
+
+            if (clientsInGame.Count < 1)
+                return;
+
+            foreach (var client in clientsInGame) 
+            {
+                var data = new List<object>();
+
+                data.Add(client.ID);
+                data.Add(client.Name);
+
+                Network.Broadcast(server, Packet.Create(PacketType.ServerClientName, PacketFlags.Reliable, data.ToArray()), new Peer[] { client.Peer });
             }
         }
 
@@ -252,9 +267,24 @@ namespace Valk.Networking
                         // Logged in with correct password
                         Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable, id, name));
                         Logger.Log($"Client '{id}' successfully logged into account '{name}'");
-                        clients.Find(x => x.ID.Equals(id)).Status = ClientStatus.InGame;
+
+                        var client = clients.Find(x => x.ID.Equals(id));
+                        client.Status = ClientStatus.InGame;
+                        client.Name = name;
+                        client.Password = pass;
+
                         Logger.Log($"Client '{id}' joined game room.");
                     }
+                }
+
+                if (packetID == PacketType.ClientRequestNames) 
+                {
+                    var peers = GetPeersInGame();
+                    if (peers.Length == 0)
+                        return;
+
+                    var client = clients.Find(x => x.ID.Equals(id));
+                    SendName(client);
                 }
 
                 if (packetID == PacketType.ClientRequestPositions)
@@ -264,12 +294,12 @@ namespace Valk.Networking
                         return;
 
                     var client = clients.Find(x => x.ID.Equals(id));
-                    var queuedPacket = new QueuedPacket { Client = client, PacketFlags = PacketFlags.Reliable };
-                    if (!positionPacketQueue.Contains(queuedPacket))
+                    if (!positionPacketQueue.Contains(client))
                     {
-                        positionPacketQueue.Add(queuedPacket);
+                        positionPacketQueue.Add(client);
                         SendInitialPositions(client);
-                        Logger.Log($"Client {client.ID} requested initial positions, adding to queue..");
+                        
+                        //Logger.Log($"Client {client.ID} requested initial positions, adding to queue..");
                     }
                 }
 
@@ -283,12 +313,10 @@ namespace Valk.Networking
                     client.x = x;
                     client.y = y;
 
-                    var queuedPacket = new QueuedPacket { Client = client, PacketFlags = PacketFlags.None };
-
                     // Client will be added to the position update queue
-                    if (!positionPacketQueue.Contains(queuedPacket) && (client.x != client.px || client.y != client.py))
+                    if (!positionPacketQueue.Contains(client) && (client.x != client.px || client.y != client.py))
                     {
-                        positionPacketQueue.Add(queuedPacket);
+                        positionPacketQueue.Add(client);
                     }
 
                     // Keep track of previous position
