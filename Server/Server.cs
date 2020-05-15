@@ -159,6 +159,25 @@ namespace Valk.Networking
             }
         }
 
+        private void SendInitialPositions(Client recipient)
+        {
+            var clientsInGame = clients.FindAll(x => x.Status == ClientStatus.InGame && x.ID != recipient.ID);
+
+            if (clientsInGame.Count < 1)
+                return;
+
+            foreach (var client in clientsInGame)
+            {
+                var data = new List<object>();
+
+                data.Add(client.ID);
+                data.Add(client.x);
+                data.Add(client.y);
+
+                Network.Broadcast(server, Packet.Create(PacketType.ServerPositionUpdate, PacketFlags.Reliable, data.ToArray()), new Peer[] { recipient.Peer });
+            }
+        }
+
         private Peer[] GetPeersInGame()
         {
             return clients.FindAll(x => x.Status == ClientStatus.InGame).Select(x => x.Peer).ToArray();
@@ -249,6 +268,7 @@ namespace Valk.Networking
                     if (!positionPacketQueue.Contains(queuedPacket))
                     {
                         positionPacketQueue.Add(queuedPacket);
+                        SendInitialPositions(client);
                         Logger.Log($"Client {client.ID} requested initial positions, adding to queue..");
                     }
                 }
