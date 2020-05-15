@@ -1,0 +1,20 @@
+{
+  "name": "UnityWebServer",
+  "version": "1.0.0",
+  "description": "Communicating with Unity Server",
+  "main": "src/server.js",
+  "repository": "https://github.com/valkyrienyanko/Unity-ENet-Model",
+  "author": "valkyrienyanko",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "dev:server": "cd src && nodemon -q server.js"
+  }
+}
