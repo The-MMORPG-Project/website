@@ -1,17 +1,41 @@
-var express = require('express')
-var jwt = require('jsonwebtoken')
+const express = require('express')
+const jwt = require('jsonwebtoken')
 
-var app = express()
+const app = express()
 
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 
+const mysql = require('mysql')
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '123456'
+})
+
+db.connect((err) => {
+  if (err) {
+    throw err
+  }
+  console.log('MySQL connected...')
+})
+
 app.get('/api', (req, res) => {
   res.json({
     message: 'Welcome to the API'
+  })
+})
+
+app.get('/api/createdb', (req, res) => {
+  const sql = 'CREATE DATABASE database'
+  db.query(sql, (err, result) => {
+    if (err) throw err
+    console.log('Database created...')
+    res.send('Database created...')
   })
 })
 
@@ -29,7 +53,7 @@ app.post('/api/posts', verifyToken, (req, res) => {
 })
 
 app.post('/api/login', (req, res) => {
-  var user = req.body
+  const user = req.body
   jwt.sign({ user: user }, 'secretkey', (err, token) => {
     res.json({
       token: token
