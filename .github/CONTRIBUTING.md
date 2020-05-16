@@ -17,7 +17,7 @@ Use [Unity Hub](https://unity3d.com/get-unity/download) on version `2019.3.13f1`
 
 <h2 align="center">ENet Server</h2>
 
-Setup the database
+Setup the database (Note that Entity Framework will eventually be scrapped, talk to valk#3277 for more info)
 ```
 dotnet tool install --global dotnet-ef
 dotnet add package Microsoft.EntityFrameworkCore.Design
