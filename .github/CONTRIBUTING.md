@@ -47,17 +47,17 @@ Solution: Downgrade to `C# 1.21.16`
 - All methods should follow PascalFormat
 - Add informative comments to clear up obscure code
 
-## Documentation
-### Unity
+# Documentation
+## Unity
 - [Unity Scripting Reference](https://docs.unity3d.com/ScriptReference/)
 
-### ENet
+## ENet
 - [ENet-CSharp](https://github.com/nxrighthere/ENet-CSharp)
 
-### Server-Side
-- [Entity Framework](https://docs.microsoft.com/en-us/ef/) (Will eventually be scrapped)
+## Server-Side
+- [Entity Framework](https://docs.microsoft.com/en-us/ef/) (Will eventually be scrapped and replaced with MySQL from web server)
 
-### Web Node Modules
+## Web Node Modules
 - [JSON Web Tokens](https://jwt.io)
 - [promise-mysql](https://www.npmjs.com/package/promise-mysql)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
