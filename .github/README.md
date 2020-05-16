@@ -3,9 +3,9 @@
 [![Discord][discord]][discord-url]
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)][discord-url]
 [![Ask Me Anything!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)][discord-url]
-[![Issues](https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model)](https://github.com/valkyrienyanko/Unity-ENet-Model/issues)
+[![Issues](https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model)](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues)
 
-<h1>Unity ENet Model</h1>
+<h1>Unity MMORPG Boilerplate</h1>
 I found out the hard way that UNet and the Unity Transport Layer were really only mean't for LAN and P2P. In light of this I discovered a reliable UDP networking library called ENet which provides a middle line between sending unreliable and reliable packets. This project is intended to be a boilerplate for all your Unity MMORPGs.
 
 <h2>Table of Contents</h2>
