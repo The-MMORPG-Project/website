@@ -50,7 +50,17 @@ Solution: Downgrade to `C# 1.21.16`
 - Add informative comments to clear up obscure code
 
 ## Documentation
+### Unity
 - [Unity Scripting Reference](https://docs.unity3d.com/ScriptReference/)
+
+### ENet
 - [ENet-CSharp](https://github.com/nxrighthere/ENet-CSharp)
-- [Entity Framework](https://docs.microsoft.com/en-us/ef/)
-- [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+
+### Server-Side
+- [Entity Framework](https://docs.microsoft.com/en-us/ef/) (Will eventually be scrapped)
+
+### Web Node Modules
+- [JSON Web Tokens](https://jwt.io)
+- [promise-mysql](https://www.npmjs.com/package/promise-mysql)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [Express](https://www.npmjs.com/package/express)
