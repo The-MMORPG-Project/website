@@ -2,28 +2,34 @@
   "name": "UnityWebServer",
   "version": "1.0.0",
   "description": "Communicating with Unity Server",
-  "main": "src/server.js",
+  "main": "dist/server.js",
   "repository": "https://github.com/valkyrienyanko/Unity-ENet-Model",
   "author": "valkyrienyanko",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1"
+    "mysql-promisify": "^1.0.1"
   },
   "devDependencies": {
+    "@types/node": "^14.0.1",
     "eslint": "^7.0.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
   },
   "scripts": {
-    "dev:server": "cd src && nodemon -q server.js",
-    "dev:lint": "cd src && eslint --fix ."
+	"dev:start": "yarn build && yarn start",
+	"start": "node .",
+    "build": "tsc",
+    "lint": "eslint . --fix --ext .ts"
   }
 }

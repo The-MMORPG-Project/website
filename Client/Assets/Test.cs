@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Net.Sockets;
+using System;
 using System.Threading;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -39,8 +40,7 @@ public class Test : MonoBehaviour
 
         var json = JsonConvert.SerializeObject(user);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await _http.PostAsync(_url + "/api/login", content);
-
+        var response = await _http.PostAsync(_url + "/api/register", content);
         string result = response.Content.ReadAsStringAsync().Result;
         Debug.Log(result);
     }

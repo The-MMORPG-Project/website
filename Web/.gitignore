@@ -1,3 +1,16 @@
-node_modules/
-package-lock.json
+# Transpiled JavaScript
+dist/
+
+# Dotenv Files
 .env
+
+# Dependency Directories
+node_modules/
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Unwanted Lock Files
+package-lock.json
