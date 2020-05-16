@@ -104,19 +104,19 @@ Fork the repository and create a pull request when you want to merge a change.
 - Add informative comments to clear up obscure code
 
 <h1 align="center">Documentation</h1>
-<h2 align="center">Unity</h2>
+<h2>Unity</h2>
 
 - [Unity Scripting Reference](https://docs.unity3d.com/ScriptReference/)
 
-<h2 align="center">ENet</h2>
+<h2>ENet</h2>
 
 - [ENet-CSharp](https://github.com/nxrighthere/ENet-CSharp)
 
-<h2 align="center">Server-Side</h2>
+<h2>Server-Side</h2>
 
 - [Entity Framework](https://docs.microsoft.com/en-us/ef/) (will eventually be scrapped and replaced with MySQL from web server)
 
-<h2 align="center">Web Node Modules</h2>
+<h2>Web Node Modules</h2>
 
 - [JSON Web Tokens](https://jwt.io)
 - [promise-mysql](https://www.npmjs.com/package/promise-mysql)
