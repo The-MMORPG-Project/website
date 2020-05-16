@@ -1,7 +1,7 @@
 # Contributing Guide
 
 ## Setting up Visual Studio Code
-Visual Studio Code is by far one of the best text editors I've ever used, you will have no regrets when using it.
+I will recommend that you use Visual Studio Code as it is by far one of the best text editors for development that I've ever used, you will have no regrets when using it.
 
 ### Installing VSC
 1. Download and install [Visual Studio Code](https://code.visualstudio.com)
@@ -23,7 +23,7 @@ Not all extensions are required for development but I highly recommend you at le
 #### VSC Intellisense does not work for Unity Namespaces
 Solution: Downgrade to `C# 1.21.16`
 
-# Issues and Pull Requests
+# Workflow
 ## Opening an Issue
 1. Gather as much information as you can about the topic
 2. Read the General Guidelines ([#1](https://github.com/valkyrienyanko/ENet-Model/issues/1))
@@ -37,16 +37,14 @@ Solution: Downgrade to `C# 1.21.16`
 
 # Notes
 ## Unity Good Practices
-- Try to avoid putting assets in the resources folder as much as possible as it increases game startup time and ram usage.
-- When comparing gameObject tags use `.CompareTag` instead of `==` to avoid garbage collection.
-- Objects at the very bottom of the Unity Game Window Hierarchy will be layered over objects above. (e.g. If a panel is above a button, the panel will block the raycast to the button)
-- Avoid searching for inactive gameObjects, instead create a public variable in the inspector for the gameObject.
+- Try to avoid putting assets in the resources folder as much as possible as it increases game startup time and ram usage. (Eventually we will not use the Resources folder at all)
+- Try to make use of Unity's prefabs as much as possible, I found that I ran into countless production issues by trying to code everything from scratch
 
 ## C# Style & Guidelines
 - Private variables should be camelCase.
-- If a public variable has around 2 characters, keep everything UPPERCASE
+- If a public variable has around 2 characters, keep everything UPPERCASE (e.g. "ID")
 - Public variables should follow the PascalFormat
-- Methods should follow PascalFormat
+- All methods should follow PascalFormat
 - Add informative comments to clear up obscure code
 
 ## Documentation
