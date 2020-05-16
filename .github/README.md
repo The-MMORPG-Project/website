@@ -61,10 +61,16 @@ And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity
   <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/Unity-ENet-Model" />
 </a>
 
-<!--Badges and Links-->
-[discord]: https://img.shields.io/discord/453710350454620160.svg <!--Discord Badge Image-->
-[discord-url]: https://discord.gg/thMupbv <!--Discord Link-->
-[maintenance]: https://img.shields.io/badge/Maintained%3F-yes-green.svg <!--Maintenance Image-->
-[ask-me-anything]: https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg <!--Ask Me Anything Image-->
-[issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model <!--Issues Image-->
-[issues-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues <!--Issues Link-->
+<!--BADGES AND LINKS-->
+<!--Discord Badge Image-->
+[discord]: https://img.shields.io/discord/453710350454620160.svg
+<!--Discord Link-->
+[discord-url]: https://discord.gg/thMupbv
+<!--Maintenance Image-->
+[maintenance]: https://img.shields.io/badge/Maintained%3F-yes-green.svg 
+<!--Ask Me Anything Image-->
+[ask-me-anything]: https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg 
+<!--Issues Image-->
+[issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model 
+<!--Issues Link-->
+[issues-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues 
