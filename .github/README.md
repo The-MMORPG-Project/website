@@ -11,13 +11,14 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 <h2>Table of Contents</h2>
 
 1. [Setup Client](#setup-client)
-2. [Setup Server](#setup-server)
-3. [Features](#features)
-4. [Releases](#releases)
-5. [Stress Tests](#stress-tests)
-6. [Issues](#issues)
-7. [Contributing](#contributing)
-8. [Contributors](#contributors)
+2. [Setup ENet Server](#setup-enet-server)
+3. [Setup Web Server](#setup-web-server)
+4. [Features](#features)
+5. [Releases](#releases)
+6. [Stress Tests](#stress-tests)
+7. [Issues](#issues)
+8. [Contributing](#contributing)
+9. [Contributors](#contributors)
 
 <h2 align="center">Setup Client</h2>
 
@@ -25,7 +26,7 @@ Use [Unity Hub](https://unity3d.com/get-unity/download) on version `2019.3.13f1`
 
 **IMPORTANT** Do not use Unity 2020 versions or you will run into many issues!
 
-<h2 align="center">Setup Server</h2>
+<h2 align="center">Setup ENet Server</h2>
 
 Setup the database
 ```
@@ -37,6 +38,22 @@ dotnet ef database update
 Run the server
 ```
 dotnet run
+```
+
+<h2 align="center">Setup Web Server</h2>
+
+1. Install and setup [MySQL](https://dev.mysql.com/downloads/installer/)
+2. Install yarn 
+```
+npm i -g yarn
+```
+3. Install dependencies 
+```
+yarn install
+```
+4. Run server
+```
+yarn dev:server
 ```
 
 <h2 align="center">Features</h2>
