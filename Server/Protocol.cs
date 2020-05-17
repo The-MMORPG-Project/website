@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Valk.Networking;
 
 public class Protocol : IDisposable
 {
@@ -31,9 +30,6 @@ public class Protocol : IDisposable
 
             if (type == typeof(string))
                 bufferSize += (sizeof(char) * ((string)value).Length);
-
-            if (type == typeof(byte) || type.IsEnum)
-                bufferSize += sizeof(byte);
         }
 
         InitWriter(bufferSize);
@@ -53,12 +49,6 @@ public class Protocol : IDisposable
 
             if (type == typeof(string))
                 writer.Write((string)value);
-
-            if (type == typeof(byte))
-                writer.Write((byte)value);
-
-            if (type.IsEnum)
-                writer.Write((byte)(int)value); // before finding something better
         }
         return buffer;
     }
