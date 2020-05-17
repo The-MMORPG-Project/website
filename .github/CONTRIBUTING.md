@@ -1,5 +1,7 @@
 <h1>Contributing Guide</h1>
 
+If you have any questions, feel free to contact me at **valk#3277** on Discord.
+
 <h2>Table of Contents</h2>
 
 1. [Introduction](#introduction)
@@ -90,7 +92,7 @@ Fork the repository and create a pull request when you want to merge a change.
 
 <h2 align="center">Creating a Pull Request</h2>
 
-1. Talk to valk#3277 on Discord before you create a PR.
+1. Talk to **valk#3277** on Discord before you create a PR.
 2. Always test the PR to see if it works as intended with no additional bugs you may be adding!
 3. State all the changes you made in the PR, not everyone will understand what you've done!
 
