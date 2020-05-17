@@ -47,9 +47,15 @@ npm i -g yarn
 ```
 yarn install
 ```
-4. Run server
+4. Create .env file in Web root folder and fill following variables inside
 ```
-yarn dev:server
+DB_HOST=xxx.xxx.xxx.xxx
+DB_USER=xxxxx
+DB_PASSWORD=xxxxxxx
+```
+5. Run server
+```
+yarn dev:start
 ```
 
 <h1 align="center">Visual Studio Code</h1>
