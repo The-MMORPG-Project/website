@@ -1,6 +1,4 @@
-using System;
-
-[Serializable]
+[System.Serializable]
 class User 
 {
     public int ID { get; set; }

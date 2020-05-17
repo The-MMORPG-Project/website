@@ -45,7 +45,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
     console.log(user)
 
     const results = await db.query("SELECT * FROM `users` WHERE username = ?", [name])
-    if (results != undefined) {
+    
+    if (results.length != 0) {
       // User already exists in database
       res.json({ status: StatusCode.REGISTER_ACCOUNT_ALREADY_EXISTS })
       //console.log(`User tried to register the account '${name}' but it already exists`)
