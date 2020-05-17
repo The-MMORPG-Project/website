@@ -26,11 +26,13 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 
 <h2 align="center">Contributing</h2>
 
-Please talk to **valk#3277** over Discord to learn more on how you can contribute to the project.
+Please talk to me over Discord (**valk#3277**) to learn more on how you can contribute to the project. If you don't want to wait for me to accept your friend request, you can join [my discord](https://discord.gg/thMupbv) and then you'll be able to send me messages without a friend request.
 
 You can also read the [Contributing Guide](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
 
 And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12)
+
+And [Roadmap to v0.3](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues/21)
 
 <h2 align="center">Contributors</h2>
 
