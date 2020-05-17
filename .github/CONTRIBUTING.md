@@ -38,7 +38,7 @@ dotnet run
 
 <h2 align="center">Web Server</h2>
 
-1. Install and setup [MySQL](https://dev.mysql.com/downloads/installer/)
+1. Install and setup [MySQL](https://dev.mysql.com/downloads/installer/) (preferably setup on a remote dedicated machine)
 2. Install yarn 
 ```
 npm i -g yarn
