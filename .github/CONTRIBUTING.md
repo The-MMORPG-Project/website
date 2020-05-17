@@ -47,7 +47,7 @@ npm i -g yarn
 ```
 yarn install
 ```
-4. Create .env file in Web root folder and fill following variables inside
+4. Create `.env` file in Web root folder and fill following variables inside
 ```
 DB_HOST=xxx.xxx.xxx.xxx
 DB_USER=xxxxx
