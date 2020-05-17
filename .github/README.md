@@ -11,11 +11,8 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 <h2>Table of Contents</h2>
 
 1. [Features](#features)
-2. [Releases](#releases)
-3. [Stress Tests](#stress-tests)
-4. [Issues](#issues)
-5. [Contributing](#contributing)
-6. [Contributors](#contributors)
+2. [Contributing](#contributing)
+3. [Contributors](#contributors)
 
 <h2 align="center">Features</h2>
 
@@ -26,26 +23,6 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 - Headless Server
 - Wrapper Classes to Simplify Networking Send / Receive
 - Server Console Command Input Functionality
-
-<h2 align="center">Releases</h2>
-
-The project is still in its alpha stages, not everything may work as you expect. 
-
-[Releases](https://github.com/valkyrienyanko/Unity-ENet-Model/releases)
-
-<h2 align="center">Stress Tests</h2>
-
-Works fine with 3 CCU's (Concurrently Connected Users)
-
-Would test with more but I currently only have 2 alpha testers.
-
-Join the [Discord](https://discord.gg/thMupbv) and ask **valk#3277** for the Alpha Tester role if you want to become a Alpha Tester.
-
-<h2 align="center">Issues</h2>
-
-Have a look at the projects current [issues](https://github.com/valkyrienyanko/Unity-ENet-Model/issues)
-
-Please make time to read and follow the [Issue Guidelines](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/1)
 
 <h2 align="center">Contributing</h2>
 
