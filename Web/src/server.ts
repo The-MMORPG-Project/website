@@ -1,110 +1,141 @@
-const express = require("express")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+import 'dotenv/config'
+import express from 'express'
+import * as jwt from 'jsonwebtoken'
+import * as bcrypt from 'bcrypt'
+import * as MySQL from 'promise-mysql'
+import * as bodyParser from 'body-parser'
+import { config } from './config'
+import { StatusCode } from './statuscode'
 
 const app = express()
 
-const bodyParser = require("body-parser")
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(bodyParser.urlencoded({ extended: true }))
 
-const { MySQL } = require("mysql-promisify")
-
-const db = new MySQL({
-  host: "localhost",
-  user: "root",
-  password: "nimda"
-})
-
-app.get("/api", (req, res) => {
-  res.json({
-    message: "Welcome to the API"
+;(async () => {
+  const db = await MySQL.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
   })
-})
 
-app.post("/api/posts", verifyToken, (req, res) => {
-  jwt.verify(req.token, "secretkey", (err, authData) => {
-    if (err) {
-      res.sendStatus(403)
-    } else {
-      res.json({
-        message: "Posted created...",
-        authData
-      })
+  app.get("/api", (req, res) => {
+    res.json({ message: "Welcome to the API" })
+  })
+
+  app.post("/api/posts", verifyToken, (req, res) => {
+    // (req as { [ key: string ]:any }).token use to be just req.token
+    jwt.verify((req as { [ key: string ]:any }).token, "secretkey", (err, authData) => {
+      if (err) {
+        res.sendStatus(403)
+      } else {
+        res.json({
+          message: "Posted created...",
+          authData
+        })
+      }
+    })
+  })
+
+  app.post("/api/register", async (req, res) => {
+    const user = req.body
+    const name = user.Name
+    const pass = user.Password
+
+    console.log(user)
+
+    const results = await db.query("SELECT * FROM `users` WHERE username = ?", [name])
+    if (results != undefined) {
+      // User already exists in database
+      res.json({ status: StatusCode.REGISTER_ACCOUNT_ALREADY_EXISTS })
+      //console.log(`User tried to register the account '${name}' but it already exists`)
+      return
     }
-  })
-})
 
-enum StatusCode {
-  REGISTER_SUCCESS,
-  REGISTER_ACCOUNT_ALREADY_EXISTS,
-  REGISTER_PASSWORD_TOO_LONG,
-  REGISTER_PASSWORD_TOO_SHORT,
-  REGISTER_USERNAME_TOO_LONG,
-  REGISTER_USERNAME_TOO_SHORT
-}
+    if (name.length < config.username.min_length || name.length > config.username.max_length) {
+      // Invalid username
+      res.json({ status: StatusCode.REGISTER_USERNAME_INVALID })
+      //console.log(`User tried to register the account '${name}' but their username was invalid`)
+      return
+    }
 
-app.post("/api/register", async (req, res) => {
-  const user = req.body
-  console.log(user)
-  const { result } = await db.query({ sql: "SELECT * FROM `users` WHERE username = :user", params: { user: user.name } })
-  if (result === undefined) {
-    const saltRounds = 12
-    bcrypt.hash("123", saltRounds, async (err, hash) => {
+    if (pass.length < config.password.min_length || pass.length > config.password.max_length) {
+      // Invalid password
+      res.json({ status: StatusCode.REGISTER_PASSWORD_INVALID })
+      //console.log(`User tried to register the account '${name}' but their password was invalid`)
+      return
+    }
+
+    // Register user to database and encrpyt their password
+    const saltRounds = 12 // 10 is weak, 12 is stronger
+    bcrypt.hash(pass, saltRounds, async (err, hash) => {
       if (err) throw err
-      await db.query({sql: "INSERT INTO users (username, password) VALUES (:username, :password)", params: { username: user.name, password: hash}})
+      await db.query("INSERT INTO users (username, password) VALUES (?, ?)", [name, hash])
     })
 
-    res.json({
-      status: StatusCode.REGISTER_SUCCESS
-    })
-  } else {
-    res.json({
-      status: StatusCode.REGISTER_ACCOUNT_ALREADY_EXISTS
-    })
-  }
-})
+    res.json({ status: StatusCode.REGISTER_SUCCESS })
+    console.log(`User registered account '${name}' to database`)
+  })
 
-app.post("/api/login", (req, res) => {
-  const user = req.body
-  jwt.sign({ user: user }, "secretkey", (err, token) => {
-    res.json({
-      token: token
+  app.post("/api/login", async (req, res) => {
+    const user = req.body
+    const name = user.Name
+    const pass = user.Password
+
+    const results = await db.query("SELECT * FROM `users` WHERE username = ?", [name])
+    if (results == undefined) {
+      res.json({ status: StatusCode.LOGIN_DOESNT_EXIST })
+      //console.log(`User tried to login to the account '${name}' but it does not exist`)
+      return
+    }
+
+    bcrypt.compare(pass, results[0].password, (err, result) => {
+      if (err) throw err
+      if (!result) {
+        res.json({ status: StatusCode.LOGIN_WRONG_PASSWORD })
+        console.log(`User failed to log into account '${name}'`)
+        return
+      }
+
+      jwt.sign({ user: user }, "secretkey", (err, token) => {
+        if (err) throw err
+        res.json({
+          status: StatusCode.LOGIN_SUCCESS,
+          token: token
+        })
+      })
+
+      console.log(`User logged into account '${name}'`)
     })
   })
-})
 
-function verifyToken(req, res, next) {
-  const bearerHeader = req.headers.authorization
+  // Middleware
+  function verifyToken(req, res, next) {
+    const bearerHeader = req.headers.authorization
 
-  if (typeof bearerHeader !== "undefined") {
-    const bearer = bearerHeader.split(" ")
-    const bearerToken = bearer[1]
-    req.token = bearerToken
-    next()
-  } else {
-    // Forbidden
-    res.sendStatus(403)
+    if (typeof bearerHeader !== "undefined") {
+      const bearer = bearerHeader.split(" ")
+      const bearerToken = bearer[1]
+      req.token = bearerToken
+      next()
+    } else {
+      // Forbidden
+      res.sendStatus(403)
+    }
   }
-}
 
-(async () => {
   console.clear()
   console.log("Connected to MySQL")
 
-  const { results } = await db.query({ sql: "SHOW DATABASES LIKE 'database'" })
-  if (results.length === 0) {
-    await db.query({ sql: "CREATE DATABASE `database`" })
-    await db.query({ sql: "USE `database`" })
-    await db.query({ sql: "CREATE TABLE users (id INT(11) PRIMARY KEY AUTO_INCREMENT, username VARCHAR(20), password VARCHAR(60))" })
+  const databases = await db.query("SHOW DATABASES LIKE 'database'")
+  if (databases.length === 0) {
+    await db.query("CREATE DATABASE `database`")
+    await db.query("USE `database`")
+    await db.query("CREATE TABLE users (id INT(11) PRIMARY KEY AUTO_INCREMENT, username VARCHAR(20), password VARCHAR(60))")
     console.log("Created database")
   }
 
-  await db.query({ sql: "USE `database`" })
-
-  app.listen("3000", () => {
-    console.log("Node server is listening on port 3000")
-  })
+  await db.query("USE `database`")
+  await app.listen(config.server.port)
+  console.log(`Node server is listening on port ${config.server.port}`)
 })()
