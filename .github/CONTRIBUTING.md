@@ -2,11 +2,16 @@
 
 <h2>Table of Contents</h2>
 
-1. [Setup](#setup)
-2. [VSC](#visual-studio-code)
-3. [Workflow](#workflow)
-4. [Notes](#notes)
-5. [Documentation](#documentation)
+1. [Introduction](#introduction)
+2. [Setup](#setup)
+3. [VSC](#visual-studio-code)
+4. [Workflow](#workflow)
+5. [Notes](#notes)
+6. [Documentation](#documentation)
+
+<h1 align="center">Introduction</h1>
+
+The project is intended to be a boilerplate for all Unity MMORPG projects. The client authenticates through the web server then connects to the game server with all the other players.
 
 <h1 align="center">Setup</h1>
 <h2 align="center">Client</h2>
