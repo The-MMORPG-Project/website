@@ -31,11 +31,7 @@ public class Protocol : IDisposable
             if (type == typeof(string))
                 bufferSize += (sizeof(char) * ((string)value).Length);
 
-<<<<<<< HEAD
             if (type == typeof(byte) || type.IsEnum)
-=======
-            if (type == typeof(Valk.Networking.ErrorType))
->>>>>>> aebe5890a4ae38df6600cca8d6b441198077db01
                 bufferSize += sizeof(byte);
         }
 
@@ -57,16 +53,11 @@ public class Protocol : IDisposable
             if (type == typeof(string))
                 writer.Write((string)value);
 
-<<<<<<< HEAD
             if (type == typeof(byte))
                 writer.Write((byte)value);
 
             if (type.IsEnum)
                  writer.Write((byte)(int)value);
-=======
-            if (type == typeof(Valk.Networking.ErrorType))
-                writer.Write((byte)value); // Casted as byte for consistency with Packet.cs
->>>>>>> aebe5890a4ae38df6600cca8d6b441198077db01
         }
         return buffer;
     }
