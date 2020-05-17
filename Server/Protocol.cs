@@ -30,6 +30,9 @@ public class Protocol : IDisposable
 
             if (type == typeof(string))
                 bufferSize += (sizeof(char) * ((string)value).Length);
+
+            if (type == typeof(Valk.Networking.ErrorType))
+                bufferSize += sizeof(byte);
         }
 
         InitWriter(bufferSize);
@@ -49,6 +52,9 @@ public class Protocol : IDisposable
 
             if (type == typeof(string))
                 writer.Write((string)value);
+
+            if (type == typeof(Valk.Networking.ErrorType))
+                writer.Write((byte)value); // Casted as byte for consistency with Packet.cs
         }
         return buffer;
     }
