@@ -32,8 +32,6 @@ You can also read the [Contributing Guide](https://github.com/valkyrienyanko/Uni
 
 And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12)
 
-And [Roadmap to v0.3](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues/21)
-
 <h2 align="center">Contributors</h2>
 
 <a href="https://github.com/valkyrienyanko/Unity-ENet-Model/graphs/contributors">
