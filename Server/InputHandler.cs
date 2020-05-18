@@ -9,9 +9,9 @@ namespace Valk.Networking
         private List<string> memory;
         private int memoryIndex = 0;
 
-        private string[] commands = {
-            "help",
-            "exit"
+        private Dictionary<string, Action<string[]>> commands = new Dictionary<string, Action<string[]>> {
+            {"help", Commands.Help},
+            {"exit", Commands.Exit}
         };
 
         private ConsoleKey[] exclude = {
@@ -79,20 +79,11 @@ namespace Valk.Networking
         {
             string cmd = input.ToLower().Split(' ')[0];
             string[] args = input.ToLower().Split(' ').Skip(1).ToArray();
-
-            var server = Program.Server;
-
-            if (cmd.Equals("help"))
-            {
-                Logger.Log($"Commands:\n - {String.Join("\n - ", commands)}");
-            } else if (cmd.Equals("exit"))
-            {
-                Logger.Log("Exiting..");
-                server.Stop();
-                Environment.Exit(0);
-            } else {
+            
+            if (commands.ContainsKey(cmd))
+                commands[cmd].Invoke(args);
+            else
                 Logger.Log($"Unknown Command: '{cmd}'");
-            }
         }
     }
 }
