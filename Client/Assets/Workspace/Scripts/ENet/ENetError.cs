@@ -1,6 +1,6 @@
 namespace Valk.Networking
 {
-    class Error
+    public class ENetError
     {
         public static string ReadError(ErrorType type)
         {

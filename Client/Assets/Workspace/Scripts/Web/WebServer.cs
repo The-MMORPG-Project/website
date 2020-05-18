@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
-enum StatusCode
+public enum StatusCode
 {
     REGISTER_SUCCESS,
     REGISTER_ACCOUNT_ALREADY_EXISTS,

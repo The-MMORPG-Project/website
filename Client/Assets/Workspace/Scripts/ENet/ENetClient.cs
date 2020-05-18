@@ -10,7 +10,7 @@ using TMPro;
 
 namespace Valk.Networking
 {
-    class Client : MonoBehaviour
+    public class ENetClient : MonoBehaviour
     {
         public const byte CHANNEL_ID = 0;
         private const int MAX_FRAMES = 30;
@@ -21,21 +21,14 @@ namespace Valk.Networking
 
         public static Peer Peer { get; set; }
         public static Host Host { get; set; }
-        public static bool InGame { get; set; }
         public static bool Running { get; set; }
         public static bool Connected { get; set; }
         public static bool Disconnecting { get; set; }
         public static bool IsQuitting { get; set; }
+        public static bool InGame { get; set; }
 
-        private Dictionary<uint, GameObject> clients;
-        private static GameObject oClientPrefab;
-        private static GameObject oClientCanvasPrefab;
-        private GameObject clientGo;
-        private ClientBehavior clientGoScript;
-        private Transform clientGoT;
-
-        private uint myID;
-        private string myName;
+        public static uint myID;
+        public static string myName;
 
         private void Start()
         {
@@ -47,10 +40,9 @@ namespace Valk.Networking
             Application.runInBackground = true;
             DontDestroyOnLoad(gameObject);
 
-            oClientPrefab = Resources.Load("Prefabs/Client") as GameObject;
-            oClientCanvasPrefab = Resources.Load("Prefabs/Canvas") as GameObject;
-            clients = new Dictionary<uint, GameObject>();
             Application.wantsToQuit += WantsToQuit;
+
+            StartCoroutine(SendPositionUpdates());
         }
 
         public static void Connect(string ip)
@@ -85,7 +77,7 @@ namespace Valk.Networking
             if (!Running && !Disconnecting)
             {
                 Disconnecting = true;
-                Network.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
+                ENetNetwork.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
                 return;
             }
 
@@ -109,7 +101,7 @@ namespace Valk.Networking
                     Debug.Log("Client disconnected from server");
                     Connected = false;
 
-                    clients.Remove(myID);
+                    GameRoom.clients.Remove(myID);
 
                     if (!IsQuitting)
                     {
@@ -124,7 +116,7 @@ namespace Valk.Networking
                 case ENet.EventType.Timeout:
                     Debug.Log("Client connection timeout");
 
-                    clients.Remove(myID);
+                    GameRoom.clients.Remove(myID);
 
                     Destroy(gameObject);
                     CleanUp();
@@ -151,52 +143,6 @@ namespace Valk.Networking
                 netEvent.Packet.CopyTo(readBuffer);
                 var packetID = (PacketType)reader.ReadByte();
 
-                if (packetID == PacketType.ServerCreateAccountDenied)
-                {
-                    //Debug.Log("Account denied");
-                    var errorType = (ErrorType)reader.ReadByte();
-                    var message = Error.ReadError(errorType);
-                    UIAccountManagement.UpdateText($"Account Denied: {message}");
-                }
-
-                if (packetID == PacketType.ServerLoginDenied)
-                {
-                    //Debug.Log("Login denied");
-                    var errorType = (ErrorType)reader.ReadByte();
-                    var message = Error.ReadError(errorType);
-
-                    UIAccountManagement.UpdateText($"Login Denied: {message}");
-                }
-
-                if (packetID == PacketType.ServerCreateAccountAccepted)
-                {
-                    //Debug.Log("Account created");
-                    UIAccountManagement.UpdateText($"Account Created");
-                }
-
-                if (packetID == PacketType.ServerLoginAccepted)
-                {
-                    myID = reader.ReadUInt32();
-                    myName = reader.ReadString();
-
-                    UIAccountManagement.UpdateText($"Logging in...");
-                    StartCoroutine(ASyncLoadGame());
-                }
-
-                if (packetID == PacketType.ServerClientName)
-                {
-                    var oID = reader.ReadUInt32();
-                    var oName = reader.ReadString();
-
-                    Debug.Log($"Received name {oName} from {oID}");
-
-                    if (clients.ContainsKey(oID))
-                    {
-                        Debug.Log("Updating text component");
-                        clients[oID].GetComponentInChildren<TMP_Text>().text = oName;
-                    }
-                }
-
                 if (packetID == PacketType.ServerPositionUpdate)
                 {
                     //Debug.Log("Received Server Position Update");
@@ -205,17 +151,17 @@ namespace Valk.Networking
                     var oY = reader.ReadSingle();
                     //Debug.Log($"ID: {oID}, X: {oX}, Y: {oY}");
 
-                    if (clients.ContainsKey(oID))
+                    if (GameRoom.clients.ContainsKey(oID))
                     {
-                        if (clients[oID] == null)
+                        if (GameRoom.clients[oID] == null)
                         {
                             Debug.LogWarning("oClient is null");
-                            clients.Remove(oID);
+                            GameRoom.clients.Remove(oID);
                         }
                         else
                         {
                             //Debug.Log($"Updated position for other client ID '{oID}' x: {oX}, y: {oY}");
-                            clients[oID].transform.position = new Vector2(oX, oY);
+                            GameRoom.clients[oID].transform.position = new Vector2(oX, oY);
 
                             return;
                         }
@@ -228,25 +174,14 @@ namespace Valk.Networking
                         return;
                     }
 
-                    var oClient = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
-                    oClient.transform.position = new Vector3(oX, oY, 0);
-                    oClient.name = $"oClient {oID}";
-                    clients.Add(oID, oClient);
-
-                    var ui = Instantiate(oClientCanvasPrefab, oClient.transform);
-                    ui.GetComponent<Canvas>().worldCamera = Camera.main;
-                    ui.transform.SetParent(oClient.transform);
-                    ui.transform.localPosition = new Vector3(0, 0.35f, 0);
-                    ui.GetComponentInChildren<TMP_Text>().text = $"{oID}";
-
-                    Debug.Log($"Added new oClient '{oID}' at x: {oX}, y: {oY}");
+                    GameRoom.CreateOtherClient(oID, oX, oY);
                 }
 
                 if (packetID == PacketType.ServerClientDisconnected)
                 {
                     var id = reader.ReadUInt32();
 
-                    clients.Remove(id);
+                    GameRoom.clients.Remove(id);
                     Destroy(GameObject.Find($"oClient {id}"));
                     Debug.Log($"Client {id} disconnected");
                 }
@@ -258,53 +193,19 @@ namespace Valk.Networking
             }
         }
 
-        private IEnumerator ASyncLoadGame()
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main");
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-
-            Spawn();
-        }
-
-        private void Spawn()
-        {
-            clientGo = Instantiate(oClientPrefab, Vector3.zero, Quaternion.identity);
-            clientGo.name = $"mClient (You)";
-            clientGoScript = clientGo.AddComponent<ClientBehavior>();
-            clientGoT = clientGo.transform;
-            var ui = Instantiate(oClientCanvasPrefab, Vector3.zero, Quaternion.identity);
-            ui.GetComponent<Canvas>().worldCamera = Camera.main;
-            ui.transform.SetParent(clientGo.transform);
-            ui.transform.position = new Vector3(0, 0.35f, 0);
-            ui.GetComponentInChildren<TMP_Text>().text = myName;
-
-            InGame = true;
-
-            var pos = clientGoT.position;
-            Network.Send(PacketType.ClientPositionUpdate, PacketFlags.Reliable, pos.x, pos.y);
-
-            // We are in the game, we are ready to receive the initial positions of all the other clients
-            Network.Send(PacketType.ClientRequestPositions, PacketFlags.Reliable);
-
-            StartCoroutine(SendPositionUpdates());
-        }
-
-        private IEnumerator SendPositionUpdates()
+        public IEnumerator SendPositionUpdates()
         {
             while (InGame)
             {
-                var pos = clientGoT.position;
+                var pos = GameRoom.clientGoT.position;
 
-                if (pos.x != clientGoScript.px || pos.y != clientGoScript.py)
+                if (pos.x != GameRoom.clientGoScript.px || pos.y != GameRoom.clientGoScript.py)
                 {
-                    Network.Send(PacketType.ClientPositionUpdate, PacketFlags.None, pos.x, pos.y);
+                    ENetNetwork.Send(PacketType.ClientPositionUpdate, PacketFlags.None, pos.x, pos.y);
                 }
 
-                clientGoScript.px = pos.x;
-                clientGoScript.py = pos.y;
+                GameRoom.clientGoScript.px = pos.x;
+                GameRoom.clientGoScript.py = pos.y;
 
                 yield return new WaitForSeconds(POSITION_UPDATE_DELAY / 1000);
             }
@@ -327,7 +228,7 @@ namespace Valk.Networking
             if (Host == null) // Might press player then stop in Unity editor before client is created
                 return false;
 
-            Network.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
+            ENetNetwork.Send(PacketType.ClientDisconnect, PacketFlags.Reliable);
 
             if (Connected)
             {

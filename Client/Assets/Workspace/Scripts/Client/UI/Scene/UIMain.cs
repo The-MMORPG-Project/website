@@ -18,7 +18,7 @@ namespace Valk.Networking
 
         public void Disconnect()
         {
-            Client.Running = false; // By setting Client.Running the client will eventually disconnect
+            ENetClient.Running = false; // By setting Client.Running the client will eventually disconnect
         }
     }
 

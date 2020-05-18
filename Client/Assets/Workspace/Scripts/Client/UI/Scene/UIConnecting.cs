@@ -22,7 +22,7 @@ namespace Valk.Networking
 
         void FixedUpdate()
         {
-            if (!Client.IsConnected())
+            if (!ENetClient.IsConnected())
                 return;
 
             SceneManager.LoadScene("Account Management");
@@ -31,7 +31,7 @@ namespace Valk.Networking
         IEnumerator AnimateDots()
         {
             int i = 0;
-            while (!Client.IsConnected())
+            while (!ENetClient.IsConnected())
             {
                 // Animate connecting text
                 Text.text = message + dots[i++ % dots.Length];

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Valk.Networking
 {
-    public class Protocol : IDisposable
+    public class ENetProtocol : IDisposable
     {
         private BinaryWriter writer;
         private MemoryStream stream;

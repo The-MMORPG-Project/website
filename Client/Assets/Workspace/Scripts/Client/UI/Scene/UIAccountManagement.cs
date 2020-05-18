@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 
 using TMPro;
@@ -55,42 +56,45 @@ namespace Valk.Networking
 
             if (name.Length < 3 || name.Length > 15) 
             {
-                UpdateText("Account name must be between 3 and 15 characters.");
+                UpdateText("Account name must be between 3 and 15 characters");
                 return;
             }
 
             if (pass.Length < 5 || pass.Length > 30)
             {
-                UpdateText("Account password must be between 5 and 30 characters.");
+                UpdateText("Account password must be between 5 and 30 characters");
                 return;
             }
 
             UpdateText("..."); // Animate these dots later on to indicate we are sending request to server...
             
-            User user = new User();
+            WebUser user = new WebUser();
             user.Name = inputFieldCreateName.text;
             user.Password = inputFieldCreatePass.text;
             string data = await WebServer.Post("/api/register", user);
-            Response response = JsonConvert.DeserializeObject<Response>(data);
+            WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
             StatusCode code = (StatusCode)response.Status;
             if (code == StatusCode.REGISTER_ACCOUNT_ALREADY_EXISTS) 
             {
-                UpdateText($"The account '{name}' already exists.");
+                UpdateText($"The account '{name}' already exists");
+                return;
             }
 
             if (code == StatusCode.REGISTER_USERNAME_INVALID) 
             {
-                UpdateText("Invalid username. Account Creation failed.");
+                UpdateText("Invalid username. Account Creation failed");
+                return;
             }
 
             if (code == StatusCode.REGISTER_PASSWORD_INVALID) 
             {
-                UpdateText("Invalid password. Account Creation failed.");
+                UpdateText("Invalid password. Account Creation failed");
+                return;
             }
 
             if (code == StatusCode.REGISTER_SUCCESS) 
             {
-                UpdateText($"Registered account '{name}' successfully.");
+                UpdateText($"Registered account '{name}' successfully");
             }
         }
 
@@ -102,12 +106,43 @@ namespace Valk.Networking
             if (inputFieldLoginPass.text.Equals(""))
                 return;
 
+            string name = inputFieldLoginName.text;
+            string pass = inputFieldLoginPass.text;
+
             //Network.Send(PacketType.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
-            User user = new User();
+            WebUser user = new WebUser();
             user.Name = inputFieldLoginName.text;
             user.Password = inputFieldLoginPass.text;
-            string response = await WebServer.Post("/api/login", user);
-            Debug.Log(response);
+            string data = await WebServer.Post("/api/login", user);
+            WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
+            StatusCode code = (StatusCode)response.Status;
+            if (code == StatusCode.LOGIN_DOESNT_EXIST) 
+            {
+                UpdateText($"Login for account '{name}' does not exist");
+                return;
+            }
+
+            if (code == StatusCode.LOGIN_WRONG_PASSWORD) 
+            {
+                UpdateText($"Failed to login to account '{name}', wrong password");
+                return;
+            }
+
+            if (code == StatusCode.LOGIN_SUCCESS) 
+            {
+                UpdateText($"Successfully logged into account '{name}'");
+                StartCoroutine(ASyncLoadGame());
+            }
+        }
+
+        public IEnumerator ASyncLoadGame()
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main");
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+                // Scene done loading, we could do extra things here if needed
+            }
         }
     }
 }

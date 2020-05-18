@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Valk.Networking 
 {
-    class ClientBehavior : MonoBehaviour
+    public class ClientBehaviour : MonoBehaviour
     {
         private Rigidbody2D clientGoRb;
 
@@ -18,7 +18,7 @@ namespace Valk.Networking
 
         private void FixedUpdate() 
         {
-            if (!Client.InGame)
+            if (!ENetClient.InGame)
                 return;
 
             if (clientGoRb == null)

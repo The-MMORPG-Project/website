@@ -23,7 +23,7 @@ namespace Valk.Networking
             if (InputField.text == "")
                 return;
 
-            Client.Connect(InputField.text);
+            ENetClient.Connect(InputField.text);
             SceneManager.LoadScene("Connecting");
         }
     }

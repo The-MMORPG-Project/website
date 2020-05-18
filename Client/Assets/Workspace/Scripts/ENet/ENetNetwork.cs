@@ -2,7 +2,7 @@ using ENet;
 
 namespace Valk.Networking
 {
-    enum PacketType
+    public enum PacketType
     {
         HeartBeat,
         ClientCreateAccount,
@@ -21,22 +21,22 @@ namespace Valk.Networking
         ServerInitialPositionUpdate
     }
 
-    enum ErrorType 
+    public enum ErrorType 
     {
         AccountCreateNameAlreadyRegistered,
         AccountLoginDoesNotExist,
         AccountLoginWrongPassword
     }
 
-    class Network
+    public class ENetNetwork
     {
         public static void Send(PacketType type, PacketFlags packetFlagType, params object[] values)
         {
-            var protocol = new Protocol();
+            var protocol = new ENetProtocol();
             var buffer = protocol.Serialize((byte)type, values);
             var packet = default(ENet.Packet);
             packet.Create(buffer, packetFlagType);
-            Client.Peer.Send(Client.CHANNEL_ID, ref packet);
+            ENetClient.Peer.Send(ENetClient.CHANNEL_ID, ref packet);
         }
     }
 }
