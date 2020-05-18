@@ -7,7 +7,7 @@ namespace Valk.Networking
     {
         public void Multiplayer()
         {
-            SceneManager.LoadScene("Connect");
+            SceneManager.LoadScene("Account Management");
         }
 
         public void Options()

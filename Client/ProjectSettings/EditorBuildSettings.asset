@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Workspace/Scenes/Account Management.unity
     guid: c335171d88a0b554c96e158d7c45cf8b
   - enabled: 1
+    path: Assets/Workspace/Scenes/Account.unity
+    guid: 399ac254cf6b3104fa556a6bc18efba1
+  - enabled: 1
     path: Assets/Workspace/Scenes/Main.unity
     guid: a80c4b8473dae454dad7626f37a29af4
   - enabled: 1

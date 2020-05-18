@@ -7,7 +7,7 @@ namespace Valk.Networking
 {
     public class UIGoBack : MonoBehaviour
     {
-        void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

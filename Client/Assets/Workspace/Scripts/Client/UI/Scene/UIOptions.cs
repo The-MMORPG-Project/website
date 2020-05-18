@@ -6,17 +6,6 @@ namespace Valk.Networking
 {
     public class UIOptions : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        // Yet to be implemented
     }
-
 }

@@ -19,16 +19,10 @@ public enum StatusCode
 
 public class WebServer : MonoBehaviour
 {
+    public static bool Connected = false;
+
     private const string URL = "http://localhost:3000";
     private static HttpClient http = new HttpClient();
-
-    /*async void Start() 
-    {
-        User user = new User();
-        user.Name = "Bob";
-        user.Password = "1234567";
-        await Post("/api/register", user);
-    }*/
 
     public static async Task Status()
     {

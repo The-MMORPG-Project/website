@@ -14,13 +14,13 @@ namespace Valk.Networking
         string message = "Attempting to Connect to Servers";
         string[] dots = new string[] { "", ".", "..", "..." };
 
-        void Start()
+        private void Start()
         {
             Text = GoText.GetComponent<TextMeshProUGUI>();
             StartCoroutine(AnimateDots());
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             if (!ENetClient.IsConnected())
                 return;
@@ -28,7 +28,7 @@ namespace Valk.Networking
             SceneManager.LoadScene("Account Management");
         }
 
-        IEnumerator AnimateDots()
+        private IEnumerator AnimateDots()
         {
             int i = 0;
             while (!ENetClient.IsConnected())

@@ -84,7 +84,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
     const pass = user.Password
 
     const results = await db.query("SELECT * FROM `users` WHERE username = ?", [name])
-    if (results == undefined) {
+
+    if (results.length == 0) {
       res.json({ status: StatusCode.LOGIN_DOESNT_EXIST })
       //console.log(`User tried to login to the account '${name}' but it does not exist`)
       return
