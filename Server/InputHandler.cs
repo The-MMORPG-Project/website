@@ -9,11 +9,11 @@ namespace Valk.Networking
         private List<string> memory;
         private int memoryIndex = 0;
 
-        private Dictionary<string, Action<string[]>> commands = new Dictionary<string, Action<string[]>> {
-            {"help", Commands.Help},
-            {"exit", Commands.Exit}
-        };
-
+        // Loads commands into dictionary at runtime
+        private Dictionary<string, Commands> commands = typeof(Commands).Assembly.GetTypes()
+                                                        .Where(x => typeof(Commands).IsAssignableFrom(x) && !x.IsAbstract)
+                                                        .Select(Activator.CreateInstance).Cast<Commands>()
+                                                        .ToDictionary(x => x.GetType().Name.ToLower(), x => x);
         private ConsoleKey[] exclude = {
             ConsoleKey.LeftArrow,
             ConsoleKey.RightArrow,
@@ -81,7 +81,7 @@ namespace Valk.Networking
             string[] args = input.ToLower().Split(' ').Skip(1).ToArray();
             
             if (commands.ContainsKey(cmd))
-                commands[cmd].Invoke(args);
+                commands[cmd].Run(args);
             else
                 Logger.Log($"Unknown Command: '{cmd}'");
         }
