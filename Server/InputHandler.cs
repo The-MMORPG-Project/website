@@ -9,11 +9,11 @@ namespace Valk.Networking
         private List<string> memory;
         private int memoryIndex = 0;
 
-        private string[] commands = {
-            "help",
-            "exit"
-        };
-
+        // Loads commands into dictionary at runtime
+        private Dictionary<string, Commands> commands = typeof(Commands).Assembly.GetTypes()
+                                                        .Where(x => typeof(Commands).IsAssignableFrom(x) && !x.IsAbstract)
+                                                        .Select(Activator.CreateInstance).Cast<Commands>()
+                                                        .ToDictionary(x => x.GetType().Name.ToLower(), x => x);
         private ConsoleKey[] exclude = {
             ConsoleKey.LeftArrow,
             ConsoleKey.RightArrow,
@@ -79,20 +79,11 @@ namespace Valk.Networking
         {
             string cmd = input.ToLower().Split(' ')[0];
             string[] args = input.ToLower().Split(' ').Skip(1).ToArray();
-
-            var server = Program.Server;
-
-            if (cmd.Equals("help"))
-            {
-                Logger.Log($"Commands:\n - {String.Join("\n - ", commands)}");
-            } else if (cmd.Equals("exit"))
-            {
-                Logger.Log("Exiting..");
-                server.Stop();
-                Environment.Exit(0);
-            } else {
+            
+            if (commands.ContainsKey(cmd))
+                commands[cmd].Run(args);
+            else
                 Logger.Log($"Unknown Command: '{cmd}'");
-            }
         }
     }
 }
