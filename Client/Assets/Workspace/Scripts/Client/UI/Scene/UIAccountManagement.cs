@@ -77,8 +77,8 @@ namespace Valk.Networking
             UpdateText("..."); // Animate these dots later on to indicate we are sending request to server...
 
             WebUser user = new WebUser();
-            user.Name = inputFieldCreateName.text;
-            user.Password = inputFieldCreatePass.text;
+            user.Name = name;
+            user.Password = pass;
             string data = await WebServer.Post("/api/register", user);
             WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
             StatusCode code = (StatusCode)response.Status;
@@ -125,8 +125,8 @@ namespace Valk.Networking
 
             //Network.Send(PacketType.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
             WebUser user = new WebUser();
-            user.Name = inputFieldLoginName.text;
-            user.Password = inputFieldLoginPass.text;
+            user.Name = name;
+            user.Password = pass;
             string data = await WebServer.Post("/api/login", user);
             WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
             StatusCode code = (StatusCode)response.Status;
