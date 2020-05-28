@@ -1,18 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 
 using TMPro;
 
-using ENet;
-
 namespace Valk.Networking
 {
     public class UIAccountManagement : MonoBehaviour
     {
+        // Regions
+        public GameObject goDropdownRegions;
+        private TMP_Dropdown dropdownRegions;
+
         // Create Account
         public GameObject goInputFieldCreateName, goInputFieldCreatePass;
         private TMP_InputField inputFieldCreateName, inputFieldCreatePass;
@@ -28,9 +28,12 @@ namespace Valk.Networking
         private Coroutine animateDots;
 
         private bool sendingRequest;
+        public static bool ConnectingENet;
 
         private void Start()
         {
+            dropdownRegions = goDropdownRegions.GetComponent<TMP_Dropdown>();
+
             inputFieldCreateName = goInputFieldCreateName.GetComponent<TMP_InputField>();
             inputFieldCreatePass = goInputFieldCreatePass.GetComponent<TMP_InputField>();
 
@@ -47,7 +50,7 @@ namespace Valk.Networking
 
         public async void CreateAccount()
         {
-            if (sendingRequest) 
+            if (sendingRequest || ConnectingENet)
             {
                 return;
             }
@@ -81,7 +84,7 @@ namespace Valk.Networking
                 return;
             }
 
-            animateDots = StartCoroutine(AnimateDots());
+            animateDots = StartCoroutine(AnimateDots("Sending request to web server"));
             sendingRequest = true;
 
             WebUser user = new WebUser();
@@ -93,7 +96,7 @@ namespace Valk.Networking
             StopCoroutine(animateDots);
             sendingRequest = false;
 
-            if (response.Error == 1) 
+            if (response.Error == 1)
             {
                 UpdateText("An error occured while sending the request");
                 return;
@@ -124,29 +127,30 @@ namespace Valk.Networking
             }
         }
 
-        public async void Login()
+        public async void Connect()
         {
-            if (sendingRequest) 
+            // LOGIN
+            if (sendingRequest || ConnectingENet)
             {
                 return;
             }
 
-            if (inputFieldLoginName.text.Equals("")) 
+            if (inputFieldLoginName.text.Equals(""))
             {
                 UpdateText("Please enter a username for login..");
                 return;
             }
 
-            if (inputFieldLoginPass.text.Equals("")) 
+            if (inputFieldLoginPass.text.Equals(""))
             {
                 UpdateText("Please enter a password for login..");
                 return;
-            }    
+            }
 
             string name = inputFieldLoginName.text;
             string pass = inputFieldLoginPass.text;
 
-            animateDots = StartCoroutine(AnimateDots());
+            animateDots = StartCoroutine(AnimateDots("Sending request to web server"));
             sendingRequest = true;
 
             //Network.Send(PacketType.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
@@ -159,12 +163,12 @@ namespace Valk.Networking
             StopCoroutine(animateDots);
             sendingRequest = false;
 
-            if (response.Error == 1) 
+            if (response.Error == 1)
             {
                 UpdateText("An error occured while sending the request");
                 return;
             }
-            
+
             StatusCode code = (StatusCode)response.Status;
             if (code == StatusCode.LOGIN_DOESNT_EXIST)
             {
@@ -181,9 +185,29 @@ namespace Valk.Networking
             if (code == StatusCode.LOGIN_SUCCESS)
             {
                 UpdateText($"Successfully logged into account '{name}'");
-                SceneManager.LoadScene("Account");
+                //SceneManager.LoadScene("Account");
                 //StartCoroutine(ASyncLoadGame());
             }
+
+            // CONNECT
+            string IP = "127.0.0.1";
+
+            int index = dropdownRegions.value;
+            if (index == 0) // Auto
+            {
+                //TODO
+            }
+
+            if (index == 1) // Canada
+            {
+                IP = "142.160.70.176";
+            }
+
+            animateDots = StartCoroutine(AnimateDots("Attempting to connect to ENet server"));
+
+            ENetClient.Connect(IP);
+            ConnectingENet = true;
+            StartCoroutine(ENetConnect());
         }
 
         public IEnumerator ASyncLoadGame()
@@ -196,13 +220,29 @@ namespace Valk.Networking
             }
         }
 
-        private IEnumerator AnimateDots()
+        private IEnumerator ENetConnect() 
+        {
+            while (!ENetClient.IsConnected()) 
+            {
+                if (!ConnectingENet) 
+                {
+                    StopCoroutine(animateDots);
+                    yield break;
+                }
+
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            StopCoroutine(animateDots);
+            SceneManager.LoadScene("Account");
+        }
+
+        private IEnumerator AnimateDots(string message)
         {
             string[] dots = new string[] { "", ".", "..", "..." };
-            string message = "Sending request";
 
             int i = 0;
-            while (!ENetClient.IsConnected())
+            while (true)
             {
                 // Animate connecting text
                 UpdateText(message + dots[i++ % dots.Length]);

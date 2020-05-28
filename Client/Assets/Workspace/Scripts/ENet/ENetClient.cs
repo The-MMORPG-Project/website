@@ -116,11 +116,25 @@ namespace Valk.Networking
                 case ENet.EventType.Timeout:
                     Debug.Log("Client connection timeout");
 
-                    GameRoom.clients.Remove(myID);
+                    if (GameRoom.clients != null) 
+                    {
+                        GameRoom.clients.Remove(myID);
+                    }
 
-                    Destroy(gameObject);
-                    CleanUp();
-                    SceneManager.LoadScene("Main Menu");
+                    string activeScene = SceneManager.GetActiveScene().name;
+                    if (activeScene == "Main") 
+                    {
+                        SceneManager.LoadScene("Main Menu");
+                        Destroy(gameObject);
+                        CleanUp();
+                    }
+
+                    if (activeScene == "Account Management") 
+                    {
+                        UIAccountManagement.ConnectingENet = false;
+                        UIAccountManagement.UpdateText("Failed to connect to ENet server");
+                    }
+                    
                     break;
 
                 case ENet.EventType.Receive:
@@ -214,6 +228,11 @@ namespace Valk.Networking
         public static bool IsConnected()
         {
             return Peer.State == ENet.PeerState.Connected;
+        }
+
+        public static PeerState State() 
+        {
+            return Peer.State;
         }
 
         private void OnApplicationQuit()
