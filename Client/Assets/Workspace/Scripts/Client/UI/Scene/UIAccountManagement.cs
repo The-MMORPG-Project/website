@@ -25,6 +25,10 @@ namespace Valk.Networking
         public GameObject goTextMessage;
         private static TMP_Text textMessage;
 
+        private Coroutine animateDots;
+
+        private bool sendingRequest;
+
         private void Start()
         {
             inputFieldCreateName = goInputFieldCreateName.GetComponent<TMP_InputField>();
@@ -43,19 +47,22 @@ namespace Valk.Networking
 
         public async void CreateAccount()
         {
+            if (sendingRequest) 
+            {
+                return;
+            }
+
             if (inputFieldCreateName.text.Equals(""))
             {
                 UpdateText("Please enter a username for registration..");
                 return;
             }
 
-
             if (inputFieldCreatePass.text.Equals(""))
             {
                 UpdateText("Please enter a password for registration..");
                 return;
             }
-
 
             //Network.Send(PacketType.ClientCreateAccount, PacketFlags.Reliable, inputFieldCreateName.text, inputFieldCreatePass.text);
 
@@ -74,13 +81,24 @@ namespace Valk.Networking
                 return;
             }
 
-            UpdateText("..."); // Animate these dots later on to indicate we are sending request to server...
+            animateDots = StartCoroutine(AnimateDots());
+            sendingRequest = true;
 
             WebUser user = new WebUser();
             user.Name = name;
             user.Password = pass;
             string data = await WebServer.Post("/api/register", user);
             WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
+
+            StopCoroutine(animateDots);
+            sendingRequest = false;
+
+            if (response.Error == 1) 
+            {
+                UpdateText("An error occured while sending the request");
+                return;
+            }
+
             StatusCode code = (StatusCode)response.Status;
             if (code == StatusCode.REGISTER_ACCOUNT_ALREADY_EXISTS)
             {
@@ -108,6 +126,11 @@ namespace Valk.Networking
 
         public async void Login()
         {
+            if (sendingRequest) 
+            {
+                return;
+            }
+
             if (inputFieldLoginName.text.Equals("")) 
             {
                 UpdateText("Please enter a username for login..");
@@ -123,12 +146,25 @@ namespace Valk.Networking
             string name = inputFieldLoginName.text;
             string pass = inputFieldLoginPass.text;
 
+            animateDots = StartCoroutine(AnimateDots());
+            sendingRequest = true;
+
             //Network.Send(PacketType.ClientLoginAccount, PacketFlags.Reliable, inputFieldLoginName.text, inputFieldLoginPass.text);
             WebUser user = new WebUser();
             user.Name = name;
             user.Password = pass;
             string data = await WebServer.Post("/api/login", user);
             WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
+
+            StopCoroutine(animateDots);
+            sendingRequest = false;
+
+            if (response.Error == 1) 
+            {
+                UpdateText("An error occured while sending the request");
+                return;
+            }
+            
             StatusCode code = (StatusCode)response.Status;
             if (code == StatusCode.LOGIN_DOESNT_EXIST)
             {
@@ -157,6 +193,20 @@ namespace Valk.Networking
             {
                 yield return null;
                 // Scene done loading, we could do extra things here if needed
+            }
+        }
+
+        private IEnumerator AnimateDots()
+        {
+            string[] dots = new string[] { "", ".", "..", "..." };
+            string message = "Sending request";
+
+            int i = 0;
+            while (!ENetClient.IsConnected())
+            {
+                // Animate connecting text
+                UpdateText(message + dots[i++ % dots.Length]);
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }

@@ -46,10 +46,18 @@ public class WebServer : MonoBehaviour
 
     public static async Task<string> Post(string path, object obj)
     {
-        var json = JsonConvert.SerializeObject(obj);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await http.PostAsync(URL + path, content);
-        string result = await response.Content.ReadAsStringAsync();
-        return result;
+        try
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await http.PostAsync(URL + path, content);
+            string result = await response.Content.ReadAsStringAsync();
+            return result;
+        }
+        catch (HttpRequestException)
+        {
+            // Web server must be down
+            return "{ Error: 1 }";
+        }
     }
 }
