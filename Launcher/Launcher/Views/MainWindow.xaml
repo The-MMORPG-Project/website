@@ -1,4 +1,4 @@
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Launcher.ViewModels;assembly=Launcher"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,8 +7,6 @@
         x:Class="Launcher.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="Launcher">
-
-  <Button>Hello world!</Button>
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
