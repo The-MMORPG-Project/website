@@ -16,6 +16,8 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 
 <h2 align="center">Features</h2>
 
+*Note: Not all of these features have been implemented or fully completed.
+
 <h3 align="left">ENet Server</h3>
 
 - Multi-Threaded Console Input Ouput Buffers
