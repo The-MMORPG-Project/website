@@ -16,13 +16,24 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 
 <h2 align="center">Features</h2>
 
-- Reliable UDP Networking with ENet
+<h3 align="left">ENet Server</h3>
+
+- Multi-Threaded Console Input Ouput Buffers
 - Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
-- Server Database for Users
-- Client-Server Account Management
-- Headless Server
-- Wrapper Classes to Simplify Networking Send / Receive
-- Server Console Command Input Functionality
+- Reliable UDP Networking with ENet
+
+<h3 align="left">Web Server</h3>
+
+- MySQL Database to Store User Accounts, Account Information and Purchases
+
+<h3 align="left">Client</h3>
+
+- UI Flow to Demonstrate Communication with Web Server / ENet Server
+
+<h3 align="left">Launcher</h3>
+
+- Handles Auto-Updating Client from GitHub Releases
+- Grabs Release Notes from GitHub Releases
 
 <h2 align="center">Contributing</h2>
 
