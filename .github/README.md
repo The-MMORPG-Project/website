@@ -6,7 +6,7 @@
 [![Issues][issues]][issues-url]
 
 <h1>Unity MMORPG Boilerplate</h1>
-I found out the hard way that UNet and the Unity Transport Layer were really only mean't for LAN and P2P. In light of this I discovered a reliable UDP networking library called ENet which provides a middle line between sending unreliable and reliable packets. This project is intended to be a boilerplate for all your Unity MMORPGs.
+The purpose of this boilerplate is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The boilerplate consists of a launcher, a web server, a game server and the client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
 
 <h2>Table of Contents</h2>
 
