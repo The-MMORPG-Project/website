@@ -93,6 +93,12 @@ namespace Valk.Networking
             string data = await WebServer.Post("/api/register", user);
             WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
 
+            // Closed the client while awaiting for a response
+            if (this == null) 
+            {
+                return;
+            }
+
             StopCoroutine(animateDots);
             sendingRequest = false;
 
@@ -159,6 +165,12 @@ namespace Valk.Networking
             user.Password = pass;
             string data = await WebServer.Post("/api/login", user);
             WebResponse response = JsonConvert.DeserializeObject<WebResponse>(data);
+
+            // Closed the client while awaiting for a response
+            if (this == null) 
+            {
+                return;
+            }
 
             StopCoroutine(animateDots);
             sendingRequest = false;

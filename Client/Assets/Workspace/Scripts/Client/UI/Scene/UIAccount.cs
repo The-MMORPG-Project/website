@@ -1,30 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using TMPro;
-
 namespace Valk.Networking 
 {
     public class UIAccount : MonoBehaviour 
     {
-        private const string DEFAULT_IP = "127.0.0.1";
-
-        public GameObject GoInputField;
-        private TMP_InputField InputField;
-
-        private void Start()
+        public void Play()
         {
-            InputField = GoInputField.GetComponent<TMP_InputField>();
-            InputField.text = DEFAULT_IP;
-        }
-
-        public void Connect()
-        {
-            if (InputField.text == "")
-                return;
-
-            ENetClient.Connect(InputField.text);
-            SceneManager.LoadScene("Connecting");
+            SceneManager.LoadScene("Main");
         }
     }
 }

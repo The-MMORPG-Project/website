@@ -1,14 +1,16 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Launcher.Models;
 
-namespace Launcher.Views
+namespace Launcher
 {
     public class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowModel() { Info = "Information" };
 #if DEBUG
             this.AttachDevTools();
 #endif
