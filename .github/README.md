@@ -6,7 +6,7 @@
 [![Issues][issues]][issues-url]
 
 <h1>Unity MMORPG Boilerplate</h1>
-I found out the hard way that UNet and the Unity Transport Layer were really only mean't for LAN and P2P. In light of this I discovered a reliable UDP networking library called ENet which provides a middle line between sending unreliable and reliable packets. This project is intended to be a boilerplate for all your Unity MMORPGs.
+The purpose of this boilerplate is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The boilerplate consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
 
 <h2>Table of Contents</h2>
 
@@ -15,6 +15,8 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 3. [Contributors](#contributors)
 
 <h2 align="center">Features</h2>
+
+*Note: Not all of these features have been implemented or fully completed.
 
 <h3 align="left">ENet Server</h3>
 
@@ -37,11 +39,13 @@ I found out the hard way that UNet and the Unity Transport Layer were really onl
 
 <h2 align="center">Contributing</h2>
 
+This project is no where near complete, all contributions are highly appreciated and welcomed.
+
 Please talk to me over Discord (**valk#3277**) to learn more on how you can contribute to the project. If you don't want to wait for me to accept your friend request, you can join [my discord](https://discord.gg/thMupbv) and then you'll be able to send me messages without a friend request.
 
 Also see [CONTRIBUTING.md](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
 
-And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12)
+And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12) and [Roadmap to v0.3](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues/31)
 
 <h2 align="center">Contributors</h2>
 
