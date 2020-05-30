@@ -45,7 +45,7 @@ Please talk to me over Discord (**valk#3277**) to learn more on how you can cont
 
 Also see [CONTRIBUTING.md](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
 
-And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12)
+And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12) and [Roadmap to v0.3](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues/31)
 
 <h2 align="center">Contributors</h2>
 
