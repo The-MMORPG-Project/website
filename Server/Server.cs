@@ -5,7 +5,6 @@ using System.Linq;
 using System.Timers;
 using System.Collections.Generic;
 
-using EF;
 using ENet;
 
 namespace Valk.Networking
@@ -211,71 +210,6 @@ namespace Valk.Networking
                 readStream.Position = 0;
                 netEvent.Packet.CopyTo(readBuffer);
                 var packetID = (PacketType)reader.ReadByte();
-
-                if (packetID == PacketType.ClientCreateAccount)
-                {
-                    var name = reader.ReadString();
-                    var pass = reader.ReadString();
-
-                    using (var db = new UserContext())
-                    {
-                        User user = db.Users.ToList().Find(x => x.Name.Equals(name));
-                        if (user != null) // Account already exists in database
-                        {
-                            Logger.Log($"Client '{id}' tried to make an account '{name}' but its already registered");
-
-                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerCreateAccountDenied, PacketFlags.Reliable, ErrorType.AccountCreateNameAlreadyRegistered));
-
-                            return;
-                        }
-
-                        // Account is unique, creating...
-                        Logger.Log($"Client '{id}' successfully created a new account '{name}'");
-                        Logger.Log($"Registering account '{name}' to database");
-                        db.Add(new User { Name = name, Pass = pass });
-                        db.SaveChanges();
-
-                        Network.Send(ref netEvent, Packet.Create(PacketType.ServerCreateAccountAccepted, PacketFlags.Reliable));
-                    }
-                }
-
-                if (packetID == PacketType.ClientLoginAccount)
-                {
-                    var name = reader.ReadString();
-                    var pass = reader.ReadString();
-
-                    using (var db = new UserContext())
-                    {
-                        var user = db.Users.ToList().Find(x => x.Name.Equals(name));
-
-                        if (user == null) // User login does not exist
-                        {
-                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, ErrorType.AccountLoginDoesNotExist));
-                            Logger.Log($"Client '{id}' tried to login to a non-existant account called '{name}'");
-                            return;
-                        }
-
-                        // User login exists
-                        if (!user.Pass.Equals(pass))
-                        {
-                            // Logged in with wrong password
-                            Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginDenied, PacketFlags.Reliable, ErrorType.AccountLoginWrongPassword));
-                            Logger.Log($"Client '{id}' tried to log into account '{name}' but typed in the wrong password");
-                            return;
-                        }
-
-                        // Logged in with correct password
-                        Network.Send(ref netEvent, Packet.Create(PacketType.ServerLoginAccepted, PacketFlags.Reliable, id, name));
-                        Logger.Log($"Client '{id}' successfully logged into account '{name}'");
-
-                        var client = clients.Find(x => x.ID.Equals(id));
-                        client.Status = ClientStatus.InGame;
-                        client.Name = name;
-                        client.Password = pass;
-
-                        Logger.Log($"Client '{id}' joined game room.");
-                    }
-                }
 
                 if (packetID == PacketType.ClientRequestNames) 
                 {

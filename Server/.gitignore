@@ -1,6 +1,1 @@
-# IDE
-.vscode/
-bin/
-obj/
-Migrations/
-users.db
+# Seems nothing needs to be ignored here
