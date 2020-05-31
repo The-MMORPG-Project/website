@@ -25,7 +25,7 @@ More will eventually be put here. For now take a look at the roadmaps in the pro
 
 ### Visual Studio Code
 
-I will recommend that you use Visual Studio Code as it is by far one of the best text editors for development that I've ever used, you will have no regrets when using it.
+I will recommend that you use Visual Studio Code as it is by far one of the best text editors for development that I've ever used, you will have no regrets when using it. You will need this editor when working with the client, web server and ENet game server.
 
 #### VSC Installation
 
@@ -52,7 +52,7 @@ Solution: Downgrade to `C# 1.21.16`
 
 ### Visual Studio
 
-Visual Studio setup info will eventually go here.
+Visual Studio setup info will eventually go here. You will need this IDE when working with the launcher.
 
 ## Setup Project
 ### Launcher
