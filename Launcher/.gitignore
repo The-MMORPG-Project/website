@@ -1,1 +1,4 @@
+# Visual Studio
 obj/
+bin/
+.vs/
