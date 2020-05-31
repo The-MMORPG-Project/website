@@ -1,43 +1,55 @@
-![PreviewServer](https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png)
+<p align="center">
+  <a href="" rel="noopener">
+ <img src="https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png" alt="Project logo"></a>
+</p>
 
-[![Discord][discord]][discord-url]
-[![Maintenance][maintenance]][discord-url]
-[![Ask Me Anything!][ask-me-anything]][discord-url]
-[![Issues][issues]][issues-url]
+<h3 align="center">Unity MMORPG Boilerplate</h3>
 
-<h1>Unity MMORPG Boilerplate</h1>
-The purpose of this boilerplate is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The boilerplate consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
+<div align="center">
+  
+  [![Discord][discord]][discord-url]
+  [![Maintenance][maintenance]][discord-url]
+  [![Ask Me Anything!][ask-me-anything]][discord-url]
+  [![Issues][issues]][issues-url]
+  [![License][license]][license-url]
+  
+</div>
 
-<h2>Table of Contents</h2>
+---
+
+<p align="center"> The purpose of this boilerplate is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The boilerplate consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
+    <br> 
+</p>
+
+## Table of Contents
 
 1. [Features](#features)
 2. [Contributing](#contributing)
 3. [Contributors](#contributors)
 
-<h2 align="center">Features</h2>
+## Features
 
-*Note: Not all of these features have been implemented or fully completed.
+**ENet Server**
 
-<h3 align="left">ENet Server</h3>
-
-- Multi-Threaded Console Input Ouput Buffers
+- Multi-Threaded Console Input Ouput Buffers (currently very bugged)
 - Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
 - Reliable UDP Networking with ENet
 
-<h3 align="left">Web Server</h3>
+**Web Server**
 
-- MySQL Database to Store User Accounts, Account Information and Purchases
+- MySQL Database to Store User Accounts, Account Information and Purchases (account info / purchases not started on yet)
 
-<h3 align="left">Client</h3>
+**Client**
 
 - UI Flow to Demonstrate Communication with Web Server / ENet Server
 
-<h3 align="left">Launcher</h3>
+**Launcher**
 
-- Handles Auto-Updating Client from GitHub Releases
-- Grabs Release Notes from GitHub Releases
+* Note that the launcher has not been started on at all
+- Handles Auto-Updating Client from GitHub Releases (not complete / may use something other than GitHub releases)
+- Grabs Release Notes from GitHub Releases (not complete / may use something other than GitHub releases)
 
-<h2 align="center">Contributing</h2>
+## Contributing
 
 This project is no where near complete, all contributions are highly appreciated and welcomed.
 
@@ -47,7 +59,7 @@ Also see [CONTRIBUTING.md](https://github.com/valkyrienyanko/Unity-ENet-Model/bl
 
 And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12) and [Roadmap to v0.3](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues/31)
 
-<h2 align="center">Contributors</h2>
+## Contributors
 
 <a href="https://github.com/valkyrienyanko/Unity-ENet-Model/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/Unity-ENet-Model" />
@@ -66,3 +78,7 @@ And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity
 [issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model 
 <!--Issues Link-->
 [issues-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues 
+<!--License Image-->
+[license]: https://img.shields.io/badge/license-MIT-blue.svg
+<!--License URL-->
+[license-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/blob/master/LICENSE
