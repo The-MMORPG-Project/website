@@ -1,8 +1,9 @@
 /*
  *  Managed C# wrapper for an extended version of ENet
- *  Copyright (c) 2013 James Bellinger
- *  Copyright (c) 2016 Nate Shoffner
- *  Copyright (c) 2018 Stanislav Denisov
+ * 	This is a fork from upstream and is available at http://github.com/SoftwareGuy/ENet-CSharp
+ *
+ *  Copyright (c) 2019 Matt Coburn (SoftwareGuy/Coburn64), Chris Burns (c6burns)
+ *  Copyright (c) 2013 James Bellinger, 2016 Nate Shoffner, 2018 Stanislav Denisov
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -344,7 +345,7 @@ namespace ENet {
 				throw new ArgumentNullException("data");
 
 			if (length < 0 || length > data.Length)
-				throw new ArgumentOutOfRangeException("length");
+				throw new ArgumentOutOfRangeException();
 
 			nativePacket = Native.enet_packet_create(data, (IntPtr)length, flags);
 		}
@@ -354,7 +355,7 @@ namespace ENet {
 				throw new ArgumentNullException("data");
 
 			if (length < 0)
-				throw new ArgumentOutOfRangeException("length");
+				throw new ArgumentOutOfRangeException();
 
 			nativePacket = Native.enet_packet_create(data, (IntPtr)length, flags);
 		}
@@ -363,11 +364,8 @@ namespace ENet {
 			if (data == null)
 				throw new ArgumentNullException("data");
 
-			if (offset < 0)
-				throw new ArgumentOutOfRangeException("offset");
-
-			if (length < 0 || length > data.Length)
-				throw new ArgumentOutOfRangeException("length");
+			if (offset < 0 || length < 0 || length > data.Length)
+				throw new ArgumentOutOfRangeException();
 
 			nativePacket = Native.enet_packet_create_offset(data, (IntPtr)length, (IntPtr)offset, flags);
 		}
@@ -376,20 +374,24 @@ namespace ENet {
 			if (data == IntPtr.Zero)
 				throw new ArgumentNullException("data");
 
-			if (offset < 0)
-				throw new ArgumentOutOfRangeException("offset");
-
-			if (length < 0)
-				throw new ArgumentOutOfRangeException("length");
+			if (offset < 0 || length < 0)
+				throw new ArgumentOutOfRangeException();
 
 			nativePacket = Native.enet_packet_create_offset(data, (IntPtr)length, (IntPtr)offset, flags);
 		}
 
 		public void CopyTo(byte[] destination) {
-			if (destination == null)
-				throw new ArgumentNullException("destination");
-
-			Marshal.Copy(Data, destination, 0, Length);
+            if (destination == null)
+                throw new ArgumentNullException("destination");
+            
+			// Fix by katori, prevents trying to copy a NULL
+			// from native world (ie. disconnect a client)			
+			if (Data == null)
+            {
+                return;
+            }
+			
+            Marshal.Copy(Data, destination, 0, Length);
 		}
 	}
 
@@ -473,7 +475,7 @@ namespace ENet {
 				throw new InvalidOperationException("Host not created");
 		}
 
-		private static void IsChannelsLimited(int channelLimit) {
+		private void IsChannelLimited(int channelLimit) {
 			if (channelLimit < 0 || channelLimit > Library.maxChannelCount)
 				throw new ArgumentOutOfRangeException("channelLimit");
 		}
@@ -513,7 +515,7 @@ namespace ENet {
 			if (peerLimit < 0 || peerLimit > Library.maxPeers)
 				throw new ArgumentOutOfRangeException("peerLimit");
 
-			IsChannelsLimited(channelLimit);
+			IsChannelLimited(channelLimit);
 
 			if (address != null) {
 				var nativeAddress = address.Value.NativeData;
@@ -550,9 +552,6 @@ namespace ENet {
 		}
 
 		public void Broadcast(byte channelID, ref Packet packet, Peer[] peers) {
-			if (peers == null)
-				throw new ArgumentNullException("peers");
-
 			IsCreated();
 
 			packet.IsCreated();
@@ -582,7 +581,7 @@ namespace ENet {
 			var result = Native.enet_host_check_events(nativeHost, out nativeEvent);
 
 			if (result <= 0) {
-				@event = default(Event);
+				@event = default;
 
 				return result;
 			}
@@ -602,7 +601,7 @@ namespace ENet {
 
 		public Peer Connect(Address address, int channelLimit, uint data) {
 			IsCreated();
-			IsChannelsLimited(channelLimit);
+			IsChannelLimited(channelLimit);
 
 			var nativeAddress = address.NativeData;
 			var peer = new Peer(Native.enet_host_connect(nativeHost, ref nativeAddress, (IntPtr)channelLimit, data));
@@ -624,7 +623,7 @@ namespace ENet {
 			var result = Native.enet_host_service(nativeHost, out nativeEvent, (uint)timeout);
 
 			if (result <= 0) {
-				@event = default(Event);
+				@event = default;
 
 				return result;
 			}
@@ -642,7 +641,7 @@ namespace ENet {
 
 		public void SetChannelLimit(int channelLimit) {
 			IsCreated();
-			IsChannelsLimited(channelLimit);
+			IsChannelLimited(channelLimit);
 
 			Native.enet_host_channel_limit(nativeHost, (IntPtr)channelLimit);
 		}
@@ -828,7 +827,7 @@ namespace ENet {
 				return true;
 			}
 
-			packet = default(Packet);
+			packet = default;
 
 			return false;
 		}
@@ -874,6 +873,22 @@ namespace ENet {
 
 			Native.enet_peer_reset(nativePeer);
 		}
+
+		// == ADDITIONS NOT AVAILABLE IN UPSTREAM REPOSITORY == //
+		// These are placed here to ensure that merge conflicts aren't a
+		// pain in the ass.
+
+		// SendAndReturnStatusCode returns either 0 if the send was successful,
+		// or the ENET return code if not. Sometimes a bool is not enough to determine
+		// the root cause of a issue.
+		public int SendAndReturnStatusCode(byte channelID, ref Packet packet)
+		{
+			IsCreated();
+
+			packet.IsCreated();
+
+			return Native.enet_peer_send(nativePeer, channelID, packet.NativeData);
+		}
 	}
 
 	public static class Extensions {
@@ -901,16 +916,15 @@ namespace ENet {
 		public const uint timeoutLimit = 32;
 		public const uint timeoutMinimum = 5000;
 		public const uint timeoutMaximum = 30000;
-		public const uint version = (2 << 16) | (3 << 8) | (8);
+		
+		// Lock our version to 2.4.0, to avoid confusion with upstream.
+		public const uint version = (2 << 16) | (4 << 8) | (0);
 
 		public static bool Initialize() {
 			return Native.enet_initialize() == 0;
 		}
 
 		public static bool Initialize(Callbacks callbacks) {
-			if (callbacks == null)
-				throw new ArgumentNullException("callbacks");
-
 			ENetCallbacks nativeCallbacks = callbacks.NativeData;
 
 			return Native.enet_initialize_with_callbacks(version, ref nativeCallbacks) == 0;
@@ -929,11 +943,16 @@ namespace ENet {
 
 	[SuppressUnmanagedCodeSecurity]
 	internal static class Native {
-		#if __IOS__ || UNITY_IOS && !UNITY_EDITOR
-			private const string nativeLibrary = "__Internal";
-		#else
-			private const string nativeLibrary = "enet";
-		#endif
+#if __IOS__ || UNITY_IOS && !UNITY_EDITOR
+        // We're building for a certain mobile fruity OS.
+		private const string nativeLibrary = "__Internal";
+#elif __APPLE__ || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+        // We're building for a certain fruity OS.
+        private const string nativeLibrary = "libenet";
+#else
+        // Assume everything else, Windows et al...		
+        private const string nativeLibrary = "enet";
+#endif	
 
 		[DllImport(nativeLibrary, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int enet_initialize();

@@ -1,1 +1,4 @@
-# Seems nothing needs to be ignored here
+# IDE
+.vscode/
+bin/
+obj/
