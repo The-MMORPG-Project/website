@@ -1,9 +1,7 @@
 <p align="center">
   <a href="" rel="noopener">
- <img src="https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png" alt="Project logo"></a>
+ <img width=600 height=225 src="https://i.imgur.com/AlP8aFy.png" alt="Project logo"></a>
 </p>
-
-<h3 align="center">Unity MMORPG Boilerplate</h3>
 
 <div align="center">
   
