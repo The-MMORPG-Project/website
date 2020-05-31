@@ -1,10 +1,8 @@
 # Contributing Guide
 
-If you have any questions, feel free to contact me at **valk#3277** on Discord.
-
 ## Table of Contents
 
-1. [Introduction](#introduction)
+1. [Getting Started](#getting-started)
 2. [Setup Workspace](#setup-workspace)
     - [VSC](#visual-studio-code)
     - [VS](#visual-studio)
@@ -19,9 +17,9 @@ If you have any questions, feel free to contact me at **valk#3277** on Discord.
 5. [Notes](#notes)
 6. [Libraries](#libraries)
 
-## Introduction
+## Getting Started
 
-The project is intended to be a boilerplate for all Unity MMORPG projects. The client authenticates through the web server then connects to the game server with all the other players.
+More will eventually be put here. For now take a look at the roadmaps in the projects [issues](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues) and talk to me on Discord (**valk#3277**).
 
 ## Setup Workspace
 
