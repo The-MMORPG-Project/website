@@ -1,9 +1,7 @@
 <p align="center">
   <a href="" rel="noopener">
- <img src="https://i.gyazo.com/acf5808f64dbf0971198c6b01ec0433c.png" alt="Project logo"></a>
+ <img width=600 height=225 src="https://i.imgur.com/AlP8aFy.png" alt="Project logo"></a>
 </p>
-
-<h3 align="center">Unity MMORPG Boilerplate</h3>
 
 <div align="center">
   
@@ -31,7 +29,7 @@
 
 **ENet Server**
 
-- Multi-Threaded Console Input Ouput Buffers (currently very bugged)
+- Multi-Threaded Console Input Ouput Buffers (currently very bugged - [#2](/../../issues/2) [#4](/../../issues/4) [#5](/../../issues/5) [#6](/../../issues/6) [#15](/../../issues/15))
 - Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
 - Reliable UDP Networking with ENet
 
