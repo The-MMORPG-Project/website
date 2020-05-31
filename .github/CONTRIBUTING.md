@@ -14,6 +14,8 @@ If you have any questions, feel free to contact me at **valk#3277** on Discord.
     - [Web Server](#web-server)
     - [ENet Server](#enet-server)
 4. [Workflow](#workflow)
+    - [Opening an Issue](#opening-an-issue)
+    - [Creating a Pull Request](#creating-a-pull-request)
 5. [Notes](#notes)
 6. [Libraries](#libraries)
 
@@ -46,9 +48,13 @@ Not all extensions are required for development but I highly recommend you at le
 - [Material Theme](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme) (Legacy material themes work the best in my opinion)
 
 #### VSC Known Issues
-##### VSC Intellisense does not work for Unity Namespaces</h3>
+##### VSC Intellisense does not work for Unity Namespaces
 
 Solution: Downgrade to `C# 1.21.16`
+
+### Visual Studio
+
+Visual Studio setup info will eventually go here.
 
 ## Setup Project
 ### Launcher
