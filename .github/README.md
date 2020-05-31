@@ -11,6 +11,7 @@
   [![Maintenance][maintenance]][discord-url]
   [![Ask Me Anything!][ask-me-anything]][discord-url]
   [![Issues][issues]][issues-url]
+  [![License][license]][license-url]
   
 </div>
 
@@ -77,3 +78,7 @@ And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity
 [issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model 
 <!--Issues Link-->
 [issues-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues 
+<!--License Image-->
+[license]: https://img.shields.io/badge/license-MIT-blue.svg
+<!--License URL-->
+[license-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/blob/master/LICENSE
