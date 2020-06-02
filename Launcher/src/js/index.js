@@ -1,30 +1,37 @@
 const { ipcRenderer } = require('electron')
 const launchBarProgress = document.getElementById('launchBarProgress')
 
-let curProgress = 0
-let prevProgress = 0
-let animProgress = 0
+let renderInterval
+
+let downloading = false
+
+let progress = 0
+let width = 0
 
 ipcRenderer.on('progress', (event, arg) => {
-	curProgress = arg
-
-	launchBarProgress.animate([
-		{
-			transform: `scaleX(${0})`,
-		},
-		{
-			tranform: `scaleX(${1})`,
-		},
-	], {
-		duration: 300,
-		fill: "forwards",
-	});
+	progress = Math.round(arg * 100)
 })
 
-function launch() {
-	ipcRenderer.send('download-button', { url: 'https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png' })
+function renderProgressBar() {
+	if (width >= 100) {
+		clearInterval(renderInterval)
+		downloading = false
+		return
+	}
+
+	if (progress > width) {
+		width++
+		launchBarProgress.style.width = width + '%'
+	}
 }
 
-function lerp(v0, v1, t) {
-	return (1 - t) * v0 + t * v1;
+function launch() {
+	if (downloading) {
+		return
+	}
+
+	ipcRenderer.send('download-button', { url: 'https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png' })
+	width = 0
+	downloading = true
+	renderInterval = setInterval(renderProgressBar, 10)
 }

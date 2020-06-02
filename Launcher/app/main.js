@@ -11,8 +11,7 @@ function createWindow() {
 		center: true,
 		resizable: true,
 		webPreferences: {
-			nodeIntegration: true,
-			experimentalFeatures: true
+			nodeIntegration: true
 		}
 	})
 
