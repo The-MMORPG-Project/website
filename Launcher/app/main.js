@@ -2,18 +2,17 @@ const { app, BrowserWindow } = require('electron')
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 400,
     center: true,
     resizable: true,
-    backgroundColor: "#181818",
     title: "Launcher",
     webPreferences: {
       nodeIntegration: true
     }
   })
 
-  win.loadFile('index.html')
+  win.loadFile('../src/index.html')
 }
 
 // This method will be called when Electron has finished
