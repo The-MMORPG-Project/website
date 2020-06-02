@@ -52,6 +52,9 @@ function initDevTools() {
 						click(item, focusedWindow) {
 							focusedWindow.toggleDevTools()
 						}
+					},
+					{
+						role: 'reload'
 					}
 				]
 			}
