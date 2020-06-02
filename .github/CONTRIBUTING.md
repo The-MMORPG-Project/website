@@ -10,7 +10,7 @@
     - [Launcher](#launcher)
     - [Client](#client)
     - [Web Server](#web-server)
-    - [ENet Server](#enet-server)
+    - [Game Server](#game-server)
 4. [Workflow](#workflow)
     - [Opening an Issue](#opening-an-issue)
     - [Creating a Pull Request](#creating-a-pull-request)
@@ -78,9 +78,12 @@ DB_PASSWORD=xxxxxxx
 ```
 5. Run server with `yarn dev:start`
 
-### ENet Server
+### Game Server
 
-Run the server with `dotnet run`
+1. Clone `https://github.com/SoftwareGuy/ENet-CSharp`
+2. Go into the `Source/Managed` folder and run `dotnet build`
+3. Grab the `ENet-CSharp.dll` from `Source\Managed\bin\Debug\netcoreapp3.1` and add it to your VSCode references
+4. Go to the game server directory and run the server with `dotnet run`
 
 ## Workflow
 
