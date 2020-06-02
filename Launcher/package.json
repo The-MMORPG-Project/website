@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
 	"start": "cd app && yarn start",
-	"build:win": "cd app && electron-builder --win",
-    "build:mac": "cd app && electron-builder --mac",
-    "build:linux": "cd app && electron-builder --linux",
+	"build:win": "cd app && yarn build:win",
+    "build:mac": "cd app && yarn build:mac",
+    "build:linux": "cd app && yarn build:linux",
 	"postinstall": "cd app && yarn install"
   }
 }
