@@ -57,7 +57,10 @@ Visual Studio setup info will eventually go here. You will need this IDE when wo
 ## Setup Project
 ### Launcher
 
-Start project with Visual Studio
+NOTE: This area is lacking information and will be updated sooner or later, please be patient..
+
+1. Install dependencies with `yarn install`
+2. OPTIONAL: Build the app through electron `yarn build:win` (`win` can be replaced with `mac` or `linux`) (note: you must be on the specified platform to build for that OS)
 
 ### Client
 
@@ -68,15 +71,14 @@ Use [Unity Hub](https://unity3d.com/get-unity/download) on version `2019.3.13f1`
 ### Web Server
 
 1. Install and setup [MySQL](https://dev.mysql.com/downloads/installer/) (preferably setup on a remote dedicated machine)
-2. Install yarn with `npm i -g yarn`
-3. Install dependencies with `yarn install`
-4. Create `.env` file in Web root folder and fill following variables inside
+2. Install dependencies with `yarn install`
+3. Create `.env` file in Web root folder and fill following variables inside
 ```
 DB_HOST=xxx.xxx.xxx.xxx
 DB_USER=xxxxx
 DB_PASSWORD=xxxxxxx
 ```
-5. Run server with `yarn dev:start`
+4. Run server with `yarn dev:start` (protip: just use `yarn start` if you want to start without compiling tsc)
 
 ### Game Server
 
