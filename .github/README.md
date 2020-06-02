@@ -43,9 +43,8 @@
 
 **Launcher**
 
-* Note that the launcher has not been started on at all
-- Handles Auto-Updating Client from GitHub Releases (not complete / may use something other than GitHub releases)
-- Grabs Release Notes from GitHub Releases (not complete / may use something other than GitHub releases)
+- Handles Auto-Updating Client (not complete)
+- Grabs Release Notes (not complete)
 
 ## Contributing
 
