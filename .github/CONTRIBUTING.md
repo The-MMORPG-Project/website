@@ -78,7 +78,7 @@ DB_HOST=xxx.xxx.xxx.xxx
 DB_USER=xxxxx
 DB_PASSWORD=xxxxxxx
 ```
-4. Run server with `yarn dev:start` (protip: just use `yarn dev:start` if you want to start without compiling tsc)
+4. Run server with `yarn dev:start` (protip: just use `yarn start` if you want to start without compiling tsc)
 
 ### Game Server
 
