@@ -72,13 +72,13 @@ Use [Unity Hub](https://unity3d.com/get-unity/download) on version `2019.3.13f1`
 
 1. Install and setup [MySQL](https://dev.mysql.com/downloads/installer/) (preferably setup on a remote dedicated machine)
 2. Install dependencies with `yarn install`
-4. Create `.env` file in Web root folder and fill following variables inside
+3. Create `.env` file in Web root folder and fill following variables inside
 ```
 DB_HOST=xxx.xxx.xxx.xxx
 DB_USER=xxxxx
 DB_PASSWORD=xxxxxxx
 ```
-5. Run server with `yarn dev:start`
+4. Run server with `yarn dev:start` (protip: just use `yarn dev:start` if you want to start without compiling tsc)
 
 ### Game Server
 
