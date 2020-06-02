@@ -10,15 +10,15 @@ ipcRenderer.on('progress', (event, arg) => {
 
 	launchBarProgress.animate([
 		{
-		  transform: `scaleX(${0})`,
+			transform: `scaleX(${0})`,
 		},
 		{
-		  tranform: `scaleX(${100})`,
+			tranform: `scaleX(${1})`,
 		},
-	  ], {
+	], {
 		duration: 300,
 		fill: "forwards",
-	  });
+	});
 })
 
 function launch() {
