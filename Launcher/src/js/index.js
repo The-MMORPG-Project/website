@@ -1,5 +1,6 @@
 const { ipcRenderer } = require('electron')
 const launchBarProgress = document.getElementById('launchBarProgress')
+const launchButton = document.getElementById('launchButton')
 
 let renderInterval
 
@@ -25,7 +26,7 @@ function renderProgressBar() {
 	}
 }
 
-function launch() {
+launchButton.addEventListener('onclick', function() {
 	if (downloading) {
 		return
 	}
@@ -34,4 +35,4 @@ function launch() {
 	width = 0
 	downloading = true
 	renderInterval = setInterval(renderProgressBar, 10)
-}
+})
