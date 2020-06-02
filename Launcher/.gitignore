@@ -2,3 +2,10 @@
 obj/
 bin/
 .vs/
+
+# Node
+node_modules/
+yarn-error.log
+
+# Electron
+dist/
