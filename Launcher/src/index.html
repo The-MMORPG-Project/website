@@ -2,12 +2,24 @@
 <html>
 
 <head>
+	<title>Launcher</title>
+
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+	
+	<!-- Style Sheets -->
+	<link rel="stylesheet" href="css/universal.css">
+	<link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
-    <h1>Hello world!</h1>
+	<div id="launchBar">
+		<div id="launchBarProgress"></div>
+	</div>
+
+    <button onclick="launch()">Launch</button>
+	
+	<script src="js/index.js"></script>
 </body>
 
 </html>

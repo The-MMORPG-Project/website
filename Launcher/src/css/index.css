@@ -1,0 +1,10 @@
+#launchBar {
+	width: 100%;
+	background-color: grey;
+}
+
+#launchBarProgress {
+	width: 0%;
+	height: 30px;
+	background-color: green;
+}

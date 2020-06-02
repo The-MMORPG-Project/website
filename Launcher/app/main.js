@@ -1,41 +1,70 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const { download } = require('electron-dl')
+const isDev = require('electron-is-dev')
 
-function createWindow () {
-  const win = new BrowserWindow({
-    width: 600,
-    height: 400,
-    center: true,
-    resizable: true,
-    title: "Launcher",
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
+let mainWin = null
 
-  win.loadFile('../src/index.html')
+function createWindow() {
+	mainWin = new BrowserWindow({
+		width: 600,
+		height: 400,
+		center: true,
+		resizable: true,
+		webPreferences: {
+			nodeIntegration: true
+		}
+	})
+
+	mainWin.loadFile('../src/index.html')
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow)
+app.on('ready', () => {
+	clearConsole()
+	createWindow()
+	Menu.setApplicationMenu(null)
+	initDevTools()
 
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+	console.log('Electron app is up and running..')
 })
 
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
-  }
+ipcMain.on('download-button', async (event, { url }) => {
+	const win = BrowserWindow.getFocusedWindow()
+	const options = {
+		directory: app.getPath('pictures'),
+		onProgress
+	}
+	await download(win, url, options)
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+function onProgress(obj) {
+	mainWin.webContents.send('progress', obj.percent)
+}
+
+function initDevTools() {
+	if (isDev) {
+		const devMenuTemplate = [
+			{
+				label: 'Developer Tools',
+				submenu: [
+					{
+						label: 'Toggle DevTools',
+						accelerator: 'CmdOrCtrl+Shift+I',
+						click(item, focusedWindow) {
+							focusedWindow.toggleDevTools()
+						}
+					}
+				]
+			}
+		]
+		const menu = Menu.buildFromTemplate(devMenuTemplate)
+		Menu.setApplicationMenu(menu)
+	}
+}
+
+function clearConsole() {
+	const readline = require('readline')
+	const blank = '\n'.repeat(process.stdout.rows)
+	console.log(blank)
+	readline.cursorTo(process.stdout, 0, 0)
+	readline.clearScreenDown(process.stdout)
+}

@@ -7,10 +7,11 @@
   "author": "valkyrienyanko",
   "license": "MIT",
   "scripts": {
-    "start": "electron .",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux",
+	"start": "set ELECTRON_IS_DEV=0 && electron .",
+    "dev:start": "set ELECTRON_IS_DEV=1 && electron .",
+    "build:win": "set ELECTRON_IS_DEV=0 && electron-builder --win",
+    "build:mac": "export ELECTRON_IS_DEV=0 && electron-builder --mac",
+    "build:linux": "export ELECTRON_IS_DEV=0 && electron-builder --linux",
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
@@ -23,7 +24,9 @@
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "linux": {
       "icon": "build/icon.ico",
@@ -59,6 +62,8 @@
   },
   "devDependencies": {
     "electron": "^9.0.1",
-    "electron-builder": "^22.7.0"
+    "electron-builder": "^22.7.0",
+    "electron-dl": "^3.0.0",
+    "electron-is-dev": "^1.2.0"
   }
 }

@@ -6,10 +6,11 @@
   "author": "valkyrienyanko",
   "license": "MIT",
   "scripts": {
-	"start": "cd app && yarn start",
-	"build:win": "cd app && yarn build:win",
+    "start": "cd app && yarn start",
+	"dev:start": "cd app && yarn dev:start",
+    "build:win": "cd app && yarn build:win",
     "build:mac": "cd app && yarn build:mac",
     "build:linux": "cd app && yarn build:linux",
-	"postinstall": "cd app && yarn install"
+    "postinstall": "cd app && yarn install"
   }
 }
