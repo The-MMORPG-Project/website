@@ -26,7 +26,7 @@ function renderProgressBar() {
 	}
 }
 
-launchButton.addEventListener('onclick', function() {
+launchButton.addEventListener('click', () => {
 	if (downloading) {
 		return
 	}
