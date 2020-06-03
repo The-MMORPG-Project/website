@@ -3,8 +3,9 @@ const { download } = require('electron-dl')
 const isDev = require('electron-is-dev')
 
 let mainWin = null
+let settingsWin = null
 
-function createWindow() {
+function createMainWindow() {
 	mainWin = new BrowserWindow({
 		width: 600,
 		height: 400,
@@ -18,11 +19,30 @@ function createWindow() {
 	mainWin.loadFile('../src/index.html')
 }
 
+function createSettingsWindow() {
+	settingsWin = new BrowserWindow({
+		width: 200,
+		height: 300,
+		title: 'Settings'
+	})
+
+	settingsWin.loadFile('../src/settings.html')
+
+	settingsWin.on('close', () => {
+		settingsWin = null
+	})
+}
+
 app.on('ready', () => {
 	clearConsole()
-	createWindow()
+	createMainWindow()
+	createSettingsWindow()
 	Menu.setApplicationMenu(null)
 	initDevTools()
+
+	mainWin.on('closed', () => {
+		app.quit()
+	})
 
 	console.log('Electron app is up and running..')
 })
