@@ -1,3 +1,58 @@
+body {
+	font-family: Arial, Helvetica, sans-serif; /* This font looks better that default */
+	background-color: #282828;
+}
+
+::-webkit-scrollbar { width: .5em; }
+::-webkit-scrollbar-track { background-color: grey; }
+::-webkit-scrollbar-thumb { background-color: rgb(26, 26, 26); }
+
+#topBar {
+	position: absolute;
+	height: calc(100% - 130px); /* minus 130px from the full screen height to give space for launchBar */
+	width: 100%;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.411);
+	overflow: auto;
+}
+
+#releaseNotesHead {
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+#releaseNotes {
+	padding: 20px;
+}
+
+#release {
+	font-size: 13px;
+	font-weight: 550;
+	overflow: auto;
+}
+
+#release ~ #release { /* Adds margin to the top of every each other 'release' div so you don't have to add it manually in the HTML */
+	margin-top: 15px;
+}
+
+#added::before {
+	content: "+\00a0\00a0 ";
+	padding-left: 5px;
+}
+
+#removed::before {
+	content: "-\00a0\00a0 ";
+	padding-left: 5px;
+}
+
+main {
+	position: absolute;
+	left: 125px;
+	width: calc(100% - 130px);
+	/* margin-right: 100px; */
+	height: 100%;
+	z-index: -1; /* Puts the div under the minimize button so It can be clicked */
+}
+
 #launchBar {
 	position: fixed;
 	bottom: 13px;
@@ -43,6 +98,8 @@
 	border: 0cm;
 	width: 20px;
 	height: 20px;
+	font-size: 17px;
+	padding-top: 5px;
 	font-weight: bold;
 	-webkit-app-region: no-drag;
 }
