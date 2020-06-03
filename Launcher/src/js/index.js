@@ -44,7 +44,7 @@ launchButton.addEventListener('click', () => {
 		return
 	}
 
-	ipcRenderer.send('download-button', { url: 'http://localhost:3000/api/download' })
+	ipcRenderer.send('download-button', { url: 'http://localhost:3000/api/releases/win/latest.zip' })
 	width = 0
 	downloading = true
 	renderInterval = setInterval(renderProgressBar, 10)
