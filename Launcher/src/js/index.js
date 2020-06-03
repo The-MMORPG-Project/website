@@ -24,6 +24,10 @@ function renderProgressBar() {
 	if (width >= 100) {
 		clearInterval(renderInterval)
 		downloading = false
+
+		new Notification('Update Complete', {
+			body: 'Client is now up-to-date.'
+		})
 		return
 	}
 

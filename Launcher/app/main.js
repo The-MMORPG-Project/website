@@ -27,6 +27,9 @@ function createMainWindow() {
 
 app.on('ready', () => {
 	clearConsole()
+
+	app.setAppUserModelId(process.execPath)
+
 	createMainWindow()
 	Menu.setApplicationMenu(null)
 	initDevTools()
