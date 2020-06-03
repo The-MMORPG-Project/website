@@ -7,8 +7,7 @@
 }
 
 #launchBarProgress {
-	/* TODO: hook up width so that it accurately displays loading bar amount */
-	width: 30%;
+	width: 0%;
 	left: 120px;
 	right: 20px;
 	height: 30px;
