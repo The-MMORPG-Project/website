@@ -123,7 +123,7 @@ Fork the repository and create a pull request when you want to merge a change.
 ## Libraries
 ### Launcher
 
-- [Avalonia](https://avaloniaui.net)
+- [Electron](https://www.electronjs.org/docs)
 
 ### Unity Client
 
