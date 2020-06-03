@@ -14,6 +14,8 @@ let settingsOpen = false
 let progress = 0
 let width = 0
 
+let settingsWin = null
+
 // We received a new download progress value
 ipcRenderer.on('progress', (event, arg) => {
 	progress = Math.round(arg * 100)
@@ -37,6 +39,12 @@ function renderProgressBar() {
 	}
 }
 
+/*document.addEventListener('mousemove', () => {
+	if (settingsOpen) {
+		settingsWin.focus()
+	}
+})*/
+
 // Menu Buttons
 close.addEventListener('click', () => {
 	BrowserWindow.getFocusedWindow().close()
@@ -53,7 +61,7 @@ settingsButton.addEventListener('click', () => {
 
 	settingsOpen = true
 
-	let win = new BrowserWindow({
+	settingsWin = new BrowserWindow({
 		width: 400,
 		height: 300,
 		title: 'Settings',
@@ -65,17 +73,17 @@ settingsButton.addEventListener('click', () => {
 		}
 	})
 
-	win.on('ready-to-show', () => {
-		win.moveTop()
-		win.show()
+	settingsWin.on('ready-to-show', () => {
+		settingsWin.moveTop()
+		settingsWin.show()
 	})
 
-	win.on('closed', () => {
+	settingsWin.on('closed', () => {
 		settingsOpen = false
-		win = null
+		settingsWin = null
 	})
 
-	win.loadFile('../src/settings.html')
+	settingsWin.loadFile('../src/settings.html')
 })
 
 // Launch Button
