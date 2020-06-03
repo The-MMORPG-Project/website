@@ -63,7 +63,6 @@ settingsButton.addEventListener('click', () => {
 		height: 200,
 		title: 'Settings',
 		show: false,
-		alwaysOnTop: true,
 		frame: false,
 		webPreferences: {
 			nodeIntegration: true,
