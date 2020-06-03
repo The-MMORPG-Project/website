@@ -57,10 +57,12 @@ Visual Studio setup info will eventually go here. You will need this IDE when wo
 ## Setup Project
 ### Launcher
 
-NOTE: This area is lacking information and will be updated sooner or later, please be patient..
-
 1. Install dependencies with `yarn install`
-2. OPTIONAL: Build the app through electron `yarn build:win` (`win` can be replaced with `mac` or `linux`) (note: you must be on the specified platform to build for that OS)
+2. Start launcher with `yarn dev:start` (protip: use `yarn start` to run without developer tools)
+    - Open debugger with `Ctrl + Shift + I`
+    - Reload page with `Ctrl + R`
+    - Run linter with `yarn dev:lint`
+3. Build the project's binaries with `yarn build:win` (`win` can be replaced with `linux` or `mac`, you can only build a platform if you're currently on that OS, for e.g. you can't build mac or linux on windows)
 
 ### Client
 
@@ -121,7 +123,7 @@ Fork the repository and create a pull request when you want to merge a change.
 ## Libraries
 ### Launcher
 
-- [Avalonia](https://avaloniaui.net)
+- [Electron](https://www.electronjs.org/docs)
 
 ### Unity Client
 
