@@ -48,7 +48,6 @@ minimize.addEventListener('click', () => {
 
 settingsButton.addEventListener('click', () => {
 	if (settingsOpen) {
-		console.log('settings is open')
 		return
 	}
 
