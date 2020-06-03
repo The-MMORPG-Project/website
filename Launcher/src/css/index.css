@@ -1,8 +1,8 @@
 #launchBar {
 	position: fixed;
 	bottom: 13px;
-	width: 470px;
-	left: 120px;
+	width: 460px;
+	left: 125px;
 	background-color: grey;
 }
 
@@ -29,6 +29,7 @@
 
 #settingsButton {
 	background-color: transparent;
+	border: transparent;
 	border: 0cm;
 	width: 20px;
 	height: 20px;

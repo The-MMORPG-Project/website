@@ -16,22 +16,26 @@
 
 	<body>
 		<div id="title-bar-btns">
-			<button id="close">X</button>
+			<button id="close">✖️</button>
 		</div>
-
 		<ul>
 			<li>
-				<label><input type="checkbox" id="autoUpdate" />Auto update</label>
+				<label class="container"
+					>Auto update
+					<input type="checkbox" checked="checked" id="autoUpdate" />
+					<span class="checkmark"></span>
+				</label>
 			</li>
 			<li>
-				<label
-					><input type="checkbox" id="launchOnStartup" />Automatically launch on
-					startup</label
-				>
+				<label class="container"
+					>Automatically launch on startup
+					<input type="checkbox" checked="checked" id="launchOnStartup" />
+					<span class="checkmark"></span>
+				</label>
 			</li>
 		</ul>
 
-		<div class="container">
+		<div class="container2">
 			<div class="button-wrapper">
 				<button id="cancel">Cancel</button>
 				<button id="apply">Apply</button>
