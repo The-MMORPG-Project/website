@@ -14,19 +14,17 @@ let settingsOpen = false
 let progress = 0
 let width = 0
 
-let settingsWin = null
-
-const webIP = 'localhost'
-const webPort = 3000
-
 // We received a new download progress value
 ipcRenderer.on('progress', (event, arg) => {
 	progress = Math.round(arg * 100)
 })
 
+function lerp (start, end, amt){
+  return (1-amt)*start+amt*end;
+}
+
 // Render the download progress bar
 function renderProgressBar() {
-	console.log(width)
 	if (width >= 100) {
 		clearInterval(renderInterval)
 		downloading = false
@@ -38,16 +36,14 @@ function renderProgressBar() {
 	}
 
 	if (progress > width) {
-		width = lerp(width, progress, progress / 100).toFixed(2)
+		width = lerp(width, progress, 0.01)
 		launchBarProgress.style.width = width + '%'
+		console.log(progress);
 	}
-}
 
-/*document.addEventListener('mousemove', () => {
-	if (settingsOpen) {
-		settingsWin.focus()
-	}
-})*/
+	document.querySelector("#launchButton").innerHTML = progress + "%"
+
+}
 
 // Menu Buttons
 close.addEventListener('click', () => {
@@ -60,12 +56,13 @@ minimize.addEventListener('click', () => {
 
 settingsButton.addEventListener('click', () => {
 	if (settingsOpen) {
+		BrowserWindow.getFocusedWindow().close()
 		return
 	}
 
 	settingsOpen = true
 
-	settingsWin = new BrowserWindow({
+	let win = new BrowserWindow({
 		width: 400,
 		height: 300,
 		title: 'Settings',
@@ -77,17 +74,17 @@ settingsButton.addEventListener('click', () => {
 		}
 	})
 
-	settingsWin.on('ready-to-show', () => {
-		settingsWin.moveTop()
-		settingsWin.show()
+	win.on('ready-to-show', () => {
+		win.moveTop()
+		win.show()
 	})
 
-	settingsWin.on('closed', () => {
+	win.on('close', () => {
+		win = null
 		settingsOpen = false
-		settingsWin = null
 	})
 
-	settingsWin.loadFile('../src/settings.html')
+	win.loadFile('../src/settings.html')
 })
 
 // Launch Button
@@ -95,24 +92,11 @@ launchButton.addEventListener('click', () => {
 	if (downloading) { // Only launch if not downloading anything
 		return
 	}
-
+	console.log("Beginning Download");
 	// Tell the main process what to download
-	/* TEST FILES 
-	 * http://ipv4.download.thinkbroadband.com/5MB.zip
-	 * http://ipv4.download.thinkbroadband.com/10MB.zip
-	 * http://ipv4.download.thinkbroadband.com/20MB.zip
-	 * http://ipv4.download.thinkbroadband.com/50MB.zip
-	 */
-
-	let platform = 'win'
-	let release = 'latest'
-
-	ipcRenderer.send('download-button', { url: `http://${webIP}:${webPort}/api/releases/${platform}/${release}.zip` })
+	ipcRenderer.send('download-button', { url: 'https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png' })
 	width = 0
 	downloading = true
 	renderInterval = setInterval(renderProgressBar, 10)
+	renderProgressBar()
 })
-
-function lerp(v0, v1, t) {
-	return (1 - t) * v0 + t * v1
-}
