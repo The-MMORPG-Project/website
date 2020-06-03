@@ -15,94 +15,73 @@
 	<body>
 		<div id="headerBar"></div> <!-- Draggable top region of window -->
 
+		<button id="settingsButton">⚙️</button>
 		<div id="title-bar-btns">
-			<button id="minimize">➖</button>
+      <button id="user">BubbleMaster6</button>
+			<button id="minimize">—</button>
 			<button id="close">✖️</button>
 			<!-- other possible button icons ❌—🔧-->
 		</div>
 
-<head>
-	<!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
-	<meta
-		http-equiv="Content-Security-Policy"
-		content="script-src 'self' 'unsafe-inline';"
-	/>
+    <main>
+      <h3 id="releaseNotesHead">Release Notes</h3>
+      <div id="topBar">
+        <div id="releaseNotes">
 
-	<!-- Style Sheets -->
-	<link rel="stylesheet" href="css/universal.css" />
-	<link rel="stylesheet" href="css/index.css" />
-</head>
+          <div id="release">
+            <div id="versionNumber">0.2</div>
+            <div id="added">Added this</div> <!-- You don't need to add a plus symbol because It's automatically added by the CSS to a div that has an ID of 'added' -->
+            <div id="added">Added that</div>
+            <div id="removed">Removed that</div> <!-- You don't need to add a minus symbole because It's automatically added by the CSS to a div that has an ID of 'removed' -->
+          </div>
 
-<body>
-	<div id="title-bar-btns">
-		<button id="user">BubbleMaster6</button>
-		<button id="minimize">➖</button>
-		<button id="close">✖️</button>
-		<!-- other possible button icons ❌—🔧 -->
-	</div>
+          <!-- CSS automatically adds a space between each release (between divs that have the 'release' ID) -->
 
-	<main>
-		<h3 id="releaseNotesHead">Release Notes</h3>
-		<div id="topBar">
-			<div id="releaseNotes">
-				
-				<div id="release">
-					<div id="versionNumber">0.2</div>
-					<div id="added">Added this</div> <!-- You don't need to add a plus symbol because It's automatically added by the CSS to a div that has an ID of 'added' -->
-					<div id="added">Added that</div>
-					<div id="removed">Removed that</div> <!-- You don't need to add a minus symbole because It's automatically added by the CSS to a div that has an ID of 'removed' -->
-				</div>
-				
-				<!-- CSS automatically adds a space between each release (between divs that have the 'release' ID) -->
-				
-				<div id="release">
-					<div id="versionNumber">0.5</div>
-					<div id="added">Added this</div>
-					<div id="added">Added that</div>
-					<div id="removed">Removed that</div>
-				</div>
+          <div id="release">
+            <div id="versionNumber">0.5</div>
+            <div id="added">Added this</div>
+            <div id="added">Added that</div>
+            <div id="removed">Removed that</div>
+          </div>
 
-				<div id="release">
-					<div id="versionNumber">0.4</div>
-					<div id="added">Added this</div>
-					<div id="added">Added that</div>
-					<div id="removed">Removed that</div>
-				</div>
-				
-				<div id="release">
-					<div id="versionNumber">0.3</div>
-					<div id="added">Added this</div>
-					<div id="added">Added that</div>
-					<div id="removed">Removed that</div>
-				</div>
+          <div id="release">
+            <div id="versionNumber">0.4</div>
+            <div id="added">Added this</div>
+            <div id="added">Added that</div>
+            <div id="removed">Removed that</div>
+          </div>
 
-				<div id="release">
-					<div id="versionNumber">0.2</div>
-					<div id="added">Added this</div>
-					<div id="added">Added that</div>
-					<div id="removed">Removed that</div>
-				</div>
-				
-				<div id="release">
-					<div id="versionNumber">0.1</div>
-					<div id="added">Added this</div>
-					<div id="added">Added that</div>
-					<div id="removed">Removed that</div>
-				</div>
+          <div id="release">
+            <div id="versionNumber">0.3</div>
+            <div id="added">Added this</div>
+            <div id="added">Added that</div>
+            <div id="removed">Removed that</div>
+          </div>
 
+          <div id="release">
+            <div id="versionNumber">0.2</div>
+            <div id="added">Added this</div>
+            <div id="added">Added that</div>
+            <div id="removed">Removed that</div>
+          </div>
+
+          <div id="release">
+            <div id="versionNumber">0.1</div>
+            <div id="added">Added this</div>
+            <div id="added">Added that</div>
+            <div id="removed">Removed that</div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+    
+		<div id="launchArea">
+			<div id="launchBar">
+				<div id="launchBarProgress"></div>
 			</div>
+			<button id="launchButton">Play</button>
 		</div>
-	</main>
-	
-
-	<div id="launchBar">
-		<div id="launchBarProgress"></div>
-	</div>
-
-	<button id="settingsButton">⚙️</button>
-	<button id="launchButton">Play</button>
-
-	<script src="js/index.js"></script>
-</body>
-
+		<script src="js/index.js"></script>
+	</body>
 </html>

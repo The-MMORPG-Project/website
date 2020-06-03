@@ -14,7 +14,8 @@ let settingsOpen = false
 let progress = 0
 let width = 0
 
-let settingsWin = null
+let webIP = 'localhost'
+let webPort = 3000
 
 // We received a new download progress value
 ipcRenderer.on('progress', (event, arg) => {
@@ -34,16 +35,12 @@ function renderProgressBar() {
 	}
 
 	if (progress > width) {
-		width++
+		width = lerp(width, progress, progress / 100).toFixed(2)
 		launchBarProgress.style.width = width + '%'
 	}
-}
 
-/*document.addEventListener('mousemove', () => {
-	if (settingsOpen) {
-		settingsWin.focus()
-	}
-})*/
+	document.querySelector('#launchButton').innerHTML = progress + '%'
+}
 
 // Menu Buttons
 close.addEventListener('click', () => {
@@ -61,7 +58,7 @@ settingsButton.addEventListener('click', () => {
 
 	settingsOpen = true
 
-	settingsWin = new BrowserWindow({
+	let win = new BrowserWindow({
 		width: 400,
 		height: 300,
 		title: 'Settings',
@@ -73,17 +70,17 @@ settingsButton.addEventListener('click', () => {
 		}
 	})
 
-	settingsWin.on('ready-to-show', () => {
-		settingsWin.moveTop()
-		settingsWin.show()
+	win.on('ready-to-show', () => {
+		win.moveTop()
+		win.show()
 	})
 
-	settingsWin.on('closed', () => {
+	win.on('closed', () => {
+		win = null
 		settingsOpen = false
-		settingsWin = null
 	})
 
-	settingsWin.loadFile('../src/settings.html')
+	win.loadFile('../src/settings.html')
 })
 
 // Launch Button
@@ -92,9 +89,38 @@ launchButton.addEventListener('click', () => {
 		return
 	}
 
+	let platform = 'win'
+	let version = 'latest'
+
 	// Tell the main process what to download
-	ipcRenderer.send('download-button', { url: 'http://localhost:3000/api/releases/win/latest.zip' })
+	/* TEST FILES 
+	 * http://ipv4.download.thinkbroadband.com/5MB.zip
+	 * http://ipv4.download.thinkbroadband.com/10MB.zip
+	 * http://ipv4.download.thinkbroadband.com/20MB.zip
+	 * http://ipv4.download.thinkbroadband.com/50MB.zip
+	 */
+	ipcRenderer.send('download-button', { url: 'http://ipv4.download.thinkbroadband.com/5MB.zip' })
+	//ipcRenderer.send('download-button', { url: `http://${webIP}:${webPort}/api/releases/${platform}/${version}.zip` })
+	
+	// Reset values
 	width = 0
+	progress = 0
+	launchBarProgress.style.width = 0
+
+	// Indicate that we are now downloading
 	downloading = true
+
+	// Start rendering the download progress bar every 10ms
 	renderInterval = setInterval(renderProgressBar, 10)
 })
+
+function lerp(start, end, amt) {
+	return (1 - amt) * start + amt * end
+}
+
+// EXPERIMENTAL FOCUS CODE FOR SETTINGS WINDOW
+/*document.addEventListener('mousemove', () => {
+	if (settingsOpen) {
+		settingsWin.focus()
+	}
+})*/

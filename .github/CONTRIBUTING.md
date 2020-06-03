@@ -22,6 +22,7 @@ More will eventually be put here. For now take a look at the roadmaps in the pro
 
 Here are some good first issues to tackle in order.
 1. [Launcher CSS Improvements](/../../issues/36)
+2. [Custom Console Buffer](/../../issues/42)
 
 ## Setup Workspace
 
@@ -86,9 +87,8 @@ DB_PASSWORD=xxxxxxx
 
 1. Clone `https://github.com/SoftwareGuy/ENet-CSharp`
 2. Go into the `Source/Managed` folder and run `dotnet build`
-3. Grab the `ENet-CSharp.dll` from `Source\Managed\bin\Debug\netcoreapp3.1` and add it to your VSCode references
-4. Navigate to the server directory
-5. Go to the game server directory and run the server with `dotnet run`
+3. Grab the `ENet-CSharp.dll` from `Source\Managed\bin\Debug\netcoreapp3.1` and add it to your .vscode references in the game server directory
+4. Go to the game server directory and run the server with `dotnet run`
 
 ## Workflow
 

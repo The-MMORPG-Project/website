@@ -4,44 +4,64 @@ ul {
 	padding: 0;
 }
 
+.container2 {
+	bottom: 0px;
+	right: 0px;
+	height: 40px;
+	width: 100%;
+	position: fixed;
+	padding: 0px;
+}
+
 #cancel {
 	background-color: grey;
-	width: 70px;
-	height: 30px;
+	width: 50%;
+	height: 40px;
 	margin-top: 10px;
+	bottom: 0px;
 	border: 0cm;
-	border-radius: 2px;
-	bottom: 5px;
 	text-align: center;
 	font-weight: 300;
-	border-color: grey;
+	border-color: none;
 	font-size: 17px;
 	color: white;
+	-webkit-app-region: no-drag;
+	position: absolute;
+	font-weight: bold;
+	transition: all 0.2s;
+}
+
+#cancel:hover {
+	transition: all 0.2s;
+	background-color: darkgrey;
 }
 
 #apply {
-	background-color: grey;
-	width: 70px;
-	height: 30px;
+	background-color: #FF7A38;
+	width: 50%;
+	height: 40px;
 	margin-top: 10px;
-	bottom: 5px;
+	bottom: 0px;
+	right: 0;
 	border: 0cm;
-	border-radius: 2px;
 	text-align: center;
 	font-weight: 300;
-	border-color: grey;
+	border-color: none;
 	font-size: 17px;
 	color: white;
+	-webkit-app-region: no-drag;
+	position: absolute;
+	font-weight: bold;
+	transition: all 0.2s;
 }
 
-.container2 {
-	bottom: 5px;
-	right: 5px;
-	position: fixed;
+#apply:hover {
+	transition: all 0.2s;
+	background-color: orange;
 }
 
 .container {
-	margin-top: 5px;
+	margin: 10px;
 	padding-top: 5px;
 	padding-left: 5px;
 	display: block;
@@ -55,6 +75,20 @@ ul {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	-webkit-app-region: drag;
+}
+
+#close {
+	width: 20px;
+	height: 20px;
+	-webkit-app-region: no-drag;
+	z-index: 5;
+	transition: all 0.2s;
+}
+
+#close:hover {
+	color: red;
+	transition: all 0.2s;
 }
 
 .container input {
@@ -63,6 +97,7 @@ ul {
 	cursor: pointer;
 	height: 0;
 	width: 0;
+	-webkit-app-region: no-drag;
 }
 
 .checkmark {
@@ -75,6 +110,7 @@ ul {
 	width: 21px;
 	background-color: #eee;
 	border-radius: 50%;
+	-webkit-app-region: no-drag;
 }
 
 .container:hover input ~ .checkmark {
@@ -82,7 +118,7 @@ ul {
 }
 
 .container input:checked ~ .checkmark {
-	background-color: orange;
+	background-color: #FF7A38;
 }
 
 .checkmark:after {
