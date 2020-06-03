@@ -55,8 +55,8 @@ settingsButton.addEventListener('click', () => {
 	settingsOpen = true
 
 	let win = new BrowserWindow({
-		width: 300,
-		height: 200,
+		width: 400,
+		height: 300,
 		title: 'Settings',
 		show: false,
 		frame: false,

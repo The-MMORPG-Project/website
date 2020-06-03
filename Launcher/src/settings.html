@@ -19,6 +19,7 @@
 			<button id="close">✖️</button>
 		</div>
 		<ul>
+			<!-- Add download speed config limiter here as dropdown and/or inputfield id="downloadSpeedLimit" -->
 			<li>
 				<label class="container"
 					>Auto update
@@ -33,6 +34,35 @@
 					<span class="checkmark"></span>
 				</label>
 			</li>
+			<li>
+				<label class="container"
+					>Close launcher on play
+					<input type="checkbox" checked="checked" id="closeOnPlay" />
+					<span class="checkmark"></span>
+				</label>
+			</li>
+			<li>
+				<label class="container"
+					>Notify when finished updating
+					<input type="checkbox" checked="checked" id="notifyOnFinishUpdate" />
+					<span class="checkmark"></span>
+				</label>
+			</li>
+			<li>
+				<label class="container"
+					>Always on top
+					<input type="checkbox" checked="checked" id="alwaysOnTop" />
+					<span class="checkmark"></span>
+				</label>
+			</li>
+			<li>
+				<label class="container"
+					>Minimize to system tray on close
+					<input type="checkbox" checked="checked" id="minimizeToTrayOnClose" />
+					<span class="checkmark"></span>
+				</label>
+			</li>
+			<!-- Add port inputfield here id="connectionPort"-->
 		</ul>
 
 		<div class="container2">
