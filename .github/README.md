@@ -54,30 +54,32 @@ Please talk to me over Discord (**valk#3277**) to learn more on how you can cont
 
 Join the official Discord for The MMORPG Project --> https://discord.gg/W4Nk9gt
 
-Also see [CONTRIBUTING.md](https://github.com/valkyrienyanko/Unity-ENet-Model/blob/master/.github/CONTRIBUTING.md)
+Also see [CONTRIBUTING.md](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md)
 
-And take a look at the [Roadmap to v0.2](https://github.com/valkyrienyanko/Unity-ENet-Model/issues/12) and [Roadmap to v0.3](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues/31)
+And take a look at the roadmaps
+- [Roadmap to v0.3](https://github.com/valkyrienyanko/The-MMORPG-Project/issues/31)
+- [Roadmap to v0.4](https://github.com/valkyrienyanko/The-MMORPG-Project/issues/37)
 
 ## Contributors
 
-<a href="https://github.com/valkyrienyanko/Unity-ENet-Model/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/Unity-ENet-Model" />
+<a href="https://github.com/valkyrienyanko/The-MMORPG-Project/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/The-MMORPG-Project" />
 </a>
 
 <!--BADGES AND LINKS-->
 <!--Discord Badge Image-->
-[discord]: https://img.shields.io/discord/453710350454620160.svg
+[discord]: https://img.shields.io/discord/717790645900673084.svg
 <!--Discord Link-->
-[discord-url]: https://discord.gg/thMupbv
+[discord-url]: https://discord.gg/W4Nk9gt
 <!--Maintenance Image-->
 [maintenance]: https://img.shields.io/badge/Maintained%3F-yes-green.svg 
 <!--Ask Me Anything Image-->
 [ask-me-anything]: https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg 
 <!--Issues Image-->
-[issues]: https://img.shields.io/github/issues/valkyrienyanko/Unity-ENet-Model 
+[issues]: https://img.shields.io/github/issues/valkyrienyanko/The-MMORPG-Project 
 <!--Issues Link-->
-[issues-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues 
+[issues-url]: https://github.com/valkyrienyanko/The-MMORPG-Project/issues 
 <!--License Image-->
 [license]: https://img.shields.io/badge/license-MIT-blue.svg
 <!--License URL-->
-[license-url]: https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/blob/master/LICENSE
+[license-url]: https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/LICENSE
