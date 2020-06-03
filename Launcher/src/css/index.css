@@ -1,8 +1,8 @@
 #launchBar {
 	position: fixed;
 	bottom: 13px;
-	width: 460px;
 	left: 125px;
+	width: 100%;
 	background-color: grey;
 }
 
