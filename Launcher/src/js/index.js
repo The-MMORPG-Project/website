@@ -14,14 +14,13 @@ let settingsOpen = false
 let progress = 0
 let width = 0
 
+let webIP = 'localhost'
+let webPort = 3000
+
 // We received a new download progress value
 ipcRenderer.on('progress', (event, arg) => {
 	progress = Math.round(arg * 100)
 })
-
-function lerp (start, end, amt){
-  return (1-amt)*start+amt*end;
-}
 
 // Render the download progress bar
 function renderProgressBar() {
@@ -36,13 +35,11 @@ function renderProgressBar() {
 	}
 
 	if (progress > width) {
-		width = lerp(width, progress, 0.01)
+		width = lerp(width, progress, progress / 100).toFixed(2)
 		launchBarProgress.style.width = width + '%'
-		console.log(progress);
 	}
 
-	document.querySelector("#launchButton").innerHTML = progress + "%"
-
+	document.querySelector('#launchButton').innerHTML = progress + '%'
 }
 
 // Menu Buttons
@@ -56,7 +53,6 @@ minimize.addEventListener('click', () => {
 
 settingsButton.addEventListener('click', () => {
 	if (settingsOpen) {
-		BrowserWindow.getFocusedWindow().close()
 		return
 	}
 
@@ -79,7 +75,7 @@ settingsButton.addEventListener('click', () => {
 		win.show()
 	})
 
-	win.on('close', () => {
+	win.on('closed', () => {
 		win = null
 		settingsOpen = false
 	})
@@ -92,11 +88,39 @@ launchButton.addEventListener('click', () => {
 	if (downloading) { // Only launch if not downloading anything
 		return
 	}
-	console.log("Beginning Download");
+
+	let platform = 'win'
+	let version = 'latest'
+
 	// Tell the main process what to download
-	ipcRenderer.send('download-button', { url: 'https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png' })
+	/* TEST FILES 
+	 * http://ipv4.download.thinkbroadband.com/5MB.zip
+	 * http://ipv4.download.thinkbroadband.com/10MB.zip
+	 * http://ipv4.download.thinkbroadband.com/20MB.zip
+	 * http://ipv4.download.thinkbroadband.com/50MB.zip
+	 */
+	ipcRenderer.send('download-button', { url: 'http://ipv4.download.thinkbroadband.com/5MB.zip' })
+	//ipcRenderer.send('download-button', { url: `http://${webIP}:${webPort}/api/releases/${platform}/${version}.zip` })
+	
+	// Reset values
 	width = 0
+	progress = 0
+	launchBarProgress.style.width = 0
+
+	// Indicate that we are now downloading
 	downloading = true
+
+	// Start rendering the download progress bar every 10ms
 	renderInterval = setInterval(renderProgressBar, 10)
-	renderProgressBar()
 })
+
+function lerp(start, end, amt) {
+	return (1 - amt) * start + amt * end
+}
+
+// EXPERIMENTAL FOCUS CODE FOR SETTINGS WINDOW
+/*document.addEventListener('mousemove', () => {
+	if (settingsOpen) {
+		settingsWin.focus()
+	}
+})*/
