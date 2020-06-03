@@ -5,7 +5,6 @@
 1. [Getting Started](#getting-started)
 2. [Setup Workspace](#setup-workspace)
     - [VSC](#visual-studio-code)
-    - [VS](#visual-studio)
 3. [Setup Project](#setup-project)
     - [Launcher](#launcher)
     - [Client](#client)
@@ -28,7 +27,7 @@ Here are some good first issues to tackle in order.
 
 ### Visual Studio Code
 
-I will recommend that you use Visual Studio Code as it is by far one of the best text editors for development that I've ever used, you will have no regrets when using it. You will need this editor when working with the client, web server and ENet game server.
+I will recommend that you use Visual Studio Code as it is by far one of the best text editors for development that I've ever used, you will have no regrets when using it. You will need this editor when working with the launcher, client, web server and game server.
 
 #### VSC Installation
 
@@ -52,10 +51,6 @@ Not all extensions are required for development but I highly recommend you at le
 ##### VSC Intellisense does not work for Unity Namespaces
 
 Solution: Downgrade to `C# 1.21.16`
-
-### Visual Studio
-
-Visual Studio setup info will eventually go here. You will need this IDE when working with the launcher.
 
 ## Setup Project
 ### Launcher
