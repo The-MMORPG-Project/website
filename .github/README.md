@@ -15,7 +15,7 @@
 
 ---
 
-<p align="center"> The purpose of this boilerplate is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The boilerplate consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
+<p align="center"> The purpose of this project is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The boilerplate consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
     <br> 
 </p>
 
