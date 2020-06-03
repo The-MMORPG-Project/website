@@ -44,7 +44,7 @@ launchButton.addEventListener('click', () => {
 		return
 	}
 
-	ipcRenderer.send('download-button', { url: 'https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png' })
+	ipcRenderer.send('download-button', { url: 'http://localhost:3000/api/download' })
 	width = 0
 	downloading = true
 	renderInterval = setInterval(renderProgressBar, 10)

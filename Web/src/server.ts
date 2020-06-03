@@ -23,6 +23,17 @@ app.use(bodyParser.urlencoded({ extended: true }))
     res.json({ message: "Welcome to the API" })
   })
 
+  app.get("/api/releases/latest", (req, res) => {
+    const file = `./src/releases/latest.zip`
+    res.download(file)
+  })
+
+  app.get("/api/releases/:version", (req, res) => {
+    const version = req.params.version
+    const file = `./src/releases/${version}`
+    res.download(file)
+  })
+
   app.post("/api/posts", verifyToken, (req, res) => {
     // (req as { [ key: string ]:any }).token use to be just req.token
     jwt.verify((req as { [ key: string ]:any }).token, "secretkey", (err, authData) => {
