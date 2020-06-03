@@ -2,6 +2,7 @@ const { ipcRenderer } = require('electron')
 const { BrowserWindow } = require('electron').remote
 const launchBarProgress = document.getElementById('launchBarProgress')
 const launchButton = document.getElementById('launchButton')
+const settingsButton = document.getElementById('settingsButton')
 const close = document.getElementById('close')
 const minimize = document.getElementById('minimize')
 
@@ -31,11 +32,11 @@ function renderProgressBar() {
 }
 
 close.addEventListener('click', () => {
-    BrowserWindow.getFocusedWindow().close()
+	BrowserWindow.getFocusedWindow().close()
 })
 
 minimize.addEventListener('click', () => {
-    BrowserWindow.getFocusedWindow().minimize()
+	BrowserWindow.getFocusedWindow().minimize()
 })
 
 launchButton.addEventListener('click', () => {
@@ -51,6 +52,7 @@ launchButton.addEventListener('click', () => {
 
 settingsButton.addEventListener('click', () => {
 	if (settingsOpen) {
+		BrowserWindow.getFocusedWindow().close()
 		return
 	}
 
@@ -77,6 +79,6 @@ settingsButton.addEventListener('click', () => {
 		win = null
 		settingsOpen = false
 	})
-	
+
 	win.loadFile('../src/settings.html')
 })

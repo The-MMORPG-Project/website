@@ -3,7 +3,6 @@ const { download } = require('electron-dl')
 const isDev = require('electron-is-dev')
 
 let mainWin = null
-let settingsWin = null
 
 function createMainWindow() {
 	mainWin = new BrowserWindow({
