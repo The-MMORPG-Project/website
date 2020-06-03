@@ -23,14 +23,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
     res.json({ message: "Welcome to the API" })
   })
 
-  app.get("/api/releases/latest", (req, res) => {
-    const file = `./src/releases/latest.zip`
+  app.get("/api/releases/:platform/latest", (req, res) => {
+    const platform = req.params.platform
+    const file = `./src/releases/${platform}/latest.zip`
     res.download(file)
   })
 
-  app.get("/api/releases/:version", (req, res) => {
+  app.get("/api/releases/:platform/:version", (req, res) => {
+    const platform = req.params.platform
     const version = req.params.version
-    const file = `./src/releases/${version}`
+    const file = `./src/releases/${platform}/${version}`
     res.download(file)
   })
 
