@@ -55,12 +55,13 @@ Solution: Downgrade to `C# 1.21.16`
 ## Setup Project
 ### Launcher
 
-1. Install dependencies with `yarn install`
-2. Start launcher with `yarn dev:start` (protip: use `yarn start` to run without developer tools)
+1. Navigate to the Launcher directory
+2. Install dependencies with `yarn install`
+3. Start launcher with `yarn dev:start` (protip: use `yarn start` to run without developer tools)
     - Open debugger with `Ctrl + Shift + I`
     - Reload page with `Ctrl + R`
     - Run linter with `yarn dev:lint`
-3. Optional: Build the project's binaries with `yarn build:win` (`win` can be replaced with `linux` or `mac`, you can only build a platform if you're currently on that OS, for e.g. you can't build mac or linux on windows)
+4. Optional: Build the project's binaries with `yarn build:win` (`win` can be replaced with `linux` or `mac`, you can only build a platform if you're currently on that OS, for e.g. you can't build mac or linux on windows)
 
 ### Client
 
@@ -71,21 +72,23 @@ Use [Unity Hub](https://unity3d.com/get-unity/download) on version `2019.3.13f1`
 ### Web Server
 
 1. Install and setup [MySQL](https://dev.mysql.com/downloads/installer/) (preferably setup on a remote dedicated machine)
-2. Install dependencies with `yarn install`
-3. Create `.env` file in Web root folder and fill following variables inside
+2. Navigate to the web directory
+3. Install dependencies with `yarn install`
+4. Create `.env` file in Web root folder and fill following variables inside
 ```
 DB_HOST=xxx.xxx.xxx.xxx
 DB_USER=xxxxx
 DB_PASSWORD=xxxxxxx
 ```
-4. Run server with `yarn dev:start` (protip: just use `yarn start` if you want to start without compiling tsc)
+5. Run server with `yarn dev:start` (protip: just use `yarn start` if you want to start without compiling tsc)
 
 ### Game Server
 
 1. Clone `https://github.com/SoftwareGuy/ENet-CSharp`
 2. Go into the `Source/Managed` folder and run `dotnet build`
 3. Grab the `ENet-CSharp.dll` from `Source\Managed\bin\Debug\netcoreapp3.1` and add it to your VSCode references
-4. Go to the game server directory and run the server with `dotnet run`
+4. Navigate to the server directory
+5. Go to the game server directory and run the server with `dotnet run`
 
 ## Workflow
 
