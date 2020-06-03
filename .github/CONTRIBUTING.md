@@ -62,7 +62,7 @@ Visual Studio setup info will eventually go here. You will need this IDE when wo
     - Open debugger with `Ctrl + Shift + I`
     - Reload page with `Ctrl + R`
     - Run linter with `yarn dev:lint`
-3. Build the project's binaries with `yarn build:win` (`win` can be replaced with `linux` or `mac`, you can only build a platform if you're currently on that OS, for e.g. you can't build mac or linux on windows)
+3. Optional: Build the project's binaries with `yarn build:win` (`win` can be replaced with `linux` or `mac`, you can only build a platform if you're currently on that OS, for e.g. you can't build mac or linux on windows)
 
 ### Client
 
