@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
   })
 
   app.get("/api", (req, res) => {
-    res.json({ message: "Welcome to the API" })
+    res.json({ message: "Welcome to the web server API" })
   })
 
   app.get("/api/releases/:platform/latest", (req, res) => {
