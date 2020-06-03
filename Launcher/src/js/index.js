@@ -16,6 +16,9 @@ let width = 0
 
 let settingsWin = null
 
+const webIP = 'localhost'
+const webPort = 3000
+
 // We received a new download progress value
 ipcRenderer.on('progress', (event, arg) => {
 	progress = Math.round(arg * 100)
@@ -23,6 +26,7 @@ ipcRenderer.on('progress', (event, arg) => {
 
 // Render the download progress bar
 function renderProgressBar() {
+	console.log(width)
 	if (width >= 100) {
 		clearInterval(renderInterval)
 		downloading = false
@@ -34,7 +38,7 @@ function renderProgressBar() {
 	}
 
 	if (progress > width) {
-		width++
+		width = lerp(width, progress, progress / 100).toFixed(2)
 		launchBarProgress.style.width = width + '%'
 	}
 }
@@ -93,8 +97,22 @@ launchButton.addEventListener('click', () => {
 	}
 
 	// Tell the main process what to download
-	ipcRenderer.send('download-button', { url: 'http://localhost:3000/api/releases/win/latest.zip' })
+	/* TEST FILES 
+	 * http://ipv4.download.thinkbroadband.com/5MB.zip
+	 * http://ipv4.download.thinkbroadband.com/10MB.zip
+	 * http://ipv4.download.thinkbroadband.com/20MB.zip
+	 * http://ipv4.download.thinkbroadband.com/50MB.zip
+	 */
+
+	let platform = 'win'
+	let release = 'latest'
+
+	ipcRenderer.send('download-button', { url: `http://${webIP}:${webPort}/api/releases/${platform}/${release}.zip` })
 	width = 0
 	downloading = true
 	renderInterval = setInterval(renderProgressBar, 10)
 })
+
+function lerp(v0, v1, t) {
+	return (1 - t) * v0 + t * v1
+}
