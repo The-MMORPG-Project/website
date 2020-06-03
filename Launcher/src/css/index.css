@@ -1,17 +1,27 @@
+:root {
+--mainTheme	: #FF7A38;
+--secondary : #b63d00;
+}
 #launchBar {
 	position: fixed;
-	bottom: 13px;
-	left: 125px;
-	width: 100%;
-	background-color: grey;
+	left: 90px;
+	right: 0px;
+	bottom: 0px;
+	height: 60px;
+	/* background: repeating-linear-gradient(-60deg, grey, darkgrey 90px, darkgrey 90px, grey 340px); */
+	background: grey;
+	background: repeating-linear-gradient(-45deg, #191919, #191919 35px, #2d2d2d 35px, #2d2d2d 70px);
 }
 
 #launchBarProgress {
 	width: 0%;
-	left: 120px;
-	right: 20px;
-	height: 30px;
-	background-color: rgb(255, 165, 0);
+	left: 90px;
+	right: 0px;
+	bottom: 0px;
+	height: 60px;
+	/* background: repeating-linear-gradient(-60deg, var(--mainTheme), var(--mainTheme) 90px, var(--secondary) 90px, var(--secondary) 90px); */
+	/* background: repeating-linear-gradient(-45deg, var(--mainTheme), var(--mainTheme) 35px, var(--secondary) 35px, var(--secondary) 70px); */
+	background: var(--mainTheme);
 }
 
 #headerBar {
@@ -34,6 +44,12 @@
 	height: 30px;
 	font-weight: bolder;
 	-webkit-app-region: no-drag;
+	transition: all 0.2s;
+}
+
+#close:hover {
+	color: red;
+	transition: all 0.2s;
 }
 
 #settingsButton {
@@ -45,20 +61,38 @@
 	height: 20px;
 	font-weight: bold;
 	-webkit-app-region: no-drag;
+	color: white;
 }
 
 #launchButton {
-	background-color: orange;
+	background-color: var(--mainTheme);
 	width: 90px;
-	height: 40px;
+	height: 60px;
 	position: fixed;
-	bottom: 10px;
-	border: 0cm;
-	border-radius: 2px;
+	bottom: 0px;
+	border: 0px;
+	/* border-radius: 2px; */
 	text-align: center;
 	font-weight: bold;
-	border-color: orange;
+	border-color: black;
 	font-size: 22px;
 	color: white;
 	font-weight: bold;
+	box-shadow: 5px 10px 18px rgba(50, 50, 50, 0.3);
+	transition: all 0.2s;
+}
+
+#launchButton:hover {
+	transition: all 0.2s;
+	background-color: var(--secondary);
+}
+
+#launchArea {
+	background: black;
+	box-shadow: 5px 10px 18px rgba(50, 50, 50, 0.3);
+	bottom:0;
+	width: 100%;
+	position: fixed;
+	height: 60px;
+	/* border-top: 3px solid var(--secondary); */
 }
