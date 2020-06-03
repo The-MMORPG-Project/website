@@ -14,10 +14,12 @@ let settingsOpen = false
 let progress = 0
 let width = 0
 
+// We received a new download progress value
 ipcRenderer.on('progress', (event, arg) => {
 	progress = Math.round(arg * 100)
 })
 
+// Render the download progress bar
 function renderProgressBar() {
 	if (width >= 100) {
 		clearInterval(renderInterval)
@@ -31,23 +33,13 @@ function renderProgressBar() {
 	}
 }
 
+// Menu Buttons
 close.addEventListener('click', () => {
 	BrowserWindow.getFocusedWindow().close()
 })
 
 minimize.addEventListener('click', () => {
 	BrowserWindow.getFocusedWindow().minimize()
-})
-
-launchButton.addEventListener('click', () => {
-	if (downloading) {
-		return
-	}
-
-	ipcRenderer.send('download-button', { url: 'http://localhost:3000/api/releases/win/latest.zip' })
-	width = 0
-	downloading = true
-	renderInterval = setInterval(renderProgressBar, 10)
 })
 
 settingsButton.addEventListener('click', () => {
@@ -81,4 +73,17 @@ settingsButton.addEventListener('click', () => {
 	})
 
 	win.loadFile('../src/settings.html')
+})
+
+// Launch Button
+launchButton.addEventListener('click', () => {
+	if (downloading) { // Only launch if not downloading anything
+		return
+	}
+
+	// Tell the main process what to download
+	ipcRenderer.send('download-button', { url: 'http://localhost:3000/api/releases/win/latest.zip' })
+	width = 0
+	downloading = true
+	renderInterval = setInterval(renderProgressBar, 10)
 })
