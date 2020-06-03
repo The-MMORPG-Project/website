@@ -1,10 +1,14 @@
 const { ipcRenderer } = require('electron')
+const { BrowserWindow } = require('electron').remote
 const launchBarProgress = document.getElementById('launchBarProgress')
 const launchButton = document.getElementById('launchButton')
+const close = document.getElementById('close')
+const minimize = document.getElementById('minimize')
 
 let renderInterval
 
 let downloading = false
+let settingsOpen = false
 
 let progress = 0
 let width = 0
@@ -26,6 +30,14 @@ function renderProgressBar() {
 	}
 }
 
+close.addEventListener('click', () => {
+    BrowserWindow.getFocusedWindow().close()
+})
+
+minimize.addEventListener('click', () => {
+    BrowserWindow.getFocusedWindow().minimize()
+})
+
 launchButton.addEventListener('click', () => {
 	if (downloading) {
 		return
@@ -35,4 +47,36 @@ launchButton.addEventListener('click', () => {
 	width = 0
 	downloading = true
 	renderInterval = setInterval(renderProgressBar, 10)
+})
+
+settingsButton.addEventListener('click', () => {
+	if (settingsOpen) {
+		return
+	}
+
+	settingsOpen = true
+
+	let win = new BrowserWindow({
+		width: 300,
+		height: 200,
+		title: 'Settings',
+		show: false,
+		alwaysOnTop: true,
+		frame: false,
+		webPreferences: {
+			nodeIntegration: true,
+			enableRemoteModule: true
+		}
+	})
+
+	win.on('ready-to-show', () => {
+		win.show()
+	})
+
+	win.on('close', () => {
+		win = null
+		settingsOpen = false
+	})
+	
+	win.loadFile('../src/settings.html')
 })

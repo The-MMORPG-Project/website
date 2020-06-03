@@ -9,34 +9,26 @@ function createMainWindow() {
 	mainWin = new BrowserWindow({
 		width: 600,
 		height: 400,
+		title: 'Launcher',
+		show: false,
 		center: true,
 		resizable: true,
+		frame: false,
 		webPreferences: {
 			nodeIntegration: true
 		}
 	})
 
+	mainWin.on('ready-to-show', () => {
+		mainWin.show()
+	})
+
 	mainWin.loadFile('../src/index.html')
-}
-
-function createSettingsWindow() {
-	settingsWin = new BrowserWindow({
-		width: 200,
-		height: 300,
-		title: 'Settings'
-	})
-
-	settingsWin.loadFile('../src/settings.html')
-
-	settingsWin.on('close', () => {
-		settingsWin = null
-	})
 }
 
 app.on('ready', () => {
 	clearConsole()
 	createMainWindow()
-	createSettingsWindow()
 	Menu.setApplicationMenu(null)
 	initDevTools()
 

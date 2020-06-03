@@ -1,0 +1,22 @@
+#title-bar-btns {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+}
+
+#title-bar-btns button {
+    border: none;
+    background: none;
+    color: white;
+}
+
+#title-bar-btns button:focus {
+    outline: 0;
+}
+
+body {
+    background-color: rgb(30, 30, 30);
+    color: rgb(220, 220, 220); /* Slightly darker to be nicer on the eyes */
+    margin: 0;
+    padding: 0;
+}

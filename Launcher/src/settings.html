@@ -2,20 +2,30 @@
 <html>
 
 <head>
-	<title>Launcher</title>
+    <title>Launcher</title>
 
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-	
-	<!-- Style Sheets -->
-	<link rel="stylesheet" href="css/universal.css">
-	<link rel="stylesheet" href="css/settings.css">
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="css/universal.css">
+    <link rel="stylesheet" href="css/settings.css">
 </head>
 
 <body>
-    <p>Settings!</p>>
-	
-	<script src="js/settings.js"></script>
+    <div id="title-bar-btns">
+        <button id="close">X</button>
+    </div>
+
+    <ul>
+        <li><label><input type="checkbox" id="autoUpdate">Auto update</label></li>
+        <li><label><input type="checkbox" id="launchOnStartup">Automatically launch on startup</label></li>
+    </ul>
+
+    <button id="cancel">Cancel</button>
+    <button id="apply">Apply</button>
+
+    <script src="js/settings.js"></script>
 </body>
 
 </html>
