@@ -14,6 +14,10 @@
     outline: 0;
 }
 
+button:focus {
+    outline: 0;
+}
+
 body {
     background-color: rgb(30, 30, 30);
     color: rgb(220, 220, 220); /* Slightly darker to be nicer on the eyes */
