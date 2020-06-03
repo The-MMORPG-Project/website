@@ -48,7 +48,7 @@ minimize.addEventListener('click', () => {
 
 settingsButton.addEventListener('click', () => {
 	if (settingsOpen) {
-		BrowserWindow.getFocusedWindow().close()
+		console.log('settings is open')
 		return
 	}
 
@@ -71,9 +71,9 @@ settingsButton.addEventListener('click', () => {
 		win.show()
 	})
 
-	win.on('close', () => {
-		win = null
+	win.on('closed', () => {
 		settingsOpen = false
+		win = null
 	})
 
 	win.loadFile('../src/settings.html')
