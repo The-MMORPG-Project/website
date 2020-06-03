@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="script-src 'self' 'unsafe-inline';"
+		/>
 
-<head>
-    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-	
-	<!-- Style Sheets -->
-	<link rel="stylesheet" href="css/universal.css">
-	<link rel="stylesheet" href="css/index.css">
-</head>
+		<!-- Style Sheets -->
+		<link rel="stylesheet" href="css/universal.css" />
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
 
-<body>
-	<div id="title-bar-btns">
-		<button id="minimize">-</button>
-		<button id="close">X</button>
-	</div>
+	<body>
+		<div id="title-bar-btns">
+			<button id="minimize">➖</button>
+			<button id="close">✖️</button>
+			<!-- other possible button icons ❌—🔧-->
+		</div>
 
-	<div id="launchBar">
-		<div id="launchBarProgress"></div>
-	</div>
+		<div id="launchBar">
+			<div id="launchBarProgress"></div>
+		</div>
 
-	<button id="launchButton">Launch</button>
-	<button id="settingsButton">Settings</button>
-	
-	<script src="js/index.js"></script>
-</body>
+		<button id="settingsButton">⚙️</button>
+		<button id="launchButton">Play</button>
 
+		<script src="js/index.js"></script>
+	</body>
 </html>

@@ -1,12 +1,52 @@
 #launchBar {
 	position: fixed;
-	bottom: 0px;
-	width: 100%;
+	bottom: 13px;
+	width: 470px;
+	left: 120px;
 	background-color: grey;
 }
 
 #launchBarProgress {
-	width: 0%;
+	/* TODO: hook up width so that it accurately displays loading bar amount */
+	width: 30%;
+	left: 120px;
+	right: 20px;
 	height: 30px;
 	background-color: rgb(255, 165, 0);
+}
+
+#minimize {
+	width: 30px;
+	height: 30px;
+	font-weight: bold;
+}
+
+#close {
+	width: 30px;
+	height: 30px;
+	font-weight: bolder;
+}
+
+#settingsButton {
+	background-color: transparent;
+	border: 0cm;
+	width: 20px;
+	height: 20px;
+	font-weight: bold;
+}
+
+#launchButton {
+	background-color: orange;
+	width: 90px;
+	height: 40px;
+	position: fixed;
+	bottom: 10px;
+	border: 0cm;
+	border-radius: 2px;
+	text-align: center;
+	font-weight: bold;
+	border-color: orange;
+	font-size: 22px;
+	color: white;
+	font-weight: bold;
 }

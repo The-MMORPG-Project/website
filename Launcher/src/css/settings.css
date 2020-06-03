@@ -1,5 +1,40 @@
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#cancel {
+	background-color: grey;
+	width: 70px;
+	height: 30px;
+	margin-top: 10px;
+	border: 0cm;
+	border-radius: 2px;
+	bottom: 5px;
+	text-align: center;
+	font-weight: 300;
+	border-color: grey;
+	font-size: 17px;
+	color: white;
+}
+
+#apply {
+	background-color: grey;
+	width: 70px;
+	height: 30px;
+	margin-top: 10px;
+	bottom: 5px;
+	border: 0cm;
+	border-radius: 2px;
+	text-align: center;
+	font-weight: 300;
+	border-color: grey;
+	font-size: 17px;
+	color: white;
+}
+
+.container {
+	bottom: 5px;
+	position: fixed;
 }
