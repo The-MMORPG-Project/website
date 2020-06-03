@@ -71,6 +71,7 @@ settingsButton.addEventListener('click', () => {
 	})
 
 	win.on('ready-to-show', () => {
+		win.moveTop()
 		win.show()
 	})
 
