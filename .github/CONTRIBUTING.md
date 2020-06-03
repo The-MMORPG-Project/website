@@ -57,8 +57,6 @@ Visual Studio setup info will eventually go here. You will need this IDE when wo
 ## Setup Project
 ### Launcher
 
-NOTE: This area is lacking information and will be updated sooner or later, please be patient..
-
 1. Install dependencies with `yarn install`
 2. Start launcher with `yarn dev:start` (protip: use `yarn start` to run without developer tools)
     - Open debugger with `Ctrl + Shift + I`
