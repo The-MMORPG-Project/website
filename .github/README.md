@@ -20,6 +20,10 @@
     <br> 
 </p>
 
+<p align="center"> Join the official Discord for The MMORPG Project --> https://discord.gg/W4Nk9gt
+    <br>
+</p>
+
 ## Table of Contents
 
 1. [Features](#features)
@@ -51,15 +55,7 @@
 
 This project is no where near complete, all contributions are highly appreciated and welcomed.
 
-Please talk to me over Discord (**valk#3277**) to learn more on how you can contribute to the project.
-
-Join the official Discord for The MMORPG Project --> https://discord.gg/W4Nk9gt
-
-Also see [CONTRIBUTING.md](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md)
-
-And take a look at the roadmaps
-- [Roadmap to v0.3](https://github.com/valkyrienyanko/The-MMORPG-Project/issues/31)
-- [Roadmap to v0.4](https://github.com/valkyrienyanko/The-MMORPG-Project/issues/37)
+See [CONTRIBUTING.md](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md)
 
 ## Contributors
 
