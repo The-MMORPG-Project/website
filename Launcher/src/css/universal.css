@@ -23,9 +23,5 @@ body {
     color: rgb(220, 220, 220); /* Slightly darker to be nicer on the eyes */
     margin: 0;
     padding: 0;
-}
-
-
-.testBorder {
-	border: blue solid 1px !important;
+    font-family: Arial, Helvetica, sans-serif;
 }

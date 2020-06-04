@@ -79,16 +79,7 @@ ul {
 }
 
 #close {
-	width: 20px;
-	height: 20px;
-	-webkit-app-region: no-drag;
-	z-index: 5;
-	transition: all 0.2s;
-}
-
-#close:hover {
-	color: red;
-	transition: all 0.2s;
+	display: none;
 }
 
 .container input {

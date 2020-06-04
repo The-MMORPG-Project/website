@@ -82,6 +82,7 @@ main > div {
 	height: 30px;
 	font-weight: bold;
 	-webkit-app-region: no-drag;
+	transition: all 0.2s;
 }
 
 #close {
@@ -100,15 +101,28 @@ main > div {
 #settingsButton {
 	position: fixed;
 	background-color: transparent;
-	border: transparent;
-	border: 0cm;
+	border: none;
 	width: 20px;
 	height: 20px;
 	font-size: 17px;
-	/* padding-top: 5px; */
 	font-weight: bold;
 	-webkit-app-region: no-drag;
 	color: white;
+	width: 30px;
+	height: 30px;
+	left: 0;
+	margin-top: 5px;
+	margin-left: 5px;
+	transition: all 0.2s;
+}
+
+#minimize:hover, #settingsButton:hover {
+	color: grey;
+	transition: all 0.2s;
+}
+
+#settingsButton:hover {
+	color: grey;
 }
 
 #launchButton {
