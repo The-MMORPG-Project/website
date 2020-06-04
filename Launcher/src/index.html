@@ -14,67 +14,122 @@
 
 	<body>
 		<div id="headerBar"></div> <!-- Draggable top region of window -->
-		<button class="testBorder" id="settingsButton">⚙️</button>
+		
 
 		<div id="title-bar-btns">
+      <button class="testBorder" style="left: 0; padding: 0px; margin-top: 0px;" id="settingsButton">⚙️</button>
       <button id="user">BubbleMaster6</button>
 			<button id="minimize">—</button>
 			<button id="close">✖️</button>
 			<!-- other possible button icons ❌—🔧-->
-		</div>
+    </div>
+    
 
-    <main>
-      <h3 id="releaseNotesHead">Release Notes</h3>
-      <div id="topBar">
-        <div id="releaseNotes">
 
-          <div id="release">
-            <div id="versionNumber">0.2</div>
-            <div id="added">Added this</div> <!-- You don't need to add a plus symbol because It's automatically added by the CSS to a div that has an ID of 'added' -->
-            <div id="added">Added that</div>
-            <div id="removed">Removed that</div> <!-- You don't need to add a minus symbole because It's automatically added by the CSS to a div that has an ID of 'removed' -->
-          </div>
 
-          <!-- CSS automatically adds a space between each release (between divs that have the 'release' ID) -->
 
-          <div id="release">
-            <div id="versionNumber">0.5</div>
-            <div id="added">Added this</div>
-            <div id="added">Added that</div>
-            <div id="removed">Removed that</div>
-          </div>
-
-          <div id="release">
-            <div id="versionNumber">0.4</div>
-            <div id="added">Added this</div>
-            <div id="added">Added that</div>
-            <div id="removed">Removed that</div>
-          </div>
-
-          <div id="release">
-            <div id="versionNumber">0.3</div>
-            <div id="added">Added this</div>
-            <div id="added">Added that</div>
-            <div id="removed">Removed that</div>
-          </div>
-
-          <div id="release">
-            <div id="versionNumber">0.2</div>
-            <div id="added">Added this</div>
-            <div id="added">Added that</div>
-            <div id="removed">Removed that</div>
-          </div>
-
-          <div id="release">
-            <div id="versionNumber">0.1</div>
-            <div id="added">Added this</div>
-            <div id="added">Added that</div>
-            <div id="removed">Removed that</div>
-          </div>
-
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'homeTab')" id="defaultOpen">Home</button>
+      <button class="tablinks" onclick="openTab(event, 'releaseNotesTab')">Release Notes</button>
+      <button class="tablinks" onclick="openTab(event, 'newsTab')">News</button>
+    </div>
+    
+    
+    
+    <div id="homeTab" class="tabcontent">
+      <main>
+        <div>
+          <h3>Image Here</h3>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
+
+    <div id="releaseNotesTab" class="tabcontent">
+      <main>
+          <div id="releaseNotes">
+
+            <div id="release">
+              <div id="versionNumber">0.2</div>
+              <div id="added">Added this</div> <!-- You don't need to add a plus symbol because It's automatically added by the CSS to a div that has an ID of 'added' -->
+              <div id="added">Added that</div>
+              <div id="removed">Removed that</div> <!-- You don't need to add a minus symbole because It's automatically added by the CSS to a div that has an ID of 'removed' -->
+            </div>
+
+            <!-- CSS automatically adds a space between each release (between divs that have the 'release' ID) -->
+
+            <div id="release">
+              <div id="versionNumber">0.5</div>
+              <div id="added">Added this</div>
+              <div id="added">Added that</div>
+              <div id="removed">Removed that</div>
+            </div>
+
+            <div id="release">
+              <div id="versionNumber">0.4</div>
+              <div id="added">Added this</div>
+              <div id="added">Added that</div>
+              <div id="removed">Removed that</div>
+            </div>
+
+            <div id="release">
+              <div id="versionNumber">0.3</div>
+              <div id="added">Added this</div>
+              <div id="added">Added that</div>
+              <div id="removed">Removed that</div>
+            </div>
+
+            <div id="release">
+              <div id="versionNumber">0.2</div>
+              <div id="added">Added this</div>
+              <div id="added">Added that</div>
+              <div id="removed">Removed that</div>
+            </div>
+
+            <div id="release">
+              <div id="versionNumber">0.1</div>
+              <div id="added">Added this</div>
+              <div id="added">Added that</div>
+              <div id="removed">Removed that</div>
+            </div>
+
+
+          </div>
+      </main>
+    </div>
+    
+    <div id="newsTab" class="tabcontent">
+      <main>
+        <div>
+          <h3>Upcoming Update: Version 3.4</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio asperiores incidunt cumque repellendus beatae. Odit magnam, blanditiis corrupti fugiat aliquid eum unde, placeat aut dolore quidem culpa maiores pariatur rem.</p>
+        </div>
+      </main>
+    </div>
+    
+    <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    </script>
+
+
+
+
+
+
     
 		<div id="launchArea">
 			<div id="launchBar">
