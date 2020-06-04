@@ -11,6 +11,7 @@
     - [Web Server](#web-server)
     - [Game Server](#game-server)
 4. [Workflow](#workflow)
+    - [Working on Active Issues](#working-on-active-issues)
     - [Opening an Issue](#opening-an-issue)
     - [Creating a Pull Request](#creating-a-pull-request)
 5. [Notes](#notes)
