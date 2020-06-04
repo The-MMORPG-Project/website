@@ -6,6 +6,8 @@ const settingsButton = document.getElementById('settingsButton')
 const close = document.getElementById('close')
 const minimize = document.getElementById('minimize')
 
+let settingsWin = null
+
 let renderInterval
 
 let downloading = false
@@ -58,29 +60,31 @@ settingsButton.addEventListener('click', () => {
 
 	settingsOpen = true
 
-	let win = new BrowserWindow({
+	settingsWin = new BrowserWindow({
 		width: 400,
 		height: 300,
 		title: 'Settings',
 		show: false,
 		frame: false,
+		parent: BrowserWindow.fromId(1),
+		modal: true,
 		webPreferences: {
 			nodeIntegration: true,
 			enableRemoteModule: true
 		}
 	})
 
-	win.on('ready-to-show', () => {
-		win.moveTop()
-		win.show()
+	settingsWin.on('ready-to-show', () => {
+		settingsWin.moveTop()
+		settingsWin.show()
 	})
 
-	win.on('closed', () => {
-		win = null
+	settingsWin.on('closed', () => {
+		settingsWin = null
 		settingsOpen = false
 	})
 
-	win.loadFile('../src/settings.html')
+	settingsWin.loadFile('../src/settings.html')
 })
 
 // Launch Button

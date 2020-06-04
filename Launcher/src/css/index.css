@@ -111,7 +111,7 @@ main {
 	width: 20px;
 	height: 20px;
 	font-size: 17px;
-	padding-top: 5px;
+	/* padding-top: 5px; */
 	font-weight: bold;
 	-webkit-app-region: no-drag;
 	color: white;
