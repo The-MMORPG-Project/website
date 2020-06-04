@@ -94,6 +94,11 @@ DB_PASSWORD=xxxxxxx
 
 Fork the repository and create a pull request when you want to merge a change.
 
+### Working on Active Issues
+
+1. Remember to pull from master often to avoid merge conflicts
+2. If you have contributor permissions, assign yourself to the issue you are working on
+
 ### Opening an Issue
 
 1. Gather as much information as you can about the topic
