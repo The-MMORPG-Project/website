@@ -18,7 +18,7 @@
 
 ## Getting Started
 
-More will eventually be put here. For now take a look at the roadmaps in the projects [issues](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues) and talk to me on Discord (**valk#3277**).
+Take a look at the roadmaps in the projects [issues](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues) and talk to me on Discord (**valk#3277**).
 
 Here are some good first issues to tackle in order.
 1. [Launcher CSS Improvements](/../../issues/36)
