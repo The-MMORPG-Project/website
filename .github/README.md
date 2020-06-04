@@ -55,7 +55,7 @@
 
 This project is no where near complete, all contributions are highly appreciated and welcomed.
 
-See [CONTRIBUTING.md](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md)
+See [Getting Started](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#getting-started)
 
 ## Contributors
 
