@@ -29,7 +29,7 @@
 
 **ENet Server**
 
-- Multi-Threaded Console Input Ouput Buffers (currently very bugged - [#2](/../../issues/2) [#4](/../../issues/4) [#5](/../../issues/5) [#6](/../../issues/6) [#15](/../../issues/15))
+- Console Input Ouput Functionality
 - Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
 - Reliable UDP Networking with ENet
 
