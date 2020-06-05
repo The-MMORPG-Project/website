@@ -7,5 +7,5 @@ bin/
 node_modules/
 yarn-error.log
 
-# Electron
+# Electron & TypeScript
 dist/
