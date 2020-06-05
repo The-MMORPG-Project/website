@@ -2,7 +2,7 @@ const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const { download } = require('electron-dl')
 const isDev = require('electron-is-dev')
 
-let mainWin = null
+let mainWin
 
 function createMainWindow() {
 	mainWin = new BrowserWindow({

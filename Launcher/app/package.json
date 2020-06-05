@@ -2,13 +2,13 @@
   "name": "launcher-app",
   "version": "0.1.0",
   "description": "Launcher App for Unity Client",
-  "main": "main.js",
+  "main": "src/main.ts",
   "repository": "https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate",
   "author": "valkyrienyanko",
   "license": "MIT",
   "scripts": {
-	"start": "set ELECTRON_IS_DEV=0 && electron .",
-    "dev:start": "set ELECTRON_IS_DEV=1 && electron .",
+    "start": "set ELECTRON_IS_DEV=0 && electron .",
+    "dev:start": "set ELECTRON_IS_DEV=1 && tsc && electron .",
     "build:win": "set ELECTRON_IS_DEV=0 && electron-builder --win",
     "build:mac": "export ELECTRON_IS_DEV=0 && electron-builder --mac",
     "build:linux": "export ELECTRON_IS_DEV=0 && electron-builder --linux",
@@ -61,9 +61,12 @@
     }
   },
   "devDependencies": {
+    "@types/node": "^14.0.11",
     "electron": "^9.0.1",
     "electron-builder": "^22.7.0",
     "electron-dl": "^3.0.0",
-    "electron-is-dev": "^1.2.0"
+    "electron-is-dev": "^1.2.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   }
 }
