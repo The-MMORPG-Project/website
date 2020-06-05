@@ -121,7 +121,3 @@ elements.launchButton.addEventListener('click', () => {
 	// Start rendering the download progress bar every 10ms
 	renderInterval = setInterval(renderProgressBar, 10)
 })
-
-function lerp(start, end, amt) {
-	return (1 - amt) * start + amt * end
-}
