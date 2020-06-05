@@ -97,8 +97,9 @@ elements.launchButton.addEventListener('click', () => {
 		return
 	}
 
-	let platform = 'win'
-	let version = 'latest'
+	const version = 'latest'
+	const platform = process.platform
+	console.log(platform)
 
 	// Tell the main process what to download
 	ipcRenderer.send('download-button', { url: `http://${webIP}:${webPort}/api/releases/${platform}/${version}.zip` })
