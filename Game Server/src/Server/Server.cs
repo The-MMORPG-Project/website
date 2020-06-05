@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Diagnostics;
 using System;
 using System.IO;
@@ -40,6 +41,8 @@ namespace Valk.Networking
 
         public void Start()
         {
+            Thread.Sleep(100);
+
             Library.Initialize();
 
             server = new Host();
@@ -49,7 +52,7 @@ namespace Valk.Networking
             server.Create(address, maxClients);
             serverRunning = true;
 
-            Logger.Log($"Server listening on {port}");
+            Console.Log($"Server listening on {port}");
 
             //int packetCounter = 0;
             //int i = 0;
@@ -81,22 +84,22 @@ namespace Valk.Networking
                             break;
 
                         case EventType.Connect:
-                            Logger.Log($"Client connected - ID: {id}, IP: {ip}");
+                            Console.Log($"Client connected - ID: {id}, IP: {ip}");
                             clients.Add(new Client(netEvent.Peer));
                             break;
 
                         case EventType.Disconnect:
-                            Logger.Log($"Client disconnected - ID: {id}, IP: {ip}");
+                            Console.Log($"Client disconnected - ID: {id}, IP: {ip}");
                             clients.Remove(clients.Find(x => x.ID.Equals(netEvent.Peer.ID)));
                             break;
 
                         case EventType.Timeout:
-                            Logger.Log($"Client timeout - ID: {id}, IP: {ip}");
+                            Console.Log($"Client timeout - ID: {id}, IP: {ip}");
                             clients.Remove(clients.Find(x => x.ID.Equals(netEvent.Peer.ID)));
                             break;
 
                         case EventType.Receive:
-                            //Logger.Log($"{packetCounter++} Packet received from - ID: {id}, IP: {ip}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
+                            //Console.Log($"{packetCounter++} Packet received from - ID: {id}, IP: {ip}, Channel ID: {netEvent.ChannelID}, Data length: {netEvent.Packet.Length}");
                             HandlePacket(netEvent);
                             netEvent.Packet.Dispose();
                             break;
@@ -274,7 +277,7 @@ namespace Valk.Networking
 
             catch (ArgumentOutOfRangeException)
             {
-                Logger.Log($"Received packet from client '{id}' but buffer was too long. {netEvent.Packet.Length}");
+                Console.Log($"Received packet from client '{id}' but buffer was too long. {netEvent.Packet.Length}");
             }
         }
 

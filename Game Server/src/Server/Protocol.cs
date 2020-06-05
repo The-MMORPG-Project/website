@@ -16,7 +16,7 @@ public class Protocol : IDisposable
 
     public byte[] Serialize(byte code, params object[] values)
     {
-        int bufferSize = 0;
+        var bufferSize = 0;
         bufferSize += sizeof(byte);
         foreach (object value in values)
         {

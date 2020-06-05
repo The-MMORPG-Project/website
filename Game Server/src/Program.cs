@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Threading;
+using System.Collections;
+using System.Collections.Generic;
+using Terminal.Gui;
+using System.Runtime.InteropServices;
 
 namespace Valk.Networking
 {
@@ -9,13 +13,12 @@ namespace Valk.Networking
 
         public static void Main(string[] args)
         {
-            Console.Clear();
-            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            // Initialize console
+            new Thread(new Console().Start).Start();
 
+            // Initialize server
             Server = new Server(7777, 100);
-
             new Thread(Server.Start).Start();
-            new Thread(new InputHandler().Run).Start();
         }
     }
 }
