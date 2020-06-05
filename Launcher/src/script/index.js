@@ -113,7 +113,7 @@ elements.launchButton.addEventListener('click', () => {
 	// Reset values
 	width = 0
 	progress = 0
-	elements.launchBarProgress.style.width = "0"
+	elements.launchBarProgress.style.width = '0'
 
 	// Indicate that we are now downloading
 	downloading = true
