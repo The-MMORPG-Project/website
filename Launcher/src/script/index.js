@@ -125,10 +125,3 @@ elements.launchButton.addEventListener('click', () => {
 function lerp(start, end, amt) {
 	return (1 - amt) * start + amt * end
 }
-
-// EXPERIMENTAL FOCUS CODE FOR SETTINGS WINDOW
-/*document.addEventListener('mousemove', () => {
-	if (settingsOpen) {
-		settingsWin.focus()
-	}
-})*/
