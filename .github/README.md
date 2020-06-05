@@ -24,7 +24,6 @@
 
 1. [Features](#features)
 2. [Contributing](#contributing)
-3. [Contributors](#contributors)
 
 ## Features
 
@@ -52,8 +51,6 @@
 This project is no where near complete, all contributions are highly appreciated and welcomed.
 
 See [Getting Started](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#getting-started)
-
-## Contributors
 
 <a href="https://github.com/valkyrienyanko/The-MMORPG-Project/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=valkyrienyanko/The-MMORPG-Project" />
