@@ -1,3 +1,6 @@
+# Releases
+src/releases/*.zip
+
 # Transpiled JavaScript
 dist/
 

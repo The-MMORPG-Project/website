@@ -101,14 +101,7 @@ elements.launchButton.addEventListener('click', () => {
 	let version = 'latest'
 
 	// Tell the main process what to download
-	/* TEST FILES 
-	 * http://ipv4.download.thinkbroadband.com/5MB.zip
-	 * http://ipv4.download.thinkbroadband.com/10MB.zip
-	 * http://ipv4.download.thinkbroadband.com/20MB.zip
-	 * http://ipv4.download.thinkbroadband.com/50MB.zip
-	 */
-	ipcRenderer.send('download-button', { url: 'http://ipv4.download.thinkbroadband.com/5MB.zip' })
-	//ipcRenderer.send('download-button', { url: `http://${webIP}:${webPort}/api/releases/${platform}/${version}.zip` })
+	ipcRenderer.send('download-button', { url: `http://${webIP}:${webPort}/api/releases/${platform}/${version}.zip` })
 	
 	// Reset values
 	width = 0

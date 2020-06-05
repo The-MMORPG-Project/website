@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "outDir": "./dist/ts",
+    "outDir": "./dist",
     "strict": true,
     "noImplicitAny": false,
     "esModuleInterop": true,

@@ -148,7 +148,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
   await app.listen(config.server.port)
   console.log(`Node server is listening on port ${config.server.port}`)
 
-  setInterval(keepConnectionsAlive, 1000 * 10, db)
+  // Commented out because db.query("SELECT 1") logs 'test' to console every time
+  // its executed which is really strange
+  //setInterval(keepConnectionsAlive, 1000 * 10, db)
 })()
 
 function keepConnectionsAlive(db) 

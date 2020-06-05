@@ -1,10 +1,14 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron')
-const { download } = require('electron-dl')
-const isDev = require('electron-is-dev')
+import { app, BrowserWindow, Menu, ipcMain } from 'electron'
+import { download } from 'electron-dl'
+import AdmZip from 'adm-zip'
+import isDev from 'electron-is-dev'
+import fs from 'fs'
 
-let mainWin
+let mainWin: BrowserWindow
+let downloading: boolean
+let file: string
 
-function createMainWindow() {
+const createMainWindow = () => {
 	mainWin = new BrowserWindow({
 		width: 600,
 		height: 400,
@@ -43,19 +47,47 @@ app.on('ready', () => {
 })
 
 ipcMain.on('download-button', async (event, { url }) => {
+	downloading = true
+
+	// Extract file name from url
+	const split = url.split('/')
+	file = split[split.length - 1]
+
 	const win = BrowserWindow.getFocusedWindow()
 	const options = {
 		directory: app.getPath('pictures'),
 		onProgress
 	}
-	await download(win, url, options)
+	await download(win as any, url, options)
 })
 
-function onProgress(obj) {
+const onProgress = async (obj: { percent: number }) => {
 	mainWin.webContents.send('progress', obj.percent)
+
+	if (obj.percent == 1 && downloading) {
+		downloading = false
+
+		// We delay this part as the electron-dl onProgress event outputs multiple '1's when finished
+		// Perhaps later on this could be replaced with a function that checks if the zip exists before extracting it
+		setTimeout(function () {
+			const releaseDir = app.getPath('pictures')
+			const sourceZip = `${releaseDir}/${file}`
+
+			// Extract
+			console.log('extracting...')
+			const zip = new AdmZip(sourceZip)
+			zip.extractAllTo(`${releaseDir}/latest`)
+
+			// Delete latest.zip since we no longer need it
+			fs.unlink(sourceZip, (err) => {
+				if (err) throw err
+				console.log('deleted latest.zip')
+			})
+		}, 1000)
+	}
 }
 
-function initDevTools() {
+const initDevTools = () => {
 	if (isDev) {
 		const devMenuTemplate = [
 			{
@@ -74,12 +106,12 @@ function initDevTools() {
 				]
 			}
 		]
-		const menu = Menu.buildFromTemplate(devMenuTemplate)
+		const menu = Menu.buildFromTemplate(devMenuTemplate as any)
 		Menu.setApplicationMenu(menu)
 	}
 }
 
-function clearConsole() {
+const clearConsole = () => {
 	const readline = require('readline')
 	const blank = '\n'.repeat(process.stdout.rows)
 	console.log(blank)
