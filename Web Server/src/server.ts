@@ -147,4 +147,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
   await db.query("USE `database`")
   await app.listen(config.server.port)
   console.log(`Node server is listening on port ${config.server.port}`)
+
+  setInterval(keepConnectionsAlive, 1000 * 10, db)
 })()
+
+function keepConnectionsAlive(db) 
+{
+  db.query("SELECT 1")
+}
