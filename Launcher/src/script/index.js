@@ -41,7 +41,7 @@ function renderProgressBar() {
 	}
 
 	if (progress > width) {
-		width = lerp(width, progress, progress / 100).toFixed(2)
+		width = round(lerp(width, progress, progress / 100), 2)
 		elements.launchBarProgress.style.width = width + '%'
 	}
 
@@ -92,7 +92,7 @@ elements.settingsButton.addEventListener('click', () => {
 })
 
 // Launch Button
-launchButton.addEventListener('click', () => {
+elements.launchButton.addEventListener('click', () => {
 	if (downloading) { // Only launch if not downloading anything
 		return
 	}
@@ -113,7 +113,7 @@ launchButton.addEventListener('click', () => {
 	// Reset values
 	width = 0
 	progress = 0
-	launchBarProgress.style.width = 0
+	elements.launchBarProgress.style.width = "0"
 
 	// Indicate that we are now downloading
 	downloading = true
