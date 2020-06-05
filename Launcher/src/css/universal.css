@@ -20,7 +20,8 @@ button:focus {
 
 body {
     background-color: rgb(30, 30, 30);
-    color: rgb(220, 220, 220); /* Slightly darker to be nicer on the eyes */
+    /* Slightly darker to be nicer on the eyes */
+    color: rgb(220, 220, 220);
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;

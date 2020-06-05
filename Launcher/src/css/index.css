@@ -1,16 +1,26 @@
-::-webkit-scrollbar { width: .5em; }
-::-webkit-scrollbar-track { background-color: grey; }
-::-webkit-scrollbar-thumb { background-color: rgb(26, 26, 26); }
+::-webkit-scrollbar {
+	width: .5em;
+}
+
+::-webkit-scrollbar-track {
+	background-color: grey;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgb(26, 26, 26);
+}
 
 #topBar {
 	position: absolute;
-	height: calc(100% - 130px); /* minus 130px from the full screen height to give space for launchBar */
+	height: calc(100% - 130px);
+	/* minus 130px from the full screen height to give space for launchBar */
 	width: 100%;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.411);
 	overflow: auto;
 }
 
-#release ~ #release { /* Adds margin to the top of every each other 'release' div so you don't have to add it manually in the HTML */
+#release~#release {
+	/* Adds margin to the top of every each other 'release' div so you don't have to add it manually in the HTML */
 	margin-top: 15px;
 }
 
@@ -29,28 +39,28 @@ main {
 	font-size: 13px;
 	font-weight: 550;
 	overflow: auto;
-	
 	position: absolute;
 	overflow: auto;
 	height: calc(100% - 60px - 30px);
 	width: 100%;
-	z-index: -1; /* Puts the div under the minimize button so It can be clicked */
+	z-index: -1;
+	/* Puts the div under the minimize button so It can be clicked */
 }
 
-main > div {
+main>div {
 	padding: 20px;
 	margin-bottom: 60px;
 }
 
 :root {
---mainTheme	: #FF7A38;
---secondary : #b63d00;
+	--mainTheme: #FF7A38;
+	--secondary: #b63d00;
 }
 
 #launchArea {
 	background: black;
 	box-shadow: 5px 10px 18px rgba(50, 50, 50, 0.3);
-	bottom:0;
+	bottom: 0;
 	width: 100%;
 	position: fixed;
 	height: 60px;
@@ -161,17 +171,22 @@ main > div {
 /* Style the tab */
 
 @keyframes fadeEffect {
-	from {opacity: 0;}
-	to {opacity: 1;}
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
 
 .tab {
 	margin-top: 30px;
 	overflow: hidden;
-  }
-  
-  /* Style the buttons inside the tab */
-  .tab button {
+}
+
+/* Style the buttons inside the tab */
+
+.tab button {
 	width: calc(100%/3);
 	background-color: inherit;
 	float: left;
@@ -183,20 +198,23 @@ main > div {
 	transition: 0.3s;
 	font-size: 17px;
 	color: white;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
+}
+
+/* Change background color of buttons on hover */
+
+.tab button:hover {
 	border-bottom: 3px solid white;
-  }
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
+}
+
+/* Create an active/current tablink class */
+
+.tab button.active {
 	border-bottom: 3px solid white;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
+}
+
+/* Style the tab content */
+
+.tabcontent {
 	display: none;
 	animation: fadeEffect 0.4s;
-  }
+}

@@ -104,11 +104,11 @@ ul {
 	-webkit-app-region: no-drag;
 }
 
-.container:hover input ~ .checkmark {
+.container:hover input~.checkmark {
 	background-color: #ccc;
 }
 
-.container input:checked ~ .checkmark {
+.container input:checked~.checkmark {
 	background-color: #FF7A38;
 }
 
@@ -118,7 +118,7 @@ ul {
 	display: none;
 }
 
-.container input:checked ~ .checkmark:after {
+.container input:checked~.checkmark:after {
 	display: block;
 }
 
