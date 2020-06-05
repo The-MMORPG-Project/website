@@ -19,11 +19,11 @@
 
 ## Getting Started
 
-Take a look at the roadmaps in the projects [issues](https://github.com/valkyrienyanko/Unity-MMORPG-Boilerplate/issues) and talk to me on Discord (**valk#3277**).
+Take a look at the [roadmaps](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap) and talk to **valk#3277** on Discord.
 
-Here are some good first issues to tackle in order.
-1. [Launcher CSS Improvements](/../../issues/36)
-2. [Custom Console Buffer](/../../issues/42)
+Check out these issues
+- [Good First Issues](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+issue")
+- [Help Wanted](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
 
 ## Setup Workspace
 
