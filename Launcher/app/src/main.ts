@@ -3,6 +3,10 @@ import { download } from 'electron-dl'
 import AdmZip from 'adm-zip'
 import isDev from 'electron-is-dev'
 import fs from 'fs'
+import { promisify } from 'util'
+import { execFile as child } from 'child_process'
+
+const unlinkAsync = promisify(fs.unlink)
 
 let mainWin: BrowserWindow
 let downloading: boolean
@@ -69,19 +73,28 @@ const onProgress = async (obj: { percent: number }) => {
 
 		// We delay this part as the electron-dl onProgress event outputs multiple '1's when finished
 		// Perhaps later on this could be replaced with a function that checks if the zip exists before extracting it
-		setTimeout(function () {
+		setTimeout(async function () {
 			const releaseDir = app.getPath('pictures')
 			const sourceZip = `${releaseDir}/${file}`
 
 			// Extract
 			console.log('extracting...')
 			const zip = new AdmZip(sourceZip)
-			zip.extractAllTo(`${releaseDir}/latest`)
+			zip.extractAllTo(`${releaseDir}`)
 
 			// Delete latest.zip since we no longer need it
-			fs.unlink(sourceZip, (err) => {
-				if (err) throw err
-				console.log('deleted latest.zip')
+			await unlinkAsync(sourceZip)
+
+			// Run the program
+			// -screen-fullscreen (must be 1 or 0)
+			// -screen-width (must be a supported resolution)
+			// -screen-height (must be a supported resolution)
+			// -screen-quality (must be a quality setting name)
+			// https://docs.unity3d.com/Manual/CommandLineArguments.html
+			const parameters = ['-screen-fullscreen 1', '-screen-width 1920', '-screen-height 1080'];
+			child(`${releaseDir}/${file.split('.')[0]}/Networking.exe`, parameters, (err, data) => {
+				console.log(err)
+				console.log(data.toString())
 			})
 		}, 1000)
 	}
