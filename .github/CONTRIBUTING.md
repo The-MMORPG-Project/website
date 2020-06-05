@@ -25,6 +25,8 @@ Check out these issues
 - [Good First Issues](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+issue")
 - [Help Wanted](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
 
+Scroll up a bit for [Table of Contents](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#table-of-contents)
+
 ## Setup Workspace
 
 ### Visual Studio Code
@@ -64,6 +66,7 @@ Solution: Downgrade to `C# 1.21.16`
     - Reload page with `Ctrl + R`
     - Run linter with `yarn dev:lint`
 4. Optional: Build the project's binaries with `yarn build:win` (`win` can be replaced with `linux` or `mac`, you can only build a platform if you're currently on that OS, for e.g. you can't build mac or linux on windows)
+5. Note that you will need to setup the web server when testing out the 'Play' button (or temporarily comment out the communication to the web server and provide your own latest.zip test file)
 
 ### Client
 
@@ -82,7 +85,8 @@ DB_HOST=xxx.xxx.xxx.xxx
 DB_USER=xxxxx
 DB_PASSWORD=xxxxxxx
 ```
-5. Run server with `yarn dev:start` (protip: just use `yarn start` if you want to start without compiling tsc)
+5. Populate the `src/releases` folder with build(s) from the Unity standalone. (The folder must be called `latest` and must be compressed to a zip called `latest.zip` in the respective platform folder under releases in order for the Launcher to correctly retrieve the standalone)
+6. Run server with `yarn dev:start` (protip: just use `yarn start` if you want to start without compiling tsc)
 
 ### Game Server
 
