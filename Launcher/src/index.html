@@ -1,73 +1,66 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
-		<meta
-			http-equiv="Content-Security-Policy"
-			content="script-src 'self' 'unsafe-inline';"
-		/>
 
-		<!-- Style Sheets -->
-		<link rel="stylesheet" href="css/universal.css" />
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="fontAwesome/css/all.min.css">
-	</head>
+<head>
+  <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 
-	<body>
-		<div id="headerBar"></div> <!-- Draggable top region of window -->
-		
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="css/universal.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="fontAwesome/css/all.min.css">
+</head>
 
-		<div id="title-bar-btns">
-      <button id="settingsButton"><i class="fa fa-cog"></i></button>
-      <button id="user">BubbleMaster6</button>
-			<button id="minimize"><i class="fa fa-minus"></i></button>
-			<button id="close"><i class="fa fa-times"></i></button>
-    </div>
-    
+<body>
+  <div id="headerBar"></div> <!-- Draggable top region of window -->
 
+  <div id="title-bar-btns">
+    <button id="settingsButton"><i class="fa fa-cog"></i></button>
+    <button id="user">BubbleMaster6</button>
+    <button id="minimize"><i class="fa fa-minus"></i></button>
+    <button id="close"><i class="fa fa-times"></i></button>
+  </div>
 
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'homeTab')" id="defaultOpen">Home</button>
+    <button class="tablinks" onclick="openTab(event, 'releaseNotesTab')">Release Notes</button>
+    <button class="tablinks" onclick="openTab(event, 'newsTab')">News</button>
+  </div>
 
+  <div id="homeTab" class="tabcontent">
+    <main>
+      <div>
+        <img src="img/cat.png" alt="Cat" width="100%"></img>
+      </div>
+    </main>
+  </div>
 
-    <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'homeTab')" id="defaultOpen">Home</button>
-      <button class="tablinks" onclick="openTab(event, 'releaseNotesTab')">Release Notes</button>
-      <button class="tablinks" onclick="openTab(event, 'newsTab')">News</button>
-    </div>
-    
-    
-    
-    <div id="homeTab" class="tabcontent">
-      <main>
-        <div>
-          <img src="img/cat.png" alt="Cat" width="100%"></img>
+  <div id="releaseNotesTab" class="tabcontent">
+    <main>
+      <div id="releaseNotes">
+        <!-- CSS automatically adds a space between each release (between divs that have the 'release' ID) -->
+        <div id="release">
+          <div id="versionNumber">0.1</div>
+          <div id="added">Added this</div>
+          <div id="added">Added that</div>
+          <div id="removed">Removed that</div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
 
-    <div id="releaseNotesTab" class="tabcontent">
-      <main>
-          <div id="releaseNotes">
-            <!-- CSS automatically adds a space between each release (between divs that have the 'release' ID) -->
-            <div id="release">
-              <div id="versionNumber">0.1</div>
-              <div id="added">Added this</div>
-              <div id="added">Added that</div>
-              <div id="removed">Removed that</div>
-            </div>
-          </div>
-      </main>
-    </div>
-    
-    <div id="newsTab" class="tabcontent">
-      <main>
-        <div>
-          <h3>Upcoming Update: Version 3.4</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio asperiores incidunt cumque repellendus beatae. Odit magnam, blanditiis corrupti fugiat aliquid eum unde, placeat aut dolore quidem culpa maiores pariatur rem.</p>
-        </div>
-      </main>
-    </div>
-    
-    <script>
+  <div id="newsTab" class="tabcontent">
+    <main>
+      <div>
+        <h3>Upcoming Update: Version 3.4</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio asperiores incidunt cumque repellendus beatae.
+          Odit magnam, blanditiis corrupti fugiat aliquid eum unde, placeat aut dolore quidem culpa maiores pariatur
+          rem.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
     function openTab(evt, tabName) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
@@ -81,23 +74,18 @@
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.className += " active";
     }
-    
+
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
-    </script>
+  </script>
 
+  <div id="launchArea">
+    <div id="launchBar">
+      <div id="launchBarProgress"></div>
+    </div>
+    <button id="launchButton">Play</button>
+  </div>
+  <script src="script/index.js"></script>
+</body>
 
-
-
-
-
-    
-		<div id="launchArea">
-			<div id="launchBar">
-				<div id="launchBarProgress"></div>
-			</div>
-			<button id="launchButton">Play</button>
-		</div>
-		<script src="script/index.js"></script>
-	</body>
 </html>
