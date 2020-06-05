@@ -20,10 +20,6 @@
     <br> 
 </p>
 
-<p align="center"> Join the official Discord for The MMORPG Project --> https://discord.gg/W4Nk9gt
-    <br>
-</p>
-
 ## Table of Contents
 
 1. [Features](#features)
