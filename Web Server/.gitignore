@@ -1,5 +1,5 @@
 # Releases
-src/releases/*.zip
+src/releases/**/*.zip
 
 # Transpiled JavaScript
 dist/
