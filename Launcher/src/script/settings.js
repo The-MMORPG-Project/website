@@ -1,16 +1,19 @@
 const { BrowserWindow } = require('electron').remote
-const close = document.getElementById('close')
-const cancel = document.getElementById('cancel')
-const apply = document.getElementById('apply')
 
-close.addEventListener('click', () => {
+const elements = {
+    close: id('close'),
+    cancel: id('cancel'),
+    apply: id('apply')
+}
+
+elements.close.addEventListener('click', () => {
     BrowserWindow.getFocusedWindow().close()
 })
 
-cancel.addEventListener('click', () => {
+elements.cancel.addEventListener('click', () => {
     BrowserWindow.getFocusedWindow().close()
 })
 
-apply.addEventListener('click', () => {
+elements.apply.addEventListener('click', () => {
     BrowserWindow.getFocusedWindow().close()
 })

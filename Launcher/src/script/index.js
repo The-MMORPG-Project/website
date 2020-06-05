@@ -1,10 +1,14 @@
 const { ipcRenderer } = require('electron')
 const { BrowserWindow } = require('electron').remote
-const launchBarProgress = document.getElementById('launchBarProgress')
-const launchButton = document.getElementById('launchButton')
-const settingsButton = document.getElementById('settingsButton')
-const close = document.getElementById('close')
-const minimize = document.getElementById('minimize')
+
+const elements = {
+	launchBarProgress: id('launchBarProgress'),
+	launchButton: id('launchButton'),
+	settingsButton: id('settingsButton'),
+	close: id('close'),
+	minimize: id('minimize'),
+	user: id('user')
+}
 
 let settingsWin = null
 
@@ -38,22 +42,22 @@ function renderProgressBar() {
 
 	if (progress > width) {
 		width = lerp(width, progress, progress / 100).toFixed(2)
-		launchBarProgress.style.width = width + '%'
+		elements.launchBarProgress.style.width = width + '%'
 	}
 
-	document.querySelector('#launchButton').innerHTML = progress + '%'
+	elements.launchButton.textContent = progress + '%'
 }
 
 // Menu Buttons
-close.addEventListener('click', () => {
+elements.close.addEventListener('click', () => {
 	BrowserWindow.getFocusedWindow().close()
 })
 
-minimize.addEventListener('click', () => {
+elements.minimize.addEventListener('click', () => {
 	BrowserWindow.getFocusedWindow().minimize()
 })
 
-settingsButton.addEventListener('click', () => {
+elements.settingsButton.addEventListener('click', () => {
 	if (settingsOpen) {
 		return
 	}
