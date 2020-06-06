@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Diagnostics;
 using System;
 using System.IO;
 using System.Linq;
@@ -41,8 +39,6 @@ namespace Valk.Networking
 
         public void Start()
         {
-            Thread.Sleep(1000);
-
             Library.Initialize();
 
             server = new Host();

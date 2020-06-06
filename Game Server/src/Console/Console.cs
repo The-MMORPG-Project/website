@@ -1,8 +1,8 @@
 using System;
+using System.Threading;
 using System.Linq;
 using System.Collections.Generic;
 using Terminal.Gui;
-using NStack;
 
 namespace Valk.Networking
 {
@@ -18,8 +18,6 @@ namespace Valk.Networking
         public static List<string> CommandHistory;
         public static int CommandHistoryIndex = 0;
 
-        private const int BOTTOM_PADDING = 3;
-
         public void Start() 
         {
             Application.Init();
@@ -33,8 +31,16 @@ namespace Valk.Networking
             Application.Top.Add(View);
 
             CreateInputField();
+            
+            StartServer(); // Finished setting up console, we can now start the server
 
             Application.Run();
+        }
+
+        public void StartServer() 
+        {
+            Program.Server = new Server(7777, 100);
+            new Thread(Program.Server.Start).Start(); // Initialize server on thread 2
         }
 
         private void CreateInputField()
@@ -53,6 +59,7 @@ namespace Valk.Networking
         {
             var message = new ConsoleMessage(text);
 
+            const int BOTTOM_PADDING = 3;
             if (GetTotalLines() > ConsoleView.Driver.Clip.Bottom - BOTTOM_PADDING)
             {
                 ViewOffset -= message.GetLines();
