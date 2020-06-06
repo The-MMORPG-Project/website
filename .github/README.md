@@ -27,24 +27,28 @@
 
 ## Features
 
-**ENet Server**
+**Launcher**
 
-- Console Input Ouput Functionality
-- Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
-- Reliable UDP Networking with ENet
-
-**Web Server**
-
-- MySQL Database to Store User Accounts, Account Information and Purchases (account info / purchases not started on yet)
+1. Fetches latest client release / release notes and launches the client
 
 **Client**
 
-- UI Flow to Demonstrate Communication with Web Server / ENet Server
+1. UI Flow to Demonstrate Communication with Web Server / ENet Server
+2. RPG Demo demonstrating the flow of RPG elements syrnonized over the network (planned / not here yet)
 
-**Launcher**
+**Web Server**
 
-- Handles Auto-Updating Client (not complete)
-- Grabs Release Notes (not complete)
+1. User Authentication
+2. MySQL Database to Store User Accounts, Account Information and Purchases (account info / purchases not started on yet)
+
+**Game Server**
+
+1. Custom Console Buffer
+    - Simultaneous Input Output Functionality
+    - Scrolling Behavior
+    - Command History
+2. Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
+3. Reliable UDP Networking with ENet
 
 ## Contributing
 
