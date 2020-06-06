@@ -3,6 +3,8 @@
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
+    - [Welcome](#welcome)
+    - [Issue Labels](#issue-labels)
 2. [Setup Workspace](#setup-workspace)
     - [VSC](#visual-studio-code)
 3. [Setup Project](#setup-project)
@@ -18,24 +20,25 @@
 6. [Libraries](#libraries)
 
 ## Getting Started
-
+### Welcome
 All contributors please join [The MMORPG Project Discord](https://discord.com/invite/W4Nk9gt) and talk to **valk#3277** before you make any contributions.
 
+### Issue Labels
 There are many labels that help organize the projects issues. If you can't find any issues open for a specific label, then it probably means that more issues need to be created with that label to help contributors like you figure out how to contribute to the project further.
 
 You can also view the projects milestones [here](https://github.com/valkyrienyanko/The-MMORPG-Project/milestones). Milestones help tell contributors what needs to be done in order more or less.
 
-### Roadmaps
+**Roadmaps**
 - [Roadmaps](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap)
 
-### Generic
+**Generic**
 - [Good First Issues](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+issue")
 - [Help Wanted](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
 - [Bug](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 - [Question](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion)
 - [Request](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Arequest)
 
-### Specific
+**Specific**
 - [Launcher](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Alauncher)
 - [Client](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aclient)
 - [Game Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"game+server")
