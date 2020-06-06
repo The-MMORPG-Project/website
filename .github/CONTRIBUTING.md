@@ -18,7 +18,7 @@
     - [Opening an Issue](#opening-an-issue)
     - [Creating a Pull Request](#creating-a-pull-request)
 5. [Notes](#notes)
-6. [Libraries](#libraries)
+6. [Libraries](#used-libraries)
 
 ## Getting Started
 ### Welcome
@@ -157,10 +157,14 @@ Fork the repository and create a pull request when you want to merge a change.
 - All methods should follow PascalFormat
 - Add informative comments to clear up obscure code
 
-## Libraries
+## Used Libraries
 ### Launcher
 
 - [Electron](https://www.electronjs.org/docs)
+- [Electron-DL](https://github.com/sindresorhus/electron-dl)
+- [Electron-Builder](https://github.com/electron-userland/electron-builder)
+- [adm-zip](https://www.npmjs.com/package/adm-zip)
+- [fs](https://nodejs.org/api/fs.html)
 
 ### Unity Client
 
