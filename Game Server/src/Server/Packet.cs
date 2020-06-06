@@ -1,5 +1,3 @@
-using ENet;
-
 namespace Valk.Networking
 {
     enum PacketType
