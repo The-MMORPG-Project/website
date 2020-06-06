@@ -16,8 +16,8 @@
 
 ---
 
-<p align="center"> The purpose of this project is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The project consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
-    <br> 
+<p align="center">The purpose of this project is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The project consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.
+    <br>
 </p>
 
 ## Table of Contents
@@ -48,7 +48,7 @@
 
 ## Contributing
 
-This project is no where near complete, all contributions are highly appreciated and welcomed.
+The project is no where near complete, it receives frequent updates, is on-going and all contributions are welcomed.
 
 See [Getting Started](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#getting-started)
 

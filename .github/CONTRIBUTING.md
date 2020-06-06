@@ -3,6 +3,9 @@
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
+    - [Welcome](#welcome)
+    - [Issue Labels](#issue-labels)
+    - [Languages](#languages)
 2. [Setup Workspace](#setup-workspace)
     - [VSC](#visual-studio-code)
 3. [Setup Project](#setup-project)
@@ -15,17 +18,42 @@
     - [Opening an Issue](#opening-an-issue)
     - [Creating a Pull Request](#creating-a-pull-request)
 5. [Notes](#notes)
-6. [Libraries](#libraries)
+6. [Libraries](#used-libraries)
 
 ## Getting Started
+### Welcome
+All contributors please join [The MMORPG Project Discord](https://discord.com/invite/W4Nk9gt) and talk to **valk#3277** before you make any contributions. 
 
-Take a look at the [roadmaps](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap) and talk to **valk#3277** on Discord.
+*Note that the [Table of Contents](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#table-of-contents) is just above*
 
-Check out these issues
+### Issue Labels
+There are many labels that help organize the projects issues. If you can't find any issues open for a specific label, then it probably means that more issues need to be created with that label to help contributors like you figure out how to contribute to the project further.
+
+You can also view the projects milestones [here](https://github.com/valkyrienyanko/The-MMORPG-Project/milestones). Milestones help tell contributors what needs to be done in order more or less.
+
+**Roadmaps**
+- [Roadmaps](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap)
+
+**Generic**
 - [Good First Issues](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+issue")
 - [Help Wanted](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
+- [Bug](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+- [Question](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion)
+- [Request](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Arequest)
 
-Scroll up a bit for [Table of Contents](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#table-of-contents)
+**Specific**
+- [Launcher](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Alauncher)
+- [Client](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aclient)
+- [Game Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"game+server")
+- [Web Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"web+server")
+
+### Languages
+*The languages per project sections are listed here to better guide you on what you can contribute to.*
+
+- Web Server: `TypeScript` `JavaScript` `HTML` `CSS` `SQL`
+- Launcher: `TypeScript` `JavaScript` `HTML` `CSS`
+- Game Server: `C#`
+- Client: `C#`
 
 ## Setup Workspace
 
@@ -131,10 +159,14 @@ Fork the repository and create a pull request when you want to merge a change.
 - All methods should follow PascalFormat
 - Add informative comments to clear up obscure code
 
-## Libraries
+## Used Libraries
 ### Launcher
 
 - [Electron](https://www.electronjs.org/docs)
+- [Electron-DL](https://github.com/sindresorhus/electron-dl)
+- [Electron-Builder](https://github.com/electron-userland/electron-builder)
+- [adm-zip](https://www.npmjs.com/package/adm-zip)
+- [fs](https://nodejs.org/api/fs.html)
 
 ### Unity Client
 
