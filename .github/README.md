@@ -20,7 +20,7 @@
     <br>
 </p>
 
-<p align="center">The project is on-going with frequent updates, all contributions are welcome.
+<p align="center">The project is no where near considered 'complete', it's on-going with frequent updates, and all contributions are welcome.
     <br>
 </p>
 
