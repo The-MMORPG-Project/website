@@ -46,12 +46,12 @@ You can also view the projects milestones [here](https://github.com/valkyrienyan
 - [Web Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"web+server")
 
 ### Languages
-The languages per project sections are listed here to better guide you on what you can contribute to.
+*The languages per project sections are listed here to better guide you on what you can contribute to.*
 
+- Web Server: `TypeScript` `JavaScript` `HTML` `CSS` `SQL`
 - Launcher: `TypeScript` `JavaScript` `HTML` `CSS`
-- Web Server: `TypeScript` `JavaScript` `HTML` `CSS`
-- Client: `C#`
 - Game Server: `C#`
+- Client: `C#`
 
 ## Setup Workspace
 
