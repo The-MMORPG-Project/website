@@ -20,6 +20,12 @@ namespace Valk.Networking
                 Console.UpdatePositions();
             }
 
+            if (e.Key == Key.Esc) // KEY RESERVED FOR DEBUGGING
+            {
+                Console.Log(Application.Driver.Clip.ToString());
+                return true;
+            }
+
             if (e.Key == Key.CursorDown)
             {
                 if (Console.CommandHistoryIndex + Console.CommandHistory.Count + 1 < Console.CommandHistory.Count)
