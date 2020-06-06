@@ -31,6 +31,16 @@
 
 1. Fetches latest client release / release notes and launches the client
 
+**Client**
+
+1. UI Flow to Demonstrate Communication with Web Server / ENet Server
+2. RPG Demo demonstrating the flow of RPG elements syrnonized over the network (planned / not here yet)
+
+**Web Server**
+
+1. User Authentication
+2. MySQL Database to Store User Accounts, Account Information and Purchases (account info / purchases not started on yet)
+
 **Game Server**
 
 1. Custom Console Buffer
@@ -39,16 +49,6 @@
     - Command History
 2. Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
 3. Reliable UDP Networking with ENet
-
-**Web Server**
-
-1. User Authentication
-2. MySQL Database to Store User Accounts, Account Information and Purchases (account info / purchases not started on yet)
-
-**Client**
-
-1. UI Flow to Demonstrate Communication with Web Server / ENet Server
-2. RPG Demo demonstrating the flow of RPG elements syrnonized over the network (planned / not here yet)
 
 ## Contributing
 
