@@ -5,6 +5,7 @@
 1. [Getting Started](#getting-started)
     - [Welcome](#welcome)
     - [Issue Labels](#issue-labels)
+    - [Languages](#languages)
 2. [Setup Workspace](#setup-workspace)
     - [VSC](#visual-studio-code)
 3. [Setup Project](#setup-project)
@@ -43,6 +44,14 @@ You can also view the projects milestones [here](https://github.com/valkyrienyan
 - [Client](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aclient)
 - [Game Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"game+server")
 - [Web Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"web+server")
+
+### Languages
+The languages per project sections are listed here to better guide you on what you can contribute to.
+
+- Launcher: `TypeScript` `JavaScript` `HTML` `CSS`
+- Web Server: `TypeScript` `JavaScript` `HTML` `CSS`
+- Client: `C#`
+- Game Server: `C#`
 
 ## Setup Workspace
 
