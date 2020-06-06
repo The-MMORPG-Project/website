@@ -20,10 +20,6 @@
     <br>
 </p>
 
-<p align="center">The project is no where near finished, it's on-going with frequent updates, and all contributions are welcome.
-    <br>
-</p>
-
 ## Table of Contents
 
 1. [Features](#features)
@@ -52,7 +48,7 @@
 
 ## Contributing
 
-This project is no where near complete, all contributions are highly appreciated and welcomed.
+The project is no where near complete, it receives frequent updates, is on-going and all contributions are welcomed.
 
 See [Getting Started](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#getting-started)
 
