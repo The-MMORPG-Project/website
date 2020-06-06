@@ -21,7 +21,7 @@
 
 ## Getting Started
 ### Welcome
-All contributors please join [The MMORPG Project Discord](https://discord.com/invite/W4Nk9gt) and talk to **valk#3277** before you make any contributions.
+All contributors please join [The MMORPG Project Discord](https://discord.com/invite/W4Nk9gt) and talk to **valk#3277** before you make any contributions. (Note that the [Table of Contents](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#table-of-contents) is just above)
 
 ### Issue Labels
 There are many labels that help organize the projects issues. If you can't find any issues open for a specific label, then it probably means that more issues need to be created with that label to help contributors like you figure out how to contribute to the project further.
@@ -43,8 +43,6 @@ You can also view the projects milestones [here](https://github.com/valkyrienyan
 - [Client](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aclient)
 - [Game Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"game+server")
 - [Web Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"web+server")
-
-Scroll up a bit for [Table of Contents](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#table-of-contents)
 
 ## Setup Workspace
 
