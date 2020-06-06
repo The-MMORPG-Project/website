@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using Terminal.Gui;
 using NStack;
@@ -8,38 +8,33 @@ namespace Valk.Networking
 {
     public class Console
     {
-        private const int SPACE_BETWEEN_INPUTFIELD_AND_MESSAGES = 3;
-        private static int messageEndLine;
-
+        public static Dictionary<string, Commands> Commands = typeof(Commands).Assembly.GetTypes().Where(x => typeof(Commands).IsAssignableFrom(x) && !x.IsAbstract).Select(Activator.CreateInstance).Cast<Commands>().ToDictionary(x => x.GetType().Name.ToLower(), x => x);
+        
         public static TextField Input;
-        public static ConsoleView ConsoleView;
-        public static List<Label> Messages;
+        public static ConsoleView View;
+        public static List<ConsoleMessage> Messages;
+        public static int ViewOffset = 0;
 
-        public Console()
-        {
-            
-        }
+        public static List<string> CommandHistory;
+        public static int CommandHistoryIndex = 0;
+
+        private const int BOTTOM_PADDING = 3;
 
         public void Start() 
         {
             Application.Init();
             Application.OnResized += UpdatePositions;
 
-            Messages = new List<Label>();
-            ConsoleView = new ConsoleView();
+            CommandHistory = new List<string>();
+            Messages = new List<ConsoleMessage>();
+            View = new ConsoleView();
 
-            Application.Top.Add(ConsoleView);
+            Application.GrabMouse(View); // This way we can scroll even when our mouse is over Label views
+            Application.Top.Add(View);
 
             CreateInputField();
 
-            messageEndLine = ConsoleView.Driver.Clip.Bottom - SPACE_BETWEEN_INPUTFIELD_AND_MESSAGES;
-
             Application.Run();
-        }
-
-        public static void Log(ustring text, Color foregroundColor = Color.White, Color backgroundColor = Color.Black)
-        {
-            AddMessage(text, foregroundColor, backgroundColor);
         }
 
         private void CreateInputField()
@@ -51,62 +46,59 @@ namespace Valk.Networking
                 Width = ConsoleView.Driver.Clip.Width
             };
 
-            ConsoleView.Add(Input);
+            View.Add(Input);
         }
 
-        private static void AddMessage(ustring text, Color foregroundColor = Color.White, Color backgroundColor = Color.Black)
+        public static void Log(string text, Color textColor = Color.White, Color backgroundColor = Color.Black)
         {
-            var totalLines = 0;
-            foreach (var message in Messages) 
+            var message = new ConsoleMessage(text);
+
+            if (GetTotalLines() > ConsoleView.Driver.Clip.Bottom - BOTTOM_PADDING)
             {
-                totalLines += CalcLinesInMessage(message.Text.ToString());
+                ViewOffset -= message.GetLines();
             }
 
-            if (totalLines > messageEndLine)
-            {
-                RemoveFirstMessage();
-            }
-
-            var label = new Label(text);
-            label.TextColor = Application.Driver.MakeAttribute(foregroundColor, backgroundColor);
-
-            Messages.Add(label);
-            ConsoleView.Add(label);
+            Messages.Add(message);
+            View.Add(message);
             UpdatePositions();
-
-            Application.Refresh();
-        }
-
-        // Removes first message from list
-        private static void RemoveFirstMessage()
-        {
-            ConsoleView.Remove(Console.Messages[0]);
-            Messages.Remove(Console.Messages[0]);
-            UpdatePositions();
-
-            Application.Refresh();
         }
 
         public static void UpdatePositions()
         {
-            var i = 0;
-            var offset = ConsoleView.Bounds.Bottom - SPACE_BETWEEN_INPUTFIELD_AND_MESSAGES - messageEndLine;
+            // Update message positions
+            var index = 0;
 
             foreach (var message in Messages)
             {
-                message.Y = i + offset;
-                i += CalcLinesInMessage(message.Text.ToString());
+                message.Y = index + ViewOffset;
+                index += message.GetLines();
             }
 
-            Input.Y = ConsoleView.Bounds.Bottom - 1;
+            // Update input text field position
+            Input.Y = index + ViewOffset;
+
+            Application.Refresh();
         }
 
-        private static int CalcLinesInMessage(string message) 
+        public static int GetTotalLines() 
         {
-            var lines = 0;
-            lines += (int)Math.Ceiling(message.Length / (ConsoleView.Driver.Clip.Width * 1.0));
-            lines += message.Split('\n').Length - 1;
-            return lines;
+            var totalLines = 0;
+            foreach (var message in Messages) 
+            {
+                totalLines += message.GetLines();
+            }
+            return totalLines;
+        }
+
+        public static void HandleCommands(string input)
+        {
+            var cmd = input.ToLower().Split(' ')[0];
+            var args = input.ToLower().Split(' ').Skip(1).ToArray();
+
+            if (Commands.ContainsKey(cmd))
+                Commands[cmd].Run(args);
+            else
+                Log($"Unknown Command: '{cmd}'");
         }
     }
 }
