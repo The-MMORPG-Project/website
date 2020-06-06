@@ -19,7 +19,7 @@
 
 ## Getting Started
 
-All contributors please join [The MMORPG Project Discord](https://discord.com/invite/W4Nk9gt) and talk to **valk#3277**.
+All contributors please join [The MMORPG Project Discord](https://discord.com/invite/W4Nk9gt) and talk to **valk#3277** before you make any contributions.
 
 There are many labels that help organize the projects issues. If you can't find any issues open for a specific label, then it probably means that more issues need to be created with that label to help contributors like you figure out how to contribute to the project further.
 
