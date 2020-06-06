@@ -23,6 +23,8 @@ Contact **valk#3277** on Discord if you're going to contribute.
 
 There are many labels that help organize the projects issues. If you can't find any issues open for a specific label, then it probably means that more issues need to be created with that label to help contributors like you figure out how to contribute to the project further.
 
+You can also view the projects milestones [here](https://github.com/valkyrienyanko/The-MMORPG-Project/milestones). Milestones help tell contributors what needs to be done in order more or less.
+
 ### Roadmaps
 - [Roadmaps](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap)
 
