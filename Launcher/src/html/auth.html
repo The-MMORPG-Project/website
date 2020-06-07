@@ -10,17 +10,39 @@
     <link rel="stylesheet" href="../packages/fontAwesome/css/all.min.css"/>
 </head>
 <body>
-    <div id="header">
-        <button id="register">Register</button>
-        <button id="close" onclick="close()"><i class="fa fa-times"></i></button>
+    <div id="header"></div> <!-- Draggable region -->
+    <div id="title-bar-btns">
+        <button id="switcher">Register</button>
+        <button id="closeButton"><i class="fa fa-times"></i></button>
     </div>
-    
+    <br><br><br><br>
     <main>
-        <div>
-            <div class="entry">Username <input id="username" style="height:10px"/></div>
-            <div class="entry">Password <input id="password" style="height:10px"/></div>
+        <div id="stackLogin">
+            <div class="entry">
+                <input id="username" placeholder="Username"/>
+            </div>
+            <div class="entry">
+                <input id="password" placeholder="Password"/>
+            </div>
         </div>
-        <button id="loginButton">Login</div>
+        <div id="stackRegister" style="display: none;">
+            <div class="entry">
+                <input id="username" placeholder="Username"/>
+            </div>
+            <div class="entry">
+                <input id="password" placeholder="Password"/>
+            </div>
+            <div class="entry">
+                <input id="confirm" placeholder="Confirm"/>
+            </div>
+            <div class="entry">
+                <input id="email" placeholder="Email"/>
+            </div>
+            <p class="sneaky">By registering, I agree to the <a>Terms of Service</a></p>
+        </div>
+        <button class="button" id="nextButton">Next</div>
     </main>
+    <script src="../script/utils.js"></script>
+    <script src="../script/auth.js"></script>
 </body>
 </html>

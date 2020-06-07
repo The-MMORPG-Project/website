@@ -2,54 +2,72 @@ main {
     text-align: center;
 }
 
+input {
+    height: calc(100% / 6);
+    width: calc(100% / 2);
+}
+
 #header {
     position: fixed;
     top: 0px;
-    right: 0px;
-    margin-bottom: 50px;
+    height: 25px;
+    width: 100%;
+	-webkit-app-region: drag;
 }
 
-#register, #close {
-    color: rgb(220, 220, 220);
-    background-color: transparent;
-    outline: none;
-    border: none;
+#switcher, #closeButton {
+	width: 30px;
+	height: 30px;
+	font-weight: bolder;
+	-webkit-app-region: no-drag;
+	transition: all 0.2s;
 }
 
-#register:hover {
+#switcher {
+    position: relative;
+}
+
+#switcher:hover {
     transition: all 0.2s;
     color: #FF7A38;
 }
 
-#close:hover {
+#closeButton {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#closeButton:hover {
     transition: all 0.2s;
     color: #FF1100;
 }
 
-#loginButton {
+.button {
     background-color: #FF7A38;
-	width: 90px;
-	height: 60px;
-	position: fixed;
-	bottom: 0px;
+	width: 100px;
+	height: 40px;
+	position: relative;
 	border: 0px;
-	border-radius: 15% 15% 0% 0%;
 	text-align: center;
 	font-weight: bold;
 	border-color: black;
-	font-size: 22px;
+	font-size: 16px;
 	color: white;
 	font-weight: bold;
-	box-shadow: 5px 10px 18px rgba(50, 50, 50, 0.3);
-	transition: all 0.2s;
 }
 
-#loginButton:active {
-    color: #FF7A38;
-    background-color: transparent;
-    border: 10px solid #FF7A38;
+.button:hover {
+    transition: all 0.2s;
+    background-color: #b63d00;
 }
 
-.entry ~ .entry {
-    margin-bottom: 30px;
+#nextButton, .sneaky, .entry ~ .entry {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.sneaky {
+    color: rgb(100, 100, 100);
+    font-size: 9px;
 }

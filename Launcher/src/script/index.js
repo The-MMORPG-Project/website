@@ -101,7 +101,7 @@ elements.account.addEventListener('click', () => {
 	authOpen = true
 
 	authWin = new BrowserWindow({
-		width: 400,
+		width: 600,
 		height: 300,
 		title: 'Authentication',
 		show: false,
