@@ -7,12 +7,13 @@ import * as bodyParser from 'body-parser'
 import { config } from './config'
 import { StatusCode } from './statuscode'
 
-const app = express()
+const init = async () => {
+  const app = express()
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(express.static('src/public'))
 
-;(async () => {
   const db = await MySQL.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
   app.post("/api/posts", verifyToken, (req, res) => {
     // (req as { [ key: string ]:any }).token use to be just req.token
-    jwt.verify((req as { [ key: string ]:any }).token, "secretkey", (err, authData) => {
+    jwt.verify((req as { [key: string]: any }).token, "secretkey", (err, authData) => {
       if (err) {
         res.sendStatus(403)
       } else {
@@ -52,7 +53,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
     console.log(user)
 
     const results = await db.query("SELECT * FROM `users` WHERE username = ?", [name])
-    
+
     if (results.length != 0) {
       // User already exists in database
       res.json({ status: StatusCode.REGISTER_ACCOUNT_ALREADY_EXISTS })
@@ -151,9 +152,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
   // Commented out because db.query("SELECT 1") logs 'test' to console every time
   // its executed which is really strange
   //setInterval(keepConnectionsAlive, 1000 * 10, db)
-})()
+}
 
-function keepConnectionsAlive(db) 
-{
+init()
+
+function keepConnectionsAlive(db) {
   db.query("SELECT 1")
 }
