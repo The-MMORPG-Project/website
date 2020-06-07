@@ -31,7 +31,7 @@ const createMainWindow = () => {
 		mainWin.show()
 	})
 
-	mainWin.loadFile('../src/index.html')
+	mainWin.loadFile('./src/html/index.html')
 }
 
 app.on('ready', () => {
@@ -51,6 +51,7 @@ app.on('ready', () => {
 })
 
 ipcMain.on('download-button', async (event, { url }) => {
+	console.log('donwloading...')
 	downloading = true
 
 	// Extract file name from url

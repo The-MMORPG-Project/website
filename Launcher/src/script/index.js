@@ -88,7 +88,7 @@ elements.settingsButton.addEventListener('click', () => {
 		settingsOpen = false
 	})
 
-	settingsWin.loadFile('../src/settings.html')
+	settingsWin.loadFile('./src/html/settings.html')
 })
 
 // Launch Button
