@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="../css/universal.css"/>
+    <link rel="stylesheet" href="../css/auth.css"/>
+    <link rel="stylesheet" href="../packages/fontAwesome/css/all.min.css"/>
+</head>
+<body>
+    <div id="header">
+        <button id="register">Register</button>
+        <button id="close" onclick="close()"><i class="fa fa-times"></i></button>
+    </div>
+    
+    <main>
+        <div>
+            <div class="entry">Username <input id="username" style="height:10px"/></div>
+            <div class="entry">Password <input id="password" style="height:10px"/></div>
+        </div>
+        <button id="loginButton">Login</div>
+    </main>
+</body>
+</html>

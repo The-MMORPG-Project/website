@@ -1,0 +1,55 @@
+main {
+    text-align: center;
+}
+
+#header {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    margin-bottom: 50px;
+}
+
+#register, #close {
+    color: rgb(220, 220, 220);
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+#register:hover {
+    transition: all 0.2s;
+    color: #FF7A38;
+}
+
+#close:hover {
+    transition: all 0.2s;
+    color: #FF1100;
+}
+
+#loginButton {
+    background-color: #FF7A38;
+	width: 90px;
+	height: 60px;
+	position: fixed;
+	bottom: 0px;
+	border: 0px;
+	border-radius: 15% 15% 0% 0%;
+	text-align: center;
+	font-weight: bold;
+	border-color: black;
+	font-size: 22px;
+	color: white;
+	font-weight: bold;
+	box-shadow: 5px 10px 18px rgba(50, 50, 50, 0.3);
+	transition: all 0.2s;
+}
+
+#loginButton:active {
+    color: #FF7A38;
+    background-color: transparent;
+    border: 10px solid #FF7A38;
+}
+
+.entry ~ .entry {
+    margin-bottom: 30px;
+}

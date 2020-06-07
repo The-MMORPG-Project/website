@@ -145,6 +145,18 @@ main>div {
 	color: grey;
 }
 
+#account {
+	position: relative;
+	border: none;
+	background-color: transparent;
+	-webkit-app-region: no-drag;
+}
+
+#account:hover {
+    transition: all 0.2s;
+	color: var(--mainTheme);
+}
+
 #launchButton {
 	background-color: var(--mainTheme);
 	width: 90px;

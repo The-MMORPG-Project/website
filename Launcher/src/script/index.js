@@ -7,15 +7,17 @@ const elements = {
 	settingsButton: id('settingsButton'),
 	close: id('close'),
 	minimize: id('minimize'),
-	user: id('user')
+	account: id('account')
 }
 
 let settingsWin = null
+let authWin = null
 
 let renderInterval
 
 let downloading = false
 let settingsOpen = false
+let authOpen = false
 
 let progress = 0
 let width = 0
@@ -89,6 +91,41 @@ elements.settingsButton.addEventListener('click', () => {
 	})
 
 	settingsWin.loadFile('./src/html/settings.html')
+})
+
+elements.account.addEventListener('click', () => {
+	if (authOpen) {
+		return
+	}
+
+	authOpen = true
+
+	authWin = new BrowserWindow({
+		width: 400,
+		height: 300,
+		title: 'Authentication',
+		show: false,
+		frame: false,
+		resizable: false,
+		parent: BrowserWindow.fromId(1),
+		modal: true,
+		webPreferences: {
+			nodeIntegration: true,
+			enableRemoteModule: true
+		}
+	})
+
+	authWin.on('ready-to-show', () => {
+		authWin.moveTop()
+		authWin.show()
+	})
+
+	authWin.on('closed', () => {
+		authWin = null
+		authOpen = false
+	})
+
+	authWin.loadFile('./src/html/auth.html')
 })
 
 // Launch Button
