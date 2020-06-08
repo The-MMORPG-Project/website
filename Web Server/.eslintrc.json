@@ -31,6 +31,7 @@
         "object-curly-spacing": 0,
         "no-undef": 0,
         "indent": 0,
-        "no-useless-return": 0
+        "no-useless-return": 0,
+        "prefer-const": 0
     }
 }

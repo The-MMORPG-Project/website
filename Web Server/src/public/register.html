@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/universal.css" />
   <link rel="stylesheet" href="css/register.css" />
   <!--<link rel="stylesheet" href="../packages/fontAwesome/css/all.min.css">-->
-  
+
   <!-- Scripts -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="script/utils.js"></script>
@@ -16,11 +16,25 @@
 <body>
   <div class="center">
     <h1>Register</h1>
-    <p id="message"></p>
-    <input autofocus type="text" id="email" name="email" minlength="2" maxlength="50" autocomplete="on" placeholder="Email"><br>
-    <input type="text" id="username" name="username" minlength="3" maxlength="15" autocomplete="on" placeholder="Username"><br>
-    <input type="text" id="password" name="password" minlength="5" maxlength="30" autocomplete="off" placeholder="Password"><br>
-    <input type="text" id="confirm_password" name="password" minlength="5" maxlength="30" autocomplete="off" placeholder="Confirm password"><br>
+
+    <p id="serverMessage">Server Message</p>
+
+    <div class="relative" id="emailContainer">
+      <input autofocus type="text" id="email" name="email" autocomplete="off" placeholder="Email"><br>
+    </div>
+
+    <div class="relative" id="usernameContainer">
+      <input type="text" id="username" name="username" autocomplete="off" placeholder="Username"><br>
+    </div>
+    
+    <div class="relative" id="passwordContainer">
+      <input type="text" id="password" name="password" autocomplete="off" placeholder="Password"><br>
+    </div>
+    
+    <div class="relative" id="confirmPasswordContainer">
+      <input type="text" id="confirmPassword" name="password" autocomplete="off" placeholder="Confirm password"><br>
+    </div>
+
     <br>
     <button id="submit">Submit</button>
   </div>
