@@ -1,0 +1,25 @@
+:root {
+    --mainTheme: #b3ffa9;
+    --secondary: #39ff53;
+}
+
+body {
+    text-align: center;
+    color: white;
+    background-color: #242424;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    border-color: var(--secondary);
+    background-color: var(--mainTheme);
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+    transition: background-color 0.5s;
+}
+
+button:hover {
+    background-color: var(--secondary);
+}

@@ -28,6 +28,8 @@
         "func-call-spacing": 0,
         "no-unexpected-multiline": 0,
         "padded-blocks": 0,
-        "object-curly-spacing": 0
+        "object-curly-spacing": 0,
+        "no-undef": 0,
+        "indent": 0
     }
 }

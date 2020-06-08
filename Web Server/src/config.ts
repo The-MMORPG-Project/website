@@ -1,4 +1,5 @@
 const config = {
+    online: true,
     server: {
         port: 3000
     },

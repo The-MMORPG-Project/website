@@ -3,20 +3,26 @@
 
 <head>
   <!-- Style Sheets -->
-  <!--<link rel="stylesheet" href="../css/universal.css" />-->
+  <link rel="stylesheet" href="css/universal.css" />
   <link rel="stylesheet" href="css/index.css" />
   <!--<link rel="stylesheet" href="../packages/fontAwesome/css/all.min.css">-->
 </head>
 
 <body>
-  <button>Login</button> <!--Should refer user to login.html page-->
-  <button>Register</button> <!--Should refer user to register.html page-->
+  <div id="login-register">
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+  </div>
 
-  <h1>RPG DEMO</h1> <!--Logo / Title-->
-  <p>PLAY FOR FREE</p> <!--Text under logo / title-->
+  <div id="splash-container">
+    <h1>RPG DEMO</h1>
+  </div>
 
-  <button>DOWNLOAD GAME</button> <!--Download game launcher-->
+  <div id="download-container">
+    <button id="download">DOWNLOAD GAME</button>
+  </div>
 
+  <script src="script/utils.js"></script>
   <script src="script/index.js"></script>
 </body>
 

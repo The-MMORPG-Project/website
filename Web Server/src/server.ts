@@ -8,18 +8,42 @@ import { config } from './config'
 import { StatusCode } from './statuscode'
 
 const init = async () => {
+  console.clear()
+  
   const app = express()
 
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(express.static('src/public'))
 
-  const db = await MySQL.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
-  })
+  let db: MySQL.Connection;
 
+  if (config.online) {
+    db = await MySQL.createConnection({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD
+    })
+
+    const databases = await db.query("SHOW DATABASES LIKE 'database'")
+    if (databases.length === 0) {
+      await db.query("CREATE DATABASE `database`")
+      await db.query("USE `database`")
+      await db.query("CREATE TABLE users (id INT(11) PRIMARY KEY AUTO_INCREMENT, username VARCHAR(20), password VARCHAR(60))")
+      console.log("Created database")
+    }
+
+    await db.query("USE `database`")
+
+    console.log("Connected to MySQL")
+  } else {
+    console.log("Running in offline mode")
+  }
+
+  app.listen(config.server.port)
+  console.log(`Node server is listening on port ${config.server.port}`)
+
+  // --------------------------------------------------------------------
   app.get("/api", (req, res) => {
     res.json({ message: "Welcome to the web server API" })
   })
@@ -51,6 +75,11 @@ const init = async () => {
     const pass = user.Password
 
     console.log(user)
+
+    if (name == undefined || pass == undefined) 
+    {
+      return
+    }
 
     const results = await db.query("SELECT * FROM `users` WHERE username = ?", [name])
 
@@ -133,21 +162,6 @@ const init = async () => {
       res.sendStatus(403)
     }
   }
-
-  console.clear()
-  console.log("Connected to MySQL")
-
-  const databases = await db.query("SHOW DATABASES LIKE 'database'")
-  if (databases.length === 0) {
-    await db.query("CREATE DATABASE `database`")
-    await db.query("USE `database`")
-    await db.query("CREATE TABLE users (id INT(11) PRIMARY KEY AUTO_INCREMENT, username VARCHAR(20), password VARCHAR(60))")
-    console.log("Created database")
-  }
-
-  await db.query("USE `database`")
-  await app.listen(config.server.port)
-  console.log(`Node server is listening on port ${config.server.port}`)
 
   // Commented out because db.query("SELECT 1") logs 'test' to console every time
   // its executed which is really strange
