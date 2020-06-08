@@ -1,11 +1,7 @@
 # Contributing Guide
-
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
-    - [Welcome](#welcome)
-    - [Issue Labels](#issue-labels)
-    - [Languages](#languages)
 2. [Setup Workspace](#setup-workspace)
     - [VSC](#visual-studio-code)
 3. [Setup Project](#setup-project)
@@ -21,42 +17,9 @@
 6. [Libraries](#used-libraries)
 
 ## Getting Started
-### Welcome
-All contributors please join [The MMORPG Project Discord](https://discord.com/invite/W4Nk9gt) and talk to **valk#3277** before you make any contributions to avoid potential merge conflicts.
-
-*Note that the [Table of Contents](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/.github/CONTRIBUTING.md#table-of-contents) is just above*
-
-### Issue Labels
-There are many labels that help organize the projects issues. If you feel none of the current issues work for you, then talk to **valk#3277** and there's no doubt you'll be working on the project right away!
-
-You can also view the projects milestones [here](https://github.com/valkyrienyanko/The-MMORPG-Project/milestones). Milestones help tell contributors what needs to be done in order more or less.
-
-**Roadmaps**
-- [Roadmaps](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap)
-
-**Generic**
-- [Good First Issues](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+issue")
-- [Help Wanted](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
-- [Bug](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
-- [Question](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion)
-- [Request](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Arequest)
-
-**Specific**
-- [Launcher](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Alauncher)
-- [Client](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3Aclient)
-- [Game Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"game+server")
-- [Web Server](https://github.com/valkyrienyanko/The-MMORPG-Project/issues?q=is%3Aopen+is%3Aissue+label%3A"web+server")
-
-### Languages
-*The languages per project sections are listed here to better guide you on what you can contribute to.*
-
-- Web Server: `TypeScript` `JavaScript` `HTML` `CSS` `SQL`
-- Launcher: `TypeScript` `JavaScript` `HTML` `CSS`
-- Game Server: `C#`
-- Client: `C#`
+If you would like to contribute please join [The MMORPG Project](https://discord.com/invite/W4Nk9gt) Discord and talk to valk.
 
 ## Setup Workspace
-
 ### Visual Studio Code
 
 I will recommend that you use Visual Studio Code as it is by far one of the best text editors for development that I've ever used, you will have no regrets when using it. You will need this editor when working with the launcher, client, web server and game server.
