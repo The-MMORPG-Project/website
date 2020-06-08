@@ -14,13 +14,15 @@
 </head>
 
 <body>
-  <h1>Login</h1>
-  <p id="message"></p>
-  <input type="text" id="username" name="username"><br>
-  <input type="text" id="password" name="password"><br>
-  <br>
-  <input type="submit" id="submit" value="Submit">
-
+  <div class="center">
+    <h1>Login</h1>
+    <p id="message"></p>
+    <input autofocus type="text" id="username" name="username" minlength="3" maxlength="15" autocomplete="on" placeholder="Username"><br>
+    <input type="text" id="password" name="password" minlength="5" maxlength="30" autocomplete="off" placeholder="Password"><br>
+    <br>
+    <button id="submit">Submit</button>
+  </div>
+  
   <!-- Main Script -->
   <script src="script/login.js"></script>
 </body>

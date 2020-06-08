@@ -1,20 +1,12 @@
-#login-register {
+.login-register {
     position: fixed;
     right: 0;
     top: 0;
 }
 
-#login-register button {
+.login-register button {
     font-size: 14px;
     background: none;
     border: none;
     color: var(--mainTheme)
-}
-
-#splash-container {
-    background-color: black;
-}
-
-#download-container {
-    background-color: black;
 }
