@@ -6,16 +6,23 @@
   <link rel="stylesheet" href="css/universal.css" />
   <link rel="stylesheet" href="css/register.css" />
   <!--<link rel="stylesheet" href="../packages/fontAwesome/css/all.min.css">-->
+  
+  <!-- Scripts -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="script/utils.js"></script>
+  <script src="script/statuscode.js"></script>
 </head>
 
 <body>
   <h1>Register</h1>
-  <form action="http://localhost:3000/api/register" method="POST" target="_self">
-    <input type="text" id="username" name="username"><br>
-    <input type="text" id="password" name="password"><br>
-    <br>
-    <input type="submit" value="Submit">
-  </form>
+  <p id="message"></p>
+  <input type="text" id="username" name="username"><br>
+  <input type="text" id="password" name="password"><br>
+  <br>
+  <input type="submit" id="submit" value="Submit">
+
+  <!-- Main Script -->
+  <script src="script/register.js"></script>
 </body>
 
 </html>

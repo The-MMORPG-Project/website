@@ -71,8 +71,8 @@ const init = async () => {
 
   app.post("/api/register", async (req, res) => {
     const user = req.body
-    const name = user.Name
-    const pass = user.Password
+    const name = user.username
+    const pass = user.password
 
     console.log(user)
 
@@ -117,8 +117,8 @@ const init = async () => {
 
   app.post("/api/login", async (req, res) => {
     const user = req.body
-    const name = user.Name
-    const pass = user.Password
+    const name = user.username
+    const pass = user.password
 
     const results = await db.query("SELECT * FROM `users` WHERE username = ?", [name])
 

@@ -6,13 +6,22 @@
   <link rel="stylesheet" href="css/universal.css" />
   <link rel="stylesheet" href="css/login.css" />
   <!--<link rel="stylesheet" href="../packages/fontAwesome/css/all.min.css">-->
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="script/utils.js"></script>
+  <script src="script/statuscode.js"></script>
 </head>
 
 <body>
   <h1>Login</h1>
-  <button id="login">Login</button>
+  <p id="message"></p>
+  <input type="text" id="username" name="username"><br>
+  <input type="text" id="password" name="password"><br>
+  <br>
+  <input type="submit" id="submit" value="Submit">
 
-  <script src="script/utils.js"></script>
+  <!-- Main Script -->
   <script src="script/login.js"></script>
 </body>
 
