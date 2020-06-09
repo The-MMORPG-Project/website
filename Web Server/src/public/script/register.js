@@ -35,11 +35,11 @@ const validateForm = () => {
     // Validate email
     const email = elements.email
     if (!/^\S+@\S+$/.test(email.value) || email.value === "") {
-        createMessage('notifyEmail', 'emailContainer', 'Please provide a valid email', 'The email is invalid')
+        createMessage('notifyEmail', 'container-email', 'Please provide a valid email', 'The email is invalid')
         email.classList.add("invalid")
 
     } else if (email.value.length < 6 || email.value.length > 50) {
-        createMessage('notifyEmail', 'emailContainer', 'Please provide a valid email', 'Must be between 6 and 50 characters')
+        createMessage('notifyEmail', 'container-email', 'Please provide a valid email', 'Must be between 6 and 50 characters')
         email.classList.add("invalid")
         emailValid = false
     }
@@ -47,10 +47,10 @@ const validateForm = () => {
     // Validate username
     const username = elements.username
     if (!/[a-zA-Z0-9_]/.test(username.value) || username.value === "") {
-        createMessage('notifyUsername', 'usernameContainer', 'Please provide a valid username', 'Must contain only alphanumeric characters')
+        createMessage('notifyUsername', 'container-username', 'Please provide a valid username', 'Must contain only alphanumeric characters')
         username.classList.add("invalid")
     } else if (username.value.length < 3 || username.value.length > 15) {
-        createMessage('notifyUsername', 'usernameContainer', 'Please provide a valid username', 'Must be between 3 to 15 characters')
+        createMessage('notifyUsername', 'container-username', 'Please provide a valid username', 'Must be between 3 to 15 characters')
         username.classList.add("invalid")
         usernameValid = false
     }
@@ -58,7 +58,7 @@ const validateForm = () => {
     // Validate password
     const password = elements.password
     if (password.value === "" || password.value.length < 5 || password.value.length > 30) {
-        createMessage('notifyPassword', 'passwordContainer', 'Please provide a valid password', 'Must be between 5 to 30 characters')
+        createMessage('notifyPassword', 'container-password', 'Please provide a valid password', 'Must be between 5 to 30 characters')
         password.classList.add("invalid")
         passwordValid = false
     }
@@ -66,7 +66,7 @@ const validateForm = () => {
     // Validate confirm password
     const confirmPassword = elements.confirmPassword
     if (password.value !== confirmPassword.value || confirmPassword.value === '') {
-        createMessage('notifyPasswordConfirm', 'confirmPasswordContainer', 'Please provide a valid password', 'Passwords do not match')
+        createMessage('notifyPasswordConfirm', 'container-password-confirm', 'Please provide a valid password', 'Passwords do not match')
         confirmPassword.classList.add("invalid")
         passwordConfirmValid = false
     }
@@ -126,14 +126,14 @@ function createMessage(id, appendID, titleText, subtitleText) {
     const title = document.createElement('p')
     const subtitle = document.createElement('p')
 
-    div.id = id
-    div.className = 'message'
+    div.setAttribute('id', id)
+    div.setAttribute('class', 'message')
+
+    title.setAttribute('class', 'title')
+    subtitle.setAttribute('class', 'subtitle')
 
     div.appendChild(title)
     div.appendChild(subtitle)
-
-    title.className = "title"
-    subtitle.className = "subtitle"
 
     title.innerText = titleText
     subtitle.innerHTML = subtitleText

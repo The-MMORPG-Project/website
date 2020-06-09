@@ -2,6 +2,10 @@
 <html>
 
 <head>
+  <!-- Mobile -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <!-- Style Sheets -->
   <link rel="stylesheet" href="css/universal.css" />
   <link rel="stylesheet" href="css/register.css" />
@@ -14,29 +18,27 @@
 </head>
 
 <body>
-  <div class="center">
-    <h1>Register</h1>
+  <div class="container center">
+    <div class="modal">
+      <h1>Register</h1>
+      <p id="serverMessage">Server Message</p>
+      <div class="form-container">
+        <div class="container-input" id="container-email">
+          <input autofocus type="text" id="email" name="email" autocomplete="off" placeholder="Email" />
+        </div>
+        <div class="container-input" id="container-username">
+          <input type="text" id="username" autocomplete="off" placeholder="Username" />
+        </div>
+        <div class="container-input" id="container-password">
+          <input type="text" id="password" autocomplete="off" placeholder="Password" />
+        </div>
+        <div class="container-input" id="container-password-confirm">
+          <input type="text" id="confirmPassword" autocomplete="off" placeholder="Confirm password" />
+        </div>
 
-    <p id="serverMessage">Server Message</p>
-
-    <div class="relative" id="emailContainer">
-      <input autofocus type="text" id="email" name="email" autocomplete="off" placeholder="Email"><br>
+        <button id="submit">Submit</button>
+      </div>
     </div>
-
-    <div class="relative" id="usernameContainer">
-      <input type="text" id="username" name="username" autocomplete="off" placeholder="Username"><br>
-    </div>
-    
-    <div class="relative" id="passwordContainer">
-      <input type="text" id="password" name="password" autocomplete="off" placeholder="Password"><br>
-    </div>
-    
-    <div class="relative" id="confirmPasswordContainer">
-      <input type="text" id="confirmPassword" name="password" autocomplete="off" placeholder="Confirm password"><br>
-    </div>
-
-    <br>
-    <button id="submit">Submit</button>
   </div>
 
   <!-- Main Script -->
