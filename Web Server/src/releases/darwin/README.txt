@@ -1,1 +1,0 @@
-Darwin (mac) releases will go here.
