@@ -40,6 +40,7 @@
 
 1. User Authentication
 2. MySQL Database to Store User Accounts, Account Information and Purchases (account info / purchases not started on yet)
+3. Website
 
 **Game Server**
 
