@@ -7,10 +7,6 @@
 <div align="center">
   
   [![Discord][discord]][discord-url]
-  [![Maintenance][maintenance]][discord-url]
-  [![Ask Me Anything!][ask-me-anything]][discord-url]
-  [![Issues][issues]][issues-url]
-  [![License][license]][license-url]
   
 </div>
 
@@ -66,15 +62,3 @@ See [Getting Started](https://github.com/valkyrienyanko/The-MMORPG-Project/blob/
 [discord]: https://img.shields.io/discord/717790645900673084.svg
 <!--Discord Link-->
 [discord-url]: https://discord.gg/W4Nk9gt
-<!--Maintenance Image-->
-[maintenance]: https://img.shields.io/badge/Maintained%3F-yes-green.svg 
-<!--Ask Me Anything Image-->
-[ask-me-anything]: https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg 
-<!--Issues Image-->
-[issues]: https://img.shields.io/github/issues/valkyrienyanko/The-MMORPG-Project 
-<!--Issues Link-->
-[issues-url]: https://github.com/valkyrienyanko/The-MMORPG-Project/issues 
-<!--License Image-->
-[license]: https://img.shields.io/badge/license-MIT-blue.svg
-<!--License URL-->
-[license-url]: https://github.com/valkyrienyanko/The-MMORPG-Project/blob/master/LICENSE
