@@ -13,19 +13,24 @@
 
 ## Features
 ### Launcher
-
 1. Fetches latest client release / release notes and launches the client
+
+https://github.com/The-MMORPG-Project/Launcher
 
 ### Client
 
 1. UI Flow to Demonstrate Communication with Web Server / ENet Server
 2. RPG Demo demonstrating the flow of RPG elements syrnonized over the network (planned / not here yet)
 
+https://github.com/The-MMORPG-Project/Client
+
 ### Web Server
 
 1. User Authentication
 2. MySQL Database to Store User Accounts, Account Information and Purchases (account info / purchases not started on yet)
 3. Website
+
+https://github.com/The-MMORPG-Project/Web-Server
 
 ### Game Server
 
@@ -35,6 +40,8 @@
     - Command History
 2. Fast Serialization / Deserialization with BinaryFormatter and BinaryReader
 3. Reliable UDP Networking with ENet
+
+https://github.com/The-MMORPG-Project/Game-Server
 
 ## Contributing
 
