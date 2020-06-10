@@ -24,7 +24,7 @@ https://github.com/The-MMORPG-Project/Game-Server
 
 The project is no where near complete, it receives frequent updates, is on-going and all contributions are welcomed.
 
-**If you would like to contribute, please join [The MMORPG Project](https://discord.gg/W4Nk9gt) Discord and talk to valk.**
+If you are interested in contributing, please join [The MMORPG Project](https://discord.gg/W4Nk9gt) Discord and talk to valk.
 
 <!-- BADGES -->
 [discord]: https://img.shields.io/discord/717790645900673084.svg
