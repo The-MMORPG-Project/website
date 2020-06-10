@@ -1,0 +1,24 @@
+body {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(90deg, #000000 0%, #1b1b1b 100%);
+    color: #a7a7a7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+    transition: color 0.5s;
+}
+
+a:hover {
+    color: #ff69b4;
+}
+
+.space {
+    padding: 40px;
+}
