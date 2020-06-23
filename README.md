@@ -11,6 +11,9 @@
 
 <p align="center">The purpose of this project is to make multiplayer in Unity a piece of cake, specifically for MMORPGs. The project consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.</p>
 
+## How it Works
+The launcher fetches the latest platform specific game client releases from web server and launches the it with a set of given parameters. The web server handles all user authentication and digital transactions. The game server handles all game related networking events including player position updates, chat message updates and more. The Unity client handles all the CPU intensive graphics and provides a UI / RPG demo to demonstrate the power of ENet.
+
 ## Repositories
 https://github.com/The-MMORPG-Project/Launcher
 
