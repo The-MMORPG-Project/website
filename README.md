@@ -9,7 +9,7 @@
 
 </div>
 
-<p align="center">The purpose of this project is to make multiplayer in Unity a piece of cake, specially for MMORPGs. The project consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.</p>
+<p align="center">The purpose of this project is to make multiplayer in Unity a piece of cake (mostly targeting dedicated MMORPG servers). The project consists of a launcher, a web server, a game server and a client. The idea is the user loads up the launcher, updates the client, launches the client, logs in to an account through the web server and then connects to the game server.</p>
 
 ## How it Works
 The launcher fetches the latest client releases from web server and then launches that release. The web server handles user authentication. The game server handles all game related networking events.
