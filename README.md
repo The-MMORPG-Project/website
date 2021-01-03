@@ -25,7 +25,7 @@ https://github.com/The-MMORPG-Project/Game-Server
 
 ## Contributing
 
-The project is still on-going, all contributors are welcomed.
+The project is on-going, all contributors are welcomed.
 
 If you are interested in contributing, please join [The MMORPG Project](https://discord.gg/W4Nk9gt) Discord and talk to valk#3277.
 
