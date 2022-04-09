@@ -19,9 +19,3 @@ https://github.com/The-MMORPG-Project/Client
 https://github.com/The-MMORPG-Project/Web-Server
 
 https://github.com/The-MMORPG-Project/Game-Server
-
-## Contributing
-
-The project is on-going, all contributors are welcomed.
-
-If you are interested in contributing, please join [The MMORPG Project](https://discord.gg/W4Nk9gt) Discord and talk to valk#3277.
