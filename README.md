@@ -10,7 +10,7 @@
 - 3rd party libs causing all sorts of issues
 - Not a fan of Unity anymore
 
-Please refer to [Raccoons Rise Up](https://github.com/Raccoons-Rise-Up), this C# Godot game uses a lot of concepts from The MMORPG Project and more.
+Please refer to [Redot Multiplayer Template Wiki](https://github.com/CSharpRedotTools/Template/wiki/Multiplayer). No pre-built scenarios have been setup for testing MMO environments. However the building blocks are there for you to easily send minimal data across the network almost effortlessly.
 
 ## How it Works
 The launcher fetches the latest client releases from web server and then launches that release. The web server handles user authentication. The game server handles all game related networking events.
